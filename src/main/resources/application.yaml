@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: game-marketplace-backend
+    api-prefix: /api/v1
+
+#  datasource:
+#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: jdbc:sqlserver://localhost:1433;databaseName=Java5_DivineShop;encrypt=false;trustServerCertificate=true;
+#    username: sa
+#    password: root
+
+  security:
+    user:
+      name: user
+      password: password
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: cskh.divineshop@gmail.com
+    password: vpycwonbktedhjsg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+
+server:
+  port: 9999
+
