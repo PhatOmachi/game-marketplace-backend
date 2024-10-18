@@ -3,11 +3,18 @@ spring:
     name: game-marketplace-backend
     api-prefix: /api/v1
 
-#  datasource:
-#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#    url: jdbc:sqlserver://localhost:1433;databaseName=Java5_DivineShop;encrypt=false;trustServerCertificate=true;
-#    username: sa
-#    password: root
+  datasource:
+    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
+    username: postgres.kikhdghirwshrligyyyq
+    password: $2a$12$WXXRPcEmnNc1R/4tbcvDJ.ZPLFa9HwShEtFX8mufvjUPgbzbEnHEa
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   security:
     user:

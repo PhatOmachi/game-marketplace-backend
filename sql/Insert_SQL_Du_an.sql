@@ -7,9 +7,6 @@ VALUES
 ('john', 'john@gmail.com', '$2y$10$sjnOuHMt7OQTXTODsPj6beOkyuNIVcI82kKosANwxXG.e9NuhgXlW', 1),
 ('mery', 'mery@gmail.com', '$2y$10$sjnOuHMt7OQTXTODsPj6beOkyuNIVcI82kKosANwxXG.e9NuhgXlW', 1),
 ('susan', 'susan@gmail.com','$2y$10$sjnOuHMt7OQTXTODsPj6beOkyuNIVcI82kKosANwxXG.e9NuhgXlW', 1);
--- ('john', 'john@gmail.com', '{bcrypt}$2y$10$sjnOuHMt7OQTXTODsPj6beOkyuNIVcI82kKosANwxXG.e9NuhgXlW', 1),
--- ('mery', 'mery@gmail.com', '{bcrypt}$2y$10$sjnOuHMt7OQTXTODsPj6beOkyuNIVcI82kKosANwxXG.e9NuhgXlW', 1),
--- ('susan', 'susan@gmail.com','{bcrypt}$2y$10$sjnOuHMt7OQTXTODsPj6beOkyuNIVcI82kKosANwxXG.e9NuhgXlW', 1);
 go
 
 
