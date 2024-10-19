@@ -25,6 +25,13 @@ Create table Users(
     avatar text
 );
 
+CREATE TABLE Failed_Login_Attempt (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    failed_attempts INT NOT NULL,
+    last_failed_time TIMESTAMP NOT NULL
+);
+
 Create table Roles(
     sys_id_role int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) primary key,
     username varchar(50) NOT NULL  ,
