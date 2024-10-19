@@ -16,10 +16,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-  security:
-    user:
-      name: user
-      password: password
+#  security:
+#    user:
+#      name: user
+#      password: password
 
   mail:
     host: smtp.gmail.com
@@ -42,3 +42,5 @@ spring:
 server:
   port: 9999
 
+jwt:
+  secret-key: $2a$12$5pIKMCnwfMmotzq3GnVbMOt6dnw5qH8vBG4Lt4vyWgF.NsRH1mRqy
