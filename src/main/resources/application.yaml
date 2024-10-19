@@ -4,7 +4,7 @@ spring:
     api-prefix: /api/v1
 
   datasource:
-    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
+    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?currentSchema=Data_DuLieu
     username: postgres.kikhdghirwshrligyyyq
     password: $2a$12$WXXRPcEmnNc1R/4tbcvDJ.ZPLFa9HwShEtFX8mufvjUPgbzbEnHEa
     driver-class-name: org.postgresql.Driver
