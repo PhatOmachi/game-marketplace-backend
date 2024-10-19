@@ -2,42 +2,43 @@ package poly.gamemarketplacebackend.core.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.AccountDTO;
 import poly.gamemarketplacebackend.core.service.AccountService;
 
-import java.util.List;
-
 @RestController
+@Slf4j
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
-@Slf4j
 public class AccountAPI {
-
     private final AccountService accountService;
 
-    @GetMapping
-    public List<AccountDTO> getAllAccounts() {
-        return accountService.getAllAccounts();
+    @PostMapping("/register")
+    public ResponseObject<?> register(@RequestBody AccountDTO accountDTO) {
+        accountService.requestRegistration(accountDTO);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Vui lòng kiểm tra email để xác nhận tài khoản")
+                .build();
     }
 
-    @GetMapping("/{id}")
-    public AccountDTO getAccountById(@PathVariable int id) {
-        return accountService.getAccountById(id);
+    @PostMapping("/verify-registration-otp")
+    public ResponseObject<?> verify(@RequestParam String otp) {
+        accountService.verifyOTP(otp);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Xác nhận tài khoản thành công")
+                .build();
     }
 
-    @PostMapping
-    public AccountDTO createAccount(@RequestBody AccountDTO accountDTO) {
-        return accountService.createAccount(accountDTO);
-    }
-
-    @PutMapping("/{id}")
-    public AccountDTO updateAccount(@PathVariable int id, @RequestBody AccountDTO accountDTO) {
-        return accountService.updateAccount(id, accountDTO);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteAccount(@PathVariable int id) {
-        accountService.deleteAccount(id);
+    @PostMapping("/resend-registration-otp")
+    public ResponseObject<?> resend() {
+        accountService.resendOTP();
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Vui lòng kiểm tra email để xác nhận tài khoản")
+                .build();
     }
 }
