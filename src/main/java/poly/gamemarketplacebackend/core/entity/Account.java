@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Account")
 @Data
@@ -26,4 +28,7 @@ public class Account {
 
     @Column(name = "is_enabled", nullable = false)
     private boolean isEnabled = true;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Roles> roles;
 }
