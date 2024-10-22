@@ -28,7 +28,11 @@ public interface AccountService {
 
     void requestRegistration(AccountDTO accountDTO);
 
-    void verifyOTP(String otp);
+//    void verifyOTP(String otp);
 
-    void resendOTP();
+    void verifyOTP(String otp, String email);
+
+//    void resendOTP();
+
+    void resendOTP(String email);
 }

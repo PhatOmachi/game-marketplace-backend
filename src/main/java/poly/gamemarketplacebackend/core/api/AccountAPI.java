@@ -25,8 +25,8 @@ public class AccountAPI {
     }
 
     @PostMapping("/verify-registration-otp")
-    public ResponseObject<?> verify(@RequestParam String otp) {
-        accountService.verifyOTP(otp);
+    public ResponseObject<?> verify(@RequestParam String otp, @RequestParam String email) {
+        accountService.verifyOTP(otp, email);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .message("Xác nhận tài khoản thành công")
@@ -34,8 +34,8 @@ public class AccountAPI {
     }
 
     @PostMapping("/resend-registration-otp")
-    public ResponseObject<?> resend() {
-        accountService.resendOTP();
+    public ResponseObject<?> resend(@RequestParam String email) {
+        accountService.resendOTP(email);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .message("Vui lòng kiểm tra email để xác nhận tài khoản")
