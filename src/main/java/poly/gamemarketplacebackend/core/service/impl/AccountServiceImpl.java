@@ -1,7 +1,6 @@
 package poly.gamemarketplacebackend.core.service.impl;
 
 import jakarta.mail.internet.MimeMessage;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import poly.gamemarketplacebackend.core.exception.CustomException;
 import poly.gamemarketplacebackend.core.mapper.AccountMapper;
 import poly.gamemarketplacebackend.core.repository.AccountRepository;
 import poly.gamemarketplacebackend.core.service.AccountService;
+import poly.gamemarketplacebackend.core.util.DataStore;
 import poly.gamemarketplacebackend.core.util.OTPUtil;
 
 import java.util.List;
@@ -26,7 +26,8 @@ public class AccountServiceImpl implements AccountService {
     private final JavaMailSender emailSender;
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
-    private final HttpSession session;
+    //    private final HttpSession session;
+    private final DataStore dataStore;
 
     @Override
     public List<AccountDTO> getAllAccount() {
@@ -59,12 +60,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @SneakyThrows
     public void sendMailForUser(String email, String otp, String subject) {
-            MimeMessage message = emailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(email);
-            helper.setSubject(subject);
-            helper.setText("Mã OTP của bạn là: " + otp);
-            emailSender.send(message);
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setTo(email);
+        helper.setSubject(subject);
+        helper.setText("Mã OTP của bạn là: " + otp);
+        emailSender.send(message);
     }
 
     @Override
@@ -91,36 +92,39 @@ public class AccountServiceImpl implements AccountService {
     public void requestRegistration(AccountDTO accountDTO) {
         if (isUniqueCredentials(accountDTO.getUsername(), accountDTO.getEmail())) {
             String otp = OTPUtil.generateOTP();
-            session.setAttribute("otp", otp);
-            session.setAttribute("otpTime", System.currentTimeMillis());
-            session.setAttribute("account", accountDTO);
+            dataStore.put(accountDTO.getEmail() + "otp", otp);
+            dataStore.put(accountDTO.getEmail() + "otpTime", System.currentTimeMillis());
+            dataStore.put(accountDTO.getEmail() + "account", accountDTO);
             sendMailForUser(accountDTO.getEmail(), otp, "Mã OTP cho đăng ký tài khoản");
         }
     }
 
     @Override
-    public void verifyOTP(String otp) {
-        String otpSession = (String) session.getAttribute("otp");
-        Long otpTime = (Long) session.getAttribute("otpTime");
-        if (otpTime == null || (System.currentTimeMillis() - otpTime) > 1 * 60 * 1000) {
+    public void verifyOTP(String otp, String email) {
+        String otpSession = (String) dataStore.get(email + "otp");
+        Long otpTime = (Long) dataStore.get(email + "otpTime");
+//        System.out.println(otpSession + " | " + otpTime);
+        if (otpTime == null || (System.currentTimeMillis() - otpTime) > 2 * 60 * 1000) {
             throw new CustomException("Mã OTP đã hết hạn", HttpStatus.BAD_REQUEST);
         } else if (otp.equals(otpSession)) {
-            AccountDTO accountDTO = (AccountDTO) session.getAttribute("account");
+            AccountDTO accountDTO = (AccountDTO) dataStore.get(email + "account");
+//            System.out.println(accountDTO.toString());
             accountDTO.setEnabled(true);
             accountDTO.setHashPassword(passwordEncoder.encode(accountDTO.getHashPassword()));
             saveAccount(accountDTO);
+            dataStore.bulkRemoveStartsWith(email);
         } else {
             throw new CustomException("Mã OTP không đúng", HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
-    public void resendOTP() {
-        AccountDTO accountDTO = (AccountDTO) session.getAttribute("account");
+    public void resendOTP(String email) {
+        AccountDTO accountDTO = (AccountDTO) dataStore.get(email + "account");
         if (accountDTO != null) {
             String otp = OTPUtil.generateOTP();
-            session.setAttribute("otp", otp);
-            session.setAttribute("otpTime", System.currentTimeMillis());
+            dataStore.put(email + "otp", otp);
+            dataStore.put(email + "otpTime", System.currentTimeMillis());
             sendMailForUser(accountDTO.getEmail(), otp, "Mã OTP cho đăng ký tài khoản");
         } else {
             throw new CustomException("Không tìm thấy thông tin tài khoản", HttpStatus.BAD_REQUEST);

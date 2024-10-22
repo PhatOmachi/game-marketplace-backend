@@ -9,4 +9,15 @@ public class AccountDTO {
     private String email;
     private String hashPassword;
     private boolean isEnabled;
+
+    @Override
+    public String toString() {
+        return "AccountDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", hashPassword='" + hashPassword + '\'' +
+                ", isEnabled=" + isEnabled +
+                '}';
+    }
 }
