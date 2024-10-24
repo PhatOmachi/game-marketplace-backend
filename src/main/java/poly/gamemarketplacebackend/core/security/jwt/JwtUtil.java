@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import poly.gamemarketplacebackend.core.security.data.CustomUserDetails;
 import poly.gamemarketplacebackend.core.security.service.TokenBlacklistService;
-//import poly.java5divineshop.ConfigSecurity.Security.CustomUserDetails;
-//import poly.java5divineshop.ConfigSecurity.Security.service.TokenBlacklistService;
 
 import java.util.Date;
 
@@ -18,23 +16,15 @@ import java.util.Date;
 public class JwtUtil {
 
     private final TokenBlacklistService tokenBlacklistService;
-//    private final AccountService accountService;
 
     @Value("${jwt.secret-key}")
     private String secretKey;
 
     public String generateToken(CustomUserDetails user, String sessionId) {
         int expiration = 1000 * 60 * 60 * 12;
-//        accountService.updateSessionId(sessionId, user.getAccount().getAccountId());
-//        var result = accountService.findByUsername(user.getAccount().getUsername());
         return JWT.create()
                 .withSubject(user.getUsername())
-//                .withClaim("user_id", (Integer) result[0])
-//                .withClaim("role_name1", (String) result[1])
-//                .withClaim("role_name2", (String) result[2])
-//                .withClaim("session_id", (String) result[3])
-//                .withClaim("screen_ids", (String) result[4])
-//                .withClaim("account_id", user.getAccount().getAccountId())
+                .withClaim("role", user.getAuthorities().iterator().next().getAuthority())
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + expiration))
                 .sign(Algorithm.HMAC512(secretKey));

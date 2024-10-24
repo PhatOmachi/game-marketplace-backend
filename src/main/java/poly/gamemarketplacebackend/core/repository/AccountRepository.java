@@ -27,4 +27,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Transactional
     @Query("UPDATE Account a SET a.hashPassword = :hashPassword WHERE a.email = :email")
     int updatePassAccountByEmail(@Param("hashPassword") String hashPassword, @Param("email") String email);
+
+    @Query(value = "SELECT insert_user_and_role(:username, :email, :role)", nativeQuery = true)
+    void insertUserAndRole(@Param("username") String username, @Param("email") String email, @Param("role") String role);
+
 }

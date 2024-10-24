@@ -137,3 +137,20 @@ CREATE TABLE Comment (
     FOREIGN KEY (sys_id_user) REFERENCES Users(sys_id_user),
     FOREIGN KEY (sys_id_product) REFERENCES Game (sys_id_game)
 );
+
+CREATE OR REPLACE FUNCTION insert_user_and_role(
+    p_username VARCHAR,
+    p_email VARCHAR,
+    p_role VARCHAR
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Insert into users table
+    INSERT INTO users(user_name, email)
+    VALUES (p_username, p_email);
+
+    -- Insert into roles table
+    INSERT INTO roles(username, username_user, role)
+    VALUES (p_username, p_username, p_role);
+END;
+$$ LANGUAGE plpgsql;
