@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -62,5 +63,18 @@ public class Game {
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CategoryDetail> categoryDetails;
+
+    // additional fields
+    private Float rating;
+    private Integer ratingCount;
+    private String features;
+    private LocalDate releaseDate;
+    private String developer;
+    private String platform;
+    private String language;
+    private String about;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Media> media;
 
 }

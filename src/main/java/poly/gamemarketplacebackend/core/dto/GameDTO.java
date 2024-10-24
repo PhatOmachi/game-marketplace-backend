@@ -2,6 +2,7 @@ package poly.gamemarketplacebackend.core.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -23,4 +24,15 @@ public class GameDTO {
     private Integer quantityCount;
     private VoucherDTO voucher;
     private List<CategoryDetailDTO> categoryDetails;
+
+    // additional fields
+    private Float rating;
+    private Integer ratingCount;
+    private String features;
+    private LocalDate releaseDate;
+    private String developer;
+    private String platform;
+    private String language;
+    private String about;
+    private List<MediaDTO> media;
 }

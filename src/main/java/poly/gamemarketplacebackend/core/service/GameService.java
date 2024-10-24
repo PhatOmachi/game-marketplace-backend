@@ -11,4 +11,6 @@ public interface GameService {
     Game saveGame(GameDTO gameDTO);
 
     void deleteGame(GameDTO gameDTO);
+
+    GameDTO findBySlug(String slug);
 }

@@ -30,4 +30,10 @@ public class GameServiceImpl implements GameService {
     public void deleteGame(GameDTO gameDTO) {
         gameRepository.delete(gameMapper.toEntity(gameDTO));
     }
+
+    @Override
+    public GameDTO findBySlug(String slug) {
+        var game = gameRepository.findBySlug(slug);
+        return game.map(gameMapper::toDTO).orElse(null);
+    }
 }

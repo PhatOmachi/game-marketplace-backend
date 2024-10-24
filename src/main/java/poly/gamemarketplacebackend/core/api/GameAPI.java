@@ -39,4 +39,12 @@ public class GameAPI {
                 .message("Delete game successfully")
                 .build();
     }
+
+    @GetMapping("/{slug}")
+    public ResponseObject<?> getGameBySlug(@PathVariable String slug) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.findBySlug(slug))
+                .build();
+    }
 }
