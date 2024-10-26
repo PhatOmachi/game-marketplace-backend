@@ -21,7 +21,4 @@ public class Category {
     private String categoryName;
 
     private String description;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CategoryDetail> categoryDetails;
 }

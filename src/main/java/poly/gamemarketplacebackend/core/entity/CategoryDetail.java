@@ -1,5 +1,6 @@
 package poly.gamemarketplacebackend.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,18 +12,15 @@ import lombok.*;
 @AllArgsConstructor
 public class CategoryDetail {
     @Id
-    @Column(name = "sys_id_category")
-    private Integer sysIdCategory;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int sysIdCategoryDetail;
 
-    @Id
-    @Column(name = "sys_id_game")
-    private Integer sysIdGame;
-
-    @ManyToOne
-    @JoinColumn(name = "sys_id_category", referencedColumnName = "sys_id_category", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sys_id_category", nullable = false)
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "sys_id_game", referencedColumnName = "sys_id_game", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "sys_id_game", nullable = false)
     private Game game;
 }
