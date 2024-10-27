@@ -1,6 +1,8 @@
 package poly.gamemarketplacebackend.core.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.dto.VoucherDTO;
@@ -42,5 +44,17 @@ public class VoucherServiceImpl implements VoucherService {
     @Transactional
     public void deleteBySysIdVoucher(Integer id) {
         voucherRepository.deleteBySysIdVoucher(id);
+    }
+
+    @Override
+    public List<VoucherDTO> findTopByEndDateNearest(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return voucherMapper.toDTOList(voucherRepository.findTopByEndDateNearest(pageable).getContent());
+    }
+
+    @Override
+    public List<VoucherDTO> getPageVoucher(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return voucherMapper.toDTOList(voucherRepository.findAllByPage(pageable).getContent());
     }
 }

@@ -13,13 +13,14 @@ import poly.gamemarketplacebackend.core.entity.Game;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = {MediaMapper.class, CategoryDetailMapper.class,})
+@Mapper(componentModel = "spring", uses = {MediaMapper.class, CategoryDetailMapper.class})
 public interface GameMapper {
 
     GameMapper INSTANCE = Mappers.getMapper(GameMapper.class);
 
     @Mapping(source = "categoryDetails", target = "categoryDetails")
     @Mapping(source = "media", target = "media")
+//    @Mapping(source = "voucher.discountPercent", target = "discountPercent")
     GameDTO toDTO(Game game);
 
     @Mapping(source = "categoryDetails", target = "categoryDetails")

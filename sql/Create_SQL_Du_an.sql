@@ -66,14 +66,14 @@ CREATE TABLE Game (
     discount_percent FLOAT,
     game_image VARCHAR(255),
     slug VARCHAR(255) UNIQUE NOT NULL,
-    game_category VARCHAR(255),
+--     game_category VARCHAR(255),
     description TEXT,
     is_active BOOLEAN DEFAULT True,
-    sys_id_discount INT,
+--     sys_id_discount INT,
     quantity int,
-    quantity_sold int,
-    quantity_count int,
-    FOREIGN KEY (sys_id_discount) REFERENCES Voucher(sys_id_voucher)
+    quantity_sold int
+--     quantity_count int,
+--     FOREIGN KEY (sys_id_discount) REFERENCES Voucher(sys_id_voucher)
 );
 
 CREATE TABLE Owned_game(

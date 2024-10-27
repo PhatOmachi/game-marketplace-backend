@@ -35,7 +35,8 @@ public class SecurityConfig {
     public final static String[] nonAuthenticatedUrls = {
             "/api/auth/login",
             "/api/public/**",
-            "/api/accounts/**"
+            "/api/accounts/**",
+            "/api/*/p/**"
     };
     private final String[] authenticatedUrls = {
             "/cart", "/user-info", "/order-history", "/transaction", "/security", "/favorite", "/add-funds", "/userinfo"

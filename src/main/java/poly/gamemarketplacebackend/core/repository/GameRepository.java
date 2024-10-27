@@ -1,6 +1,9 @@
 package poly.gamemarketplacebackend.core.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import poly.gamemarketplacebackend.core.entity.Game;
 
@@ -17,4 +20,7 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
     void delete(Game game);
 
     Optional<Game> findBySlug(String slug);
+
+//    @Query("SELECT g FROM Game g JOIN g.voucher v WHERE v.endDate >= CURRENT_DATE ORDER BY v.endDate ASC")
+//    Page<Game> findTopByVoucherEndDateNearest(Pageable pageable);
 }

@@ -35,8 +35,8 @@ public class Game {
     @Column(name = "slug", unique = true, nullable = false)
     private String slug;
 
-    @Column(name = "game_category")
-    private String gameCategory;
+//    @Column(name = "game_category")
+//    private String gameCategory;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
@@ -44,8 +44,8 @@ public class Game {
     @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean isActive;
 
-    @Column(name = "sys_id_discount")
-    private Integer sysIdDiscount;
+//    @Column(name = "sys_id_discount")
+//    private Integer sysIdDiscount;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -53,12 +53,12 @@ public class Game {
     @Column(name = "quantity_sold")
     private Integer quantitySold;
 
-    @Column(name = "quantity_count")
-    private Integer quantityCount;
+//    @Column(name = "quantity_count")
+//    private Integer quantityCount;
 
-    @ManyToOne
-    @JoinColumn(name = "sys_id_discount", referencedColumnName = "sys_id_voucher" , insertable = false, updatable = false)
-    private Voucher voucher;
+//    @ManyToOne
+//    @JoinColumn(name = "sys_id_discount", referencedColumnName = "sys_id_voucher", insertable = false, updatable = false)
+//    private Voucher voucher;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CategoryDetail> categoryDetails;

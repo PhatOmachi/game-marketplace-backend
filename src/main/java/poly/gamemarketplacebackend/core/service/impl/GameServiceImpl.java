@@ -1,8 +1,13 @@
 package poly.gamemarketplacebackend.core.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.entity.Game;
 import poly.gamemarketplacebackend.core.mapper.GameMapper;
@@ -13,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,5 +57,37 @@ public class GameServiceImpl implements GameService {
         Path filePath = uploadPath.resolve(fileName);
         Files.copy(file.getInputStream(), filePath);
         return "/static/" + uploadDir + "/" + fileName;
+    @Override
+    public List<GameDTO> getGamesByFieldDesc(String field, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, field));
+        Page<Game> gamePage = gameRepository.findAll(pageable);
+        return gameMapper.toDTOs(gamePage.getContent());
+    }
+
+    @Override
+    public List<GameDTO> getTopGamesByVoucherEndDateNearest(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "quantity"));
+        Page<Game> gamePage = gameRepository.findAll(pageable);
+        return gameMapper.toDTOs(gamePage.getContent());
+    }
+
+    @Override
+    public List<CartItemDTO> isValidCartItems(List<GameDTO> cartItems) {
+        var err = new ArrayList<CartItemDTO>();
+        for (GameDTO cartItem : cartItems) {
+            var game = gameRepository.findBySlug(cartItem.getSlug());
+            if (game.isEmpty()) {
+                err.add(CartItemDTO.builder()
+                        .slug(cartItem.getSlug())
+                        .message("Game " + cartItem.getSlug() + " not found")
+                        .build());
+            } else if (game.get().getQuantity() < cartItem.getQuantity()) {
+                err.add(CartItemDTO.builder()
+                        .slug(cartItem.getSlug())
+                        .message("Game " + cartItem.getSlug() + " only has " + game.get().getQuantity() + " left")
+                        .build());
+            }
+        }
+        return err;
     }
 }

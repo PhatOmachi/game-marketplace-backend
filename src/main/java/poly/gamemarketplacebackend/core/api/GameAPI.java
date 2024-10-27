@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.CategoryDTO;
 import poly.gamemarketplacebackend.core.dto.CategoryDetailDTO;
+import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.dto.MediaDTO;
 import poly.gamemarketplacebackend.core.entity.CategoryDetail;
@@ -158,6 +159,30 @@ public class GameAPI {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .data(gameService.findBySlug(slug))
+                .build();
+    }
+
+    @GetMapping("/p/sort")
+    public ResponseObject<?> getGamesByFieldDesc(@RequestParam String field, @RequestParam int page, @RequestParam int size) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.getGamesByFieldDesc(field, page, size))
+                .build();
+    }
+
+    @GetMapping("/p/top-limited-discount")
+    public ResponseObject<?> getTopGamesByVoucherEndDateNearest(@RequestParam int page, @RequestParam int size) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.getTopGamesByVoucherEndDateNearest(page, size))
+                .build();
+    }
+
+    @PostMapping("/valid-cart-items")
+    public ResponseObject<?> isValidCartItems(@RequestBody List<GameDTO> cartItems) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.isValidCartItems(cartItems))
                 .build();
     }
 }

@@ -2,15 +2,13 @@
 package poly.gamemarketplacebackend.core.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -25,9 +23,8 @@ public class TransactionHistory {
     private float amount;
     private boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "user_name")
-    private Users user;
+    @Column(name = "user_name")
+    private String username;
 
     // Getters and Setters
 }

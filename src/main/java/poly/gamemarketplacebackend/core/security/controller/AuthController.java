@@ -11,11 +11,6 @@ import poly.gamemarketplacebackend.core.security.data.LoginRequestDTO;
 import poly.gamemarketplacebackend.core.security.jwt.JwtUtil;
 import poly.gamemarketplacebackend.core.security.service.AuthService;
 import poly.gamemarketplacebackend.core.security.service.TokenBlacklistService;
-//import poly.java5divineshop.ConfigSecurity.Security.data.LoginRequestDTO;
-//import poly.java5divineshop.ConfigSecurity.Security.jwt.JwtUtil;
-//import poly.java5divineshop.ConfigSecurity.Security.service.AuthService;
-//import poly.java5divineshop.ConfigSecurity.Security.service.TokenBlacklistService;
-//import poly.java5divineshop.Divineshop.constant.ResponseObject;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -34,7 +29,7 @@ public class AuthController {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .data(authService.authenticate(dto, session.getId()))
-                .message("Đăng nhập thành công")
+                .message("Login successfully")
                 .build();
     }
 
