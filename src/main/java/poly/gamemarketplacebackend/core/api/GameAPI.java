@@ -47,4 +47,20 @@ public class GameAPI {
                 .data(gameService.findBySlug(slug))
                 .build();
     }
+
+    @GetMapping("/p/sort")
+    public ResponseObject<?> getGamesByFieldDesc(@RequestParam String field, @RequestParam int page, @RequestParam int size) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.getGamesByFieldDesc(field, page, size))
+                .build();
+    }
+
+    @GetMapping("/p/top-limited-discount")
+    public ResponseObject<?> getTopGamesByVoucherEndDateNearest(@RequestParam int page, @RequestParam int size) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.getTopGamesByVoucherEndDateNearest(page, size))
+                .build();
+    }
 }

@@ -1,12 +1,3 @@
-SET SCHEMA 'Data_DuLieu';
-
-DROP DATABASE IF EXISTS Data_DuLieu;
-
-CREATE DATABASE Data_DuLieu;
-
-SET SCHEMA 'Data_DuLieu';
-
-
 Create table Account(
     id              int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
     username        varchar(50) NOT NULL UNIQUE,
@@ -94,12 +85,14 @@ CREATE TABLE Owned_game(
     FOREIGN KEY (sys_id_game) REFERENCES Game (sys_id_game)
 );
 
+drop table if exists Category_detail;
+
 CREATE TABLE Category_detail (
+    sys_id_category_detail INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY,
     sys_id_category INT NOT NULL,
     sys_id_game INT NOT NULL,
     FOREIGN KEY (sys_id_category) REFERENCES Category (sys_id_category),
-    FOREIGN KEY (sys_id_game) REFERENCES Game (sys_id_game),
-    PRIMARY KEY (sys_id_category, sys_id_game)
+    FOREIGN KEY (sys_id_game) REFERENCES Game (sys_id_game)
 );
 
 CREATE TABLE Orders (

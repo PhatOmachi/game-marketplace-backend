@@ -1,4 +1,4 @@
-package poly.gamemarketplacebackend.core.controller;
+package poly.gamemarketplacebackend.core.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

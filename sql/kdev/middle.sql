@@ -9,6 +9,15 @@ alter table Game
     add column language     varchar(255),
     add column about        text;
 
+alter table public.voucher
+    add column voucher_banner text;
+INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner) VALUES ('about-to', 'Brand new seasons', 69, '2024-10-20', '2024-10-31', 'New nuke of voucher seasons', 'https://cdn2.unrealengine.com/egs-nis-america-publisher-sale-2024-breaker-1920x1080-44eaff94888a.jpg?resize=1&w=854&h=480&quality=medium');
+INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner) VALUES ('fallout', 'Fallout Day Sale', 50, '2024-10-20', '2024-10-31', 'Celebrate Fallout Day with discounts on Fallout games and more', 'https://cdn2.unrealengine.com/falloutday-sale-2024-epic-keyart-1920x1080-01-1920x1080-1c74e27f2de9.jpg?resize=1&w=854&h=480&quality=medium');
+
+alter table public.game
+    drop column if exists sys_id_voucher,
+    add column sys_id_voucher int;
+
 create table media
 (
     sys_id_media int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) primary key,
@@ -198,19 +207,19 @@ VALUES ('GAME020', 'Alien Invasion', true, 34.99, 10, 'alien_invasion.jpg', 'ali
         'Defend Earth from alien invaders', true, null, 280, 90, 190, null, 5, 0, null, null, null, null, null, null);
 
 insert into public.category_detail (sys_id_game, sys_id_category)
-values (21, 7),
-       (21, 8),
-       (21, 3),
-       (21, 4),
-       (21, 5),
-       (21, 6);
+values (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (1, 5),
+       (1, 6);
 
 INSERT INTO public.media (media_name, media_url, sys_id_game) VALUES
-('thumbnail', 'https://cdn1.epicgames.com/offer/87b7846d2eba4bc49eead0854323aba8/EGS_DyingLight2StayHumanReloadedEdition_Techland_S2_1200x1600-76cef594ff94fbac64a8af1ebe4c7590?resize=1&w=360&h=480&quality=medium', 21),
-('logo', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhumanreloadededition-techland-ic1-400x400-ef8c8989500e.png?resize=1&w=480&h=270&quality=medium', 21),
-('p1', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-03-1920x1080-5acfeff80697.jpg', 21),
-('p2', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-04-1920x1080-01df52f79ade.jpg', 21),
-('p3', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-05-1920x1080-1c5ac325c83a.jpg', 21),
-('p4', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-06-1920x1080-40f55c566ef9.jpg', 21),
-('p5', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-07-1920x1080-32df329a3c64.jpg', 21),
-('p6', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-08-1920x1080-fc9df7be5ad5.jpg', 21);
+('thumbnail', 'https://cdn1.epicgames.com/offer/87b7846d2eba4bc49eead0854323aba8/EGS_DyingLight2StayHumanReloadedEdition_Techland_S2_1200x1600-76cef594ff94fbac64a8af1ebe4c7590?resize=1&w=360&h=480&quality=medium', 1),
+('logo', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhumanreloadededition-techland-ic1-400x400-ef8c8989500e.png?resize=1&w=480&h=270&quality=medium', 1),
+('p1', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-03-1920x1080-5acfeff80697.jpg', 1),
+('p2', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-04-1920x1080-01df52f79ade.jpg', 1),
+('p3', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-05-1920x1080-1c5ac325c83a.jpg', 1),
+('p4', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-06-1920x1080-40f55c566ef9.jpg', 1),
+('p5', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-07-1920x1080-32df329a3c64.jpg', 1),
+('p6', 'https://cdn2.unrealengine.com/egs-dyinglight2stayhuman-techland-g1a-08-1920x1080-fc9df7be5ad5.jpg', 1);

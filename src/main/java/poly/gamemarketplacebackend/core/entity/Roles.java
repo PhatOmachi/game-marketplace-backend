@@ -5,12 +5,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import lombok.Data;
+import lombok.*;
 
 import jakarta.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "Roles")
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
