@@ -41,4 +41,7 @@ public class Voucher {
 
     @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Game> games;
+
+    // new field
+    private String voucherBanner;
 }

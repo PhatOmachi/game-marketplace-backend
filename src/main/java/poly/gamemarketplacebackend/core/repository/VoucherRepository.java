@@ -1,6 +1,9 @@
 package poly.gamemarketplacebackend.core.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import poly.gamemarketplacebackend.core.entity.Voucher;
 
@@ -23,4 +26,10 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
     // Sử dụng phương thức deleteById() để xóa đối tượng Voucher theo ID.
     void deleteBySysIdVoucher(Integer id);
+
+    @Query("SELECT v FROM Voucher v WHERE v.endDate >= CURRENT_DATE and v.startDate <= CURRENT_DATE ORDER BY v.endDate ASC")
+    Page<Voucher> findTopByEndDateNearest(Pageable pageable);
+
+    @Query("SELECT v FROM Voucher v WHERE v.endDate >= CURRENT_DATE and v.startDate <= CURRENT_DATE")
+    Page<Voucher> findAllByPage(Pageable pageable);
 }

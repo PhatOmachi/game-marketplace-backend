@@ -113,4 +113,20 @@ public class VoucherAPI {
                 .message("Xóa voucher thành công")
                 .build();
     }
+
+    @GetMapping("/p/top-limited-discount")
+    public ResponseObject<?> getTopVouchersByEndDateNearest(@RequestParam int page, @RequestParam int size) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(voucherService.findTopByEndDateNearest(page, size))
+                .build();
+    }
+
+    @GetMapping("/p/all")
+    public ResponseObject<?> getPageVoucher(@RequestParam int page, @RequestParam int size) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(voucherService.getPageVoucher(page, size))
+                .build();
+    }
 }

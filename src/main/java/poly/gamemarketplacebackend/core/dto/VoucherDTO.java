@@ -17,4 +17,6 @@ public class VoucherDTO {
     private String description;
     private List<Voucher_use> voucherDetails;
     private List<GameDTO> games;
+    // new field
+    private String voucherBanner;
 }
