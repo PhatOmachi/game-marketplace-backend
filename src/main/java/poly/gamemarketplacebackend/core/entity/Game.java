@@ -57,7 +57,7 @@ public class Game {
     private Integer quantityCount;
 
     @ManyToOne
-    @JoinColumn(name = "sys_id_discount", referencedColumnName = "sys_id_voucher", insertable = false, updatable = false)
+    @JoinColumn(name = "sys_id_discount", referencedColumnName = "sys_id_voucher" , insertable = false, updatable = false)
     private Voucher voucher;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
