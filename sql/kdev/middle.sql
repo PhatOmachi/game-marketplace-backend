@@ -11,8 +11,9 @@ alter table Game
 
 alter table public.voucher
     add column voucher_banner text;
-INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner) VALUES ('about-to', 'Brand new seasons', 69, '2024-10-20', '2024-10-31', 'New nuke of voucher seasons', 'https://cdn2.unrealengine.com/egs-nis-america-publisher-sale-2024-breaker-1920x1080-44eaff94888a.jpg?resize=1&w=854&h=480&quality=medium');
 INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner) VALUES ('fallout', 'Fallout Day Sale', 50, '2024-10-20', '2024-10-31', 'Celebrate Fallout Day with discounts on Fallout games and more', 'https://cdn2.unrealengine.com/falloutday-sale-2024-epic-keyart-1920x1080-01-1920x1080-1c74e27f2de9.jpg?resize=1&w=854&h=480&quality=medium');
+INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner) VALUES ('about-to', 'Brand new seasons', 69, '2024-10-20', '2024-10-31', 'New nuke of voucher seasons', 'https://cdn2.unrealengine.com/egs-nis-america-publisher-sale-2024-breaker-1920x1080-44eaff94888a.jpg?resize=1&w=854&h=480&quality=medium');
+INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner) VALUES ('elder', 'Elder Festival', 44, '2024-10-20', '2024-10-28', 'Elder Festival for Halloween holiday', 'https://cdn2.unrealengine.com/egs-eso-witches-festival-2024-breaker-1920x1080-817df397bcf1.jpg?resize=1&w=854&h=480&quality=medium');
 
 alter table public.game
     drop column if exists sys_id_voucher,

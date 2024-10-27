@@ -21,6 +21,6 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 
     Optional<Game> findBySlug(String slug);
 
-    @Query("SELECT g FROM Game g JOIN g.voucher v WHERE v.endDate >= CURRENT_DATE ORDER BY v.endDate ASC")
-    Page<Game> findTopByVoucherEndDateNearest(Pageable pageable);
+//    @Query("SELECT g FROM Game g JOIN g.voucher v WHERE v.endDate >= CURRENT_DATE ORDER BY v.endDate ASC")
+//    Page<Game> findTopByVoucherEndDateNearest(Pageable pageable);
 }

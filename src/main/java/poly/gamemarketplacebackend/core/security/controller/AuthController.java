@@ -29,7 +29,7 @@ public class AuthController {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .data(authService.authenticate(dto, session.getId()))
-                .message("Đăng nhập thành công")
+                .message("Login successfully")
                 .build();
     }
 

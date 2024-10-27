@@ -820,3 +820,10 @@ INSERT INTO media (media_name, media_url, sys_id_game) VALUES ('p6', 'https://cd
 INSERT INTO category_detail (sys_id_category, sys_id_game) SELECT sys_id_category, 33 FROM category WHERE category_name = 'Exploration' ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game) SELECT sys_id_category, 33 FROM category WHERE category_name = 'Fantasy' ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game) SELECT sys_id_category, 33 FROM category WHERE category_name = 'Indie' ON CONFLICT DO NOTHING;
+
+drop table if exists public.voucher_use cascade;
+
+alter table public.game
+    drop column if exists quantity_count cascade,
+    drop column if exists sys_id_discount cascade,
+    drop column if exists game_category cascade;
