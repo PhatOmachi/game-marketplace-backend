@@ -5,8 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
+import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.service.GameService;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -61,6 +64,14 @@ public class GameAPI {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .data(gameService.getTopGamesByVoucherEndDateNearest(page, size))
+                .build();
+    }
+
+    @PostMapping("/valid-cart-items")
+    public ResponseObject<?> isValidCartItems(@RequestBody List<GameDTO> cartItems) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.isValidCartItems(cartItems))
                 .build();
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import poly.gamemarketplacebackend.core.entity.Account;
 import poly.gamemarketplacebackend.core.exception.CustomException;
 import poly.gamemarketplacebackend.core.security.data.CustomUserDetails;
 import poly.gamemarketplacebackend.core.security.data.LoginReponseDTO;
@@ -24,11 +25,10 @@ public class AuthService {
 
     public LoginReponseDTO authenticate(LoginRequestDTO dto, String sessionId) {
         if (loginAttemptService.isBlocked(dto.getUsername())) {
-            throw new CustomException("Tài khoản đang bị khóa do nhiều lần đăng nhập không thành công. Vui lòng thử lại trong vòng 30 phút!", HttpStatus.LOCKED);
+            throw new CustomException("Your account is locked due to multiple failed login attempts. Please try again in 30 minutes.", HttpStatus.LOCKED);
         }
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
             var userDetails = (CustomUserDetails) authentication.getPrincipal();
             loginAttemptService.resetFailedAttempts(dto.getUsername());
             return LoginReponseDTO.builder()
@@ -36,8 +36,12 @@ public class AuthService {
                     .build();
         } catch (BadCredentialsException e) {
             loginAttemptService.loginFailed(dto.getUsername());
-            throw new CustomException("Sai thông tin đăng nhập", HttpStatus.UNAUTHORIZED);
+            throw new CustomException("Incorrect login information", HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    public static Account getCurrentAccount() {
+        return ((CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
     }
 
 }

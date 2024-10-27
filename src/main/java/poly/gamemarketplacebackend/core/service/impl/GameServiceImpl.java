@@ -6,12 +6,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.entity.Game;
 import poly.gamemarketplacebackend.core.mapper.GameMapper;
 import poly.gamemarketplacebackend.core.repository.GameRepository;
 import poly.gamemarketplacebackend.core.service.GameService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,8 +52,28 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameDTO> getTopGamesByVoucherEndDateNearest(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Game> gamePage = gameRepository.findTopByVoucherEndDateNearest(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "quantity"));
+        Page<Game> gamePage = gameRepository.findAll(pageable);
         return gameMapper.toDTOs(gamePage.getContent());
+    }
+
+    @Override
+    public List<CartItemDTO> isValidCartItems(List<GameDTO> cartItems) {
+        var err = new ArrayList<CartItemDTO>();
+        for (GameDTO cartItem : cartItems) {
+            var game = gameRepository.findBySlug(cartItem.getSlug());
+            if (game.isEmpty()) {
+                err.add(CartItemDTO.builder()
+                        .slug(cartItem.getSlug())
+                        .message("Game " + cartItem.getSlug() + " not found")
+                        .build());
+            } else if (game.get().getQuantity() < cartItem.getQuantity()) {
+                err.add(CartItemDTO.builder()
+                        .slug(cartItem.getSlug())
+                        .message("Game " + cartItem.getSlug() + " only has " + game.get().getQuantity() + " left")
+                        .build());
+            }
+        }
+        return err;
     }
 }

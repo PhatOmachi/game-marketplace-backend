@@ -15,14 +15,14 @@ public class GameDTO {
     private Float discountPercent;
     private String gameImage;
     private String slug;
-    private String gameCategory;
+//    private String gameCategory;
     private String description;
     private Boolean isActive;
-    private Integer sysIdDiscount;
+//    private Integer sysIdDiscount;
     private Integer quantity;
     private Integer quantitySold;
-    private Integer quantityCount;
-    private VoucherDTO voucher;
+//    private Integer quantityCount;
+//    private VoucherDTO voucher;
     private List<CategoryDetailDTO> categoryDetails;
 
     // additional fields

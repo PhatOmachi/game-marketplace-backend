@@ -12,4 +12,5 @@ public class TransactionHistoryDTO {
     private float amount;
     private boolean status;
     private int userId;
+    private String username;
 }
