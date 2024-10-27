@@ -1,20 +1,21 @@
 package poly.gamemarketplacebackend.core.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Game")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sys_id_game")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sysIdGame;
 
     @Column(name = "game_code")
@@ -23,16 +24,12 @@ public class Game {
     @Column(name = "game_name")
     private String gameName;
 
-    @Column(name = "status")
-    private Boolean status = true;
+    private Boolean status;
 
-    @Column(name = "price")
-    private Float price = 0.0f;
+    private Float price;
 
-    @Column(name = "discount_percent")
     private Float discountPercent;
 
-    @Column(name = "game_image")
     private String gameImage;
 
     @Column(name = "slug", unique = true, nullable = false)
@@ -44,8 +41,11 @@ public class Game {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "is_active")
-    private Boolean isActive = true;
+    @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean isActive;
+
+    @Column(name = "sys_id_discount")
+    private Integer sysIdDiscount;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -57,7 +57,23 @@ public class Game {
     private Integer quantityCount;
 
     @ManyToOne
-    @JoinColumn(name = "sys_id_voucher", referencedColumnName = "sys_id_voucher")
-    @JsonIgnore
+    @JoinColumn(name = "sys_id_discount", referencedColumnName = "sys_id_voucher", insertable = false, updatable = false)
     private Voucher voucher;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CategoryDetail> categoryDetails;
+
+    // additional fields
+    private Float rating;
+    private Integer ratingCount;
+    private String features;
+    private LocalDate releaseDate;
+    private String developer;
+    private String platform;
+    private String language;
+    private String about;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Media> media;
+
 }
