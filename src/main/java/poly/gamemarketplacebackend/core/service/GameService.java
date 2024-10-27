@@ -1,8 +1,6 @@
 package poly.gamemarketplacebackend.core.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.entity.Game;
 
@@ -20,4 +18,6 @@ public interface GameService {
     List<GameDTO> getGamesByFieldDesc(String field, int page, int size);
 
     List<GameDTO> getTopGamesByVoucherEndDateNearest(int page, int size);
+
+    List<CartItemDTO> isValidCartItems(List<GameDTO> cartItems);
 }

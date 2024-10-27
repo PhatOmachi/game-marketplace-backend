@@ -16,7 +16,7 @@ public class VoucherDTO {
     private LocalDate endDate;
     private String description;
     private List<Voucher_use> voucherDetails;
-    private List<GameDTO> games;
+//    private List<GameDTO> games;
     // new field
     private String voucherBanner;
 }
