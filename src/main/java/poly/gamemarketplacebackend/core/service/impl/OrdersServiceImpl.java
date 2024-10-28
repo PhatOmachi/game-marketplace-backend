@@ -1,20 +1,29 @@
 package poly.gamemarketplacebackend.core.service.impl;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import poly.gamemarketplacebackend.core.dto.OwnedGameDTO;
 import poly.gamemarketplacebackend.core.dto.PaymentRequestDTO;
 import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
-import poly.gamemarketplacebackend.core.entity.TransactionHistory;
 import poly.gamemarketplacebackend.core.entity.Voucher_use;
 import poly.gamemarketplacebackend.core.exception.CustomException;
 import poly.gamemarketplacebackend.core.mapper.OrdersMapper;
+import poly.gamemarketplacebackend.core.mapper.OwnedGameMapper;
 import poly.gamemarketplacebackend.core.mapper.TransactionHistoryMapper;
 import poly.gamemarketplacebackend.core.mapper.VoucherMapper;
 import poly.gamemarketplacebackend.core.repository.*;
 import poly.gamemarketplacebackend.core.service.*;
+import poly.gamemarketplacebackend.core.util.LicenseKeyUtils;
 import poly.gamemarketplacebackend.core.util.TimeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +39,9 @@ public class OrdersServiceImpl implements OrdersService {
     private final VoucherUsedRepository voucherUsedRepository;
     private final VoucherRepository voucherRepository;
     private final GameService gameService;
+    private final OwnedGameRepository ownedGameRepository;
+    private final OwnedGameMapper ownedGameMapper;
+    private final JavaMailSender mailSender;
 
     @Transactional
     @Override
@@ -39,7 +51,8 @@ public class OrdersServiceImpl implements OrdersService {
         handleOrders(paymentRequestDTO);
     }
 
-    private void handleUserBalance(PaymentRequestDTO paymentRequestDTO) {
+    @Transactional
+    protected void handleUserBalance(PaymentRequestDTO paymentRequestDTO) {
         var currentUser = usersService.getCurrentUser();
         if (currentUser.getSysIdUser() != paymentRequestDTO.getUserId()) {
             throw new CustomException("Invalid user commit payment", HttpStatus.UNAUTHORIZED);
@@ -53,7 +66,8 @@ public class OrdersServiceImpl implements OrdersService {
         handleTransactionHistory(paymentRequestDTO);
     }
 
-    private void handleTransactionHistory(PaymentRequestDTO paymentRequestDTO) {
+    @Transactional
+    protected void handleTransactionHistory(PaymentRequestDTO paymentRequestDTO) {
         var transactionHistory = new TransactionHistoryDTO();
         transactionHistory.setAmount(paymentRequestDTO.getTotalPayment());
         transactionHistory.setDescription(paymentRequestDTO.getOrderCode());
@@ -78,19 +92,46 @@ public class OrdersServiceImpl implements OrdersService {
         }
     }
 
-    private void handleOrders(PaymentRequestDTO paymentRequestDTO) {
+    @Transactional
+    protected void handleOrders(PaymentRequestDTO paymentRequestDTO) {
         if (paymentRequestDTO.getOrders() != null) {
+            List<String> licenseKeys = new ArrayList<>();
             for (var order : paymentRequestDTO.getOrders()) {
+                var game = gameService.findBySlug(order.getSlug());
                 order.setSysIdUser(paymentRequestDTO.getUserId());
                 order.setOrderCode(paymentRequestDTO.getOrderCode());
                 order.setOrderDate(paymentRequestDTO.getOrderDate());
                 order.setPaymentStatus(true);
                 order.setTotalPayment(paymentRequestDTO.getTotalPayment());
-                order.setSysIdProduct(gameService.findBySlug(order.getSlug()).getSysIdGame());
+                order.setSysIdProduct(game.getSysIdGame());
                 ordersRepository.save(ordersMapper.toEntity(order));
+
+                var ownedGame = OwnedGameDTO.builder()
+                        .gameId(game.getSysIdGame())
+                        .userId(paymentRequestDTO.getUserId())
+                        .ownedDate(paymentRequestDTO.getOrderDate())
+                        .build();
+                ownedGameRepository.save(ownedGameMapper.toEntity(ownedGame));
+                for (int i = 0; i < order.getQuantity(); i++) {
+                    licenseKeys.add(game.getGameName() + ": " + LicenseKeyUtils.generateLicenseKey());
+                }
             }
+            sendLicenseKeysByEmail(usersService.getCurrentUser().getEmail(), licenseKeys);
         } else {
             throw new CustomException("Orders is empty", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private void sendLicenseKeysByEmail(String email, List<String> licenseKeys) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(email);
+            helper.setSubject("Your License Keys");
+            helper.setText("Here are your license keys:\n" + String.join("\n", licenseKeys));
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new CustomException("Failed to send email", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
