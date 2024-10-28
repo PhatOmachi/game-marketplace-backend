@@ -832,6 +832,7 @@ alter table public.game
 alter table public.voucher
     add column quantity integer not null default 0,
     add column is_active boolean not null default true,
+    add column voucher_banner text,
     add column max_discount integer not null default 0;
 
 INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner, quantity, is_active, max_discount) VALUES ('fallout', 'Fallout Day Sale', 50, '2024-10-20', '2024-10-31', 'Celebrate Fallout Day with discounts on Fallout games and more', 'https://cdn2.unrealengine.com/falloutday-sale-2024-epic-keyart-1920x1080-01-1920x1080-1c74e27f2de9.jpg?resize=1&w=854&h=480&quality=medium', 77, true, 500000);
