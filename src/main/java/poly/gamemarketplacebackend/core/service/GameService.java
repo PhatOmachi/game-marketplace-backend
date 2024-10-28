@@ -1,5 +1,7 @@
 package poly.gamemarketplacebackend.core.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.entity.Game;
@@ -20,4 +22,6 @@ public interface GameService {
     List<GameDTO> getTopGamesByVoucherEndDateNearest(int page, int size);
 
     List<CartItemDTO> isValidCartItems(List<GameDTO> cartItems);
+
+    Page<Game> searchGames(String name, Double minPrice, Double maxPrice, String category, String minRatingStr, String maxRatingStr, Pageable pageable);
 }

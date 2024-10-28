@@ -2,11 +2,15 @@ package poly.gamemarketplacebackend.core.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
+import poly.gamemarketplacebackend.core.entity.Game;
 import poly.gamemarketplacebackend.core.service.GameService;
 
 import java.util.List;
@@ -73,5 +77,20 @@ public class GameAPI {
                 .status(HttpStatus.OK)
                 .data(gameService.isValidCartItems(cartItems))
                 .build();
+    }
+
+    @GetMapping("/browser")
+    public Page<Game> searchGames(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String minRatingStr,
+            @RequestParam(required = false) String maxRatingStr,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        return gameService.searchGames(name, minPrice, maxPrice, category, minRatingStr, maxRatingStr, pageable);
     }
 }

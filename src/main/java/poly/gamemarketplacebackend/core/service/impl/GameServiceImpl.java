@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
@@ -12,6 +13,7 @@ import poly.gamemarketplacebackend.core.entity.Game;
 import poly.gamemarketplacebackend.core.mapper.GameMapper;
 import poly.gamemarketplacebackend.core.repository.GameRepository;
 import poly.gamemarketplacebackend.core.service.GameService;
+import poly.gamemarketplacebackend.core.util.GameSpecification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +77,25 @@ public class GameServiceImpl implements GameService {
             }
         }
         return err;
+    }
+
+    @Override
+    public Page<Game> searchGames(String name, Double minPrice, Double maxPrice, String category, String minRatingStr, String maxRatingStr, Pageable pageable) {
+        Specification<Game> spec = Specification.where(null);
+
+        if (name != null && !name.isEmpty()) {
+            spec = spec.and(GameSpecification.hasName(name));
+        }
+        if (minPrice != null && maxPrice != null) {
+            spec = spec.and(GameSpecification.hasPriceBetween(minPrice, maxPrice));
+        }
+        if (category != null && !category.isEmpty()) {
+            spec = spec.and(GameSpecification.hasCategory(category));
+        }
+        if (minRatingStr != null && maxRatingStr != null) {
+            spec = spec.and(GameSpecification.hasRatingBetween(minRatingStr, maxRatingStr));
+        }
+
+        return gameRepository.findAll(spec, pageable);
     }
 }
