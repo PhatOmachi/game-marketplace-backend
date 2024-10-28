@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
+import poly.gamemarketplacebackend.core.dto.VNPayRequest;
 import poly.gamemarketplacebackend.core.service.GameService;
 import poly.gamemarketplacebackend.core.service.TransactionHistoryService;
 
@@ -23,12 +24,12 @@ import java.sql.SQLException;
 public class TransactionAPI {
     private final TransactionHistoryService transactionHistoryService;
 
-    @GetMapping("/vn-pay")
-    public String pay(HttpServletRequest request, @RequestParam String name) {
-        return transactionHistoryService.pay(request, name);
+    @PostMapping("/vn-pay")
+    public String pay(@RequestBody VNPayRequest vnPayRequest) {
+        return transactionHistoryService.pay(vnPayRequest);
     }
 
-    @GetMapping("/vn-pay-callback")
+    @GetMapping("/p/vn-pay-callback")
     public String payCallbackHandler(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes redirectAttributes) throws SQLException, IOException {
         return transactionHistoryService.payCallbackHandler(request, response, session, redirectAttributes);
     }

@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import poly.gamemarketplacebackend.core.dto.VNPayRequest;
 import poly.gamemarketplacebackend.core.dto.VNPayResponse;
 import poly.gamemarketplacebackend.core.entity.TransactionHistory;
 import poly.gamemarketplacebackend.core.repository.TransactionHistoryRepository;
@@ -19,11 +19,9 @@ import poly.gamemarketplacebackend.core.service.UsersService;
 import poly.gamemarketplacebackend.core.util.DataStore;
 import poly.gamemarketplacebackend.core.util.VNPayUtil;
 
-import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,24 +37,27 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     private final UsersService userService;
     private final UsersRepository usersRepository;
     private final DataStore dataStore;
+    private final HttpServletRequest request;
 
     @Override
-    public VNPayResponse createVnPayPayment(HttpServletRequest request, String name) {
-        long amount = Integer.parseInt(request.getParameter("amount")) * 100L;
-        String bankCode = request.getParameter("bankCode");
+    public VNPayResponse createVnPayPayment(VNPayRequest vnPayRequest) {
+        long amount = vnPayRequest.getAmount() * 100L;
+        String bankCode = vnPayRequest.getBankCode();
         Map<String, String> vnpParamsMap = vnPayConfig.getVNPayConfig();
         vnpParamsMap.put("vnp_Amount", String.valueOf(amount));
         if (bankCode != null && !bankCode.isEmpty()) {
             vnpParamsMap.put("vnp_BankCode", bankCode);
         }
         vnpParamsMap.put("vnp_IpAddr", VNPayUtil.getIpAddress(request));
-        vnpParamsMap.put("vnp_OrderInfo", "Thanh toan don hang-" + name);
+        vnpParamsMap.put("vnp_OrderInfo", "Thanh toan don hang-" + vnPayRequest.getName());
         // Build query URL
         String queryUrl = VNPayUtil.getPaymentURL(vnpParamsMap, true);
         String hashData = VNPayUtil.getPaymentURL(vnpParamsMap, false);
         String vnpSecureHash = VNPayUtil.hmacSHA512(vnPayConfig.getSecretKey(), hashData);
         queryUrl += "&vnp_SecureHash=" + vnpSecureHash;
         String paymentUrl = vnPayConfig.getVnp_PayUrl() + "?" + queryUrl;
+        dataStore.put("succeedPaymentUrl", vnPayRequest.getSuccessUrl());
+        dataStore.put("errorPaymentUrl", vnPayRequest.getErrorUrl());
         return VNPayResponse.builder()
                 .code("ok")
                 .message("success")
@@ -66,8 +67,8 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     @Override
     @Transactional
     @SneakyThrows
-    public String pay(HttpServletRequest request, @RequestParam String name) {
-        String url = createVnPayPayment(request, name).paymentUrl;
+    public String pay(VNPayRequest vnPayRequest) {
+        String url = createVnPayPayment(vnPayRequest).paymentUrl;
         String query = new URL(url).getQuery();
         Map<String, String> parameters = getQueryParameters(query);
 
@@ -122,6 +123,8 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 
         String maDonHang = request.getParameter("vnp_TxnRef");
 
+        System.out.println("status: " + status);
+
         if (status.equals("00")) {
             updatePaymentByUser(maDonHang);
 
@@ -132,11 +135,11 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
             // Thay đổi giá trị của flag thành true
             dataStore.put("flag", true);
             redirectAttributes.addAttribute("flag", false);
-            response.sendRedirect("/add-funds");
+            response.sendRedirect(dataStore.get("succeedPaymentUrl").toString());
             return "true";
         } else {
             dataStore.put("flag1", true);
-            response.sendRedirect("/add-funds");
+            response.sendRedirect(dataStore.get("errorPaymentUrl").toString());
             return "false";
         }
     }

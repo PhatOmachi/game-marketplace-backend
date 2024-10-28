@@ -44,4 +44,7 @@ public class Voucher {
 
     // new field
     private String voucherBanner;
+    private int quantity;
+    private boolean isActive;
+    private int maxDiscount;
 }

@@ -4,10 +4,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import poly.gamemarketplacebackend.core.entity.Voucher;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
@@ -32,4 +34,13 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
     @Query("SELECT v FROM Voucher v WHERE v.endDate >= CURRENT_DATE and v.startDate <= CURRENT_DATE")
     Page<Voucher> findAllByPage(Pageable pageable);
+
+    @Query("SELECT v FROM Voucher v WHERE v.codeVoucher = :codeVoucher " +
+            "AND v.startDate <= CURRENT_DATE " +
+            "AND v.endDate >= CURRENT_DATE " +
+            "AND v.isActive = true " +
+            "AND v.quantity >= 1 " +
+            "AND NOT EXISTS (SELECT vu FROM Voucher_use vu WHERE vu.sysIdVoucherUseDetail = v AND vu.sysIdUser = :sysIdUser)")
+    Optional<Voucher> findValidVoucher(@Param("codeVoucher") String codeVoucher, @Param("sysIdUser") int sysIdUser);
+
 }
