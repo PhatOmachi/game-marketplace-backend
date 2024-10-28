@@ -57,6 +57,8 @@ public class GameServiceImpl implements GameService {
         Path filePath = uploadPath.resolve(fileName);
         Files.copy(file.getInputStream(), filePath);
         return "/static/" + uploadDir + "/" + fileName;
+    }
+
     @Override
     public List<GameDTO> getGamesByFieldDesc(String field, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, field));

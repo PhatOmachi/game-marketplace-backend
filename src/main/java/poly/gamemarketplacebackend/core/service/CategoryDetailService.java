@@ -5,4 +5,6 @@ import poly.gamemarketplacebackend.core.entity.CategoryDetail;
 
 public interface CategoryDetailService {
     CategoryDetail saveCategoryDetail(CategoryDetailDTO categoryDetailDTO);
+
+    void insertCategoryDetail(Integer sysIdCategory, Integer sysIdGame);
 }

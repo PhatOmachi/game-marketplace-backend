@@ -15,11 +15,13 @@ import poly.gamemarketplacebackend.core.dto.CategoryDetailDTO;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.dto.MediaDTO;
+import poly.gamemarketplacebackend.core.entity.Category;
 import poly.gamemarketplacebackend.core.entity.CategoryDetail;
 import poly.gamemarketplacebackend.core.entity.Game;
 import poly.gamemarketplacebackend.core.service.CategoryDetailService;
 import poly.gamemarketplacebackend.core.service.CategoryService;
 import poly.gamemarketplacebackend.core.service.GameService;
+import poly.gamemarketplacebackend.core.service.MediaService;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +36,8 @@ import java.util.List;
 public class GameAPI {
     private final GameService gameService;
     private final CategoryDetailService categoryDetailService;
+    private final CategoryService categoryService;
+    private final MediaService mediaService;
 
     @GetMapping("")
     public ResponseObject<?> getAllGame() {
@@ -45,7 +49,32 @@ public class GameAPI {
 
     @PostMapping("")
     public ResponseObject<?> createGame(@RequestBody GameDTO gameDTO) {
-        // Kiểm tra xem gameDTO có media không
+        // Bước 1: Lưu thông tin game trước
+        Game game;
+        try {
+            GameDTO gameDTO1 = new GameDTO();
+            gameDTO1.setGameName(gameDTO.getGameName());
+            gameDTO1.setPrice(gameDTO.getPrice());
+            gameDTO1.setDiscountPercent(gameDTO.getDiscountPercent());
+            gameDTO1.setQuantity(gameDTO.getQuantity());
+            gameDTO1.setStatus(gameDTO.getStatus());
+            gameDTO1.setDescription(gameDTO.getDescription());
+            gameDTO1.setSlug(gameDTO.getSlug());
+
+            // Lưu game và cập nhật ID vào gameDTO
+            game = gameService.saveGame(gameDTO1);
+            gameDTO.setSysIdGame(game.getSysIdGame()); // Cập nhật sysIdGame
+            System.out.println("Id cua game: " + gameDTO.getSysIdGame());
+        } catch (Exception e) {
+            log.error("Error saving game: {}", e.getMessage());
+            return ResponseObject.builder()
+                    .data(gameDTO)
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .message("Failed to save game")
+                    .build();
+        }
+
+        // Bước 2: Kiểm tra và lưu media
         if (gameDTO.getMedia() == null || gameDTO.getMedia().isEmpty()) {
             return ResponseObject.builder()
                     .status(HttpStatus.BAD_REQUEST)
@@ -53,25 +82,24 @@ public class GameAPI {
                     .build();
         }
 
-        List<MediaDTO> mediaList = new ArrayList<>();
-
-        // Tạo thư mục lưu hình ảnh nếu không tồn tại
-        File dir = new File("src/main/resources/static/images");
-        if (!dir.exists()) {
-            dir.mkdirs(); // Tạo thư mục
-            log.info("Created directory: {}", dir.getAbsolutePath());
+        // Tạo thư mục riêng cho game
+        File gameDir = new File("src/main/resources/static/images/" + game.getSysIdGame());
+        if (!gameDir.exists()) {
+            gameDir.mkdirs();
+            log.info("Created directory for game {}: {}", game.getSysIdGame(), gameDir.getAbsolutePath());
         }
 
-        // Lưu từng ảnh từ base64
+        List<MediaDTO> mediaList = new ArrayList<>();
         for (MediaDTO mediaDTO : gameDTO.getMedia()) {
             if (mediaDTO.getMediaUrl() != null && mediaDTO.getMediaUrl().contains(",")) {
                 try {
                     byte[] decodedBytes = Base64.getDecoder().decode(mediaDTO.getMediaUrl().split(",")[1]);
-                    String filePath = "src/main/resources/static/images/" + mediaDTO.getMediaName() + "_" + gameDTO.getSysIdGame() + ".jpg";
+                    String filePath = gameDir.getAbsolutePath() + "/" + mediaDTO.getMediaName() + ".jpg"; // Đường dẫn tệp
 
+                    // Lưu ảnh vào thư mục của game
                     try (FileOutputStream fos = new FileOutputStream(new File(filePath))) {
                         fos.write(decodedBytes);
-                        mediaDTO.setMediaUrl(filePath); // Cập nhật URL ảnh đã lưu
+                        mediaDTO.setMediaUrl("http://localhost:9999/images/" + game.getSysIdGame() + "/" + mediaDTO.getMediaName() + ".jpg"); // Cập nhật URL hình ảnh đã lưu
                         log.info("Image saved successfully at {}", filePath);
                     }
                 } catch (IOException e) {
@@ -95,53 +123,45 @@ public class GameAPI {
                         .build();
             }
             mediaList.add(mediaDTO);
+            mediaDTO.setSysIdGame(game.getSysIdGame()); // Gán sysIdGame
         }
-
-        // Cập nhật danh sách media vào gameDTO
         gameDTO.setMedia(mediaList);
 
-
-//        GameDTO savedGameDTO;
+        // Lưu media vào database
         try {
-            Game game = gameService.saveGame(gameDTO);
-//            savedGameDTO = gameService.findBySlug(game.getSlug());// Lưu game và lấy đối tượng đã lưu
+            for (MediaDTO mediaDTO : mediaList) {
+                mediaService.saveMedia(mediaDTO.getMediaName(), mediaDTO.getMediaUrl(), mediaDTO.getSysIdGame());
+            }
         } catch (Exception e) {
-            log.error("Error saving game: {}", e.getMessage());
+            log.error("Error saving media for game {}: {}", gameDTO.getGameName(), e.getMessage());
             return ResponseObject.builder()
-                    .data(gameDTO)
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .message("Failed to save game")
+                    .message("Failed to save media for game: " + gameDTO.getGameName())
                     .build();
+        }
+
+        // Bước 3: Kiểm tra và lưu category detail với hai trường sysIdCategory và sysIdGame
+        if (gameDTO.getCategoryDetails() != null) {
+            for (CategoryDetailDTO categoryDetailDTO : gameDTO.getCategoryDetails()) {
+                categoryDetailDTO.setSysIdGame(game.getSysIdGame()); // Gán sysIdGame từ game đã lưu
+                try {
+                    // Gọi phương thức chỉ lưu sysIdCategory và sysIdGame
+                    categoryDetailService.insertCategoryDetail(categoryDetailDTO.getSysIdCategory(), game.getSysIdGame());
+                } catch (Exception e) {
+                    log.error("Error saving category detail for ID {}: {}", categoryDetailDTO.getSysIdCategory(), e.getMessage());
+                    return ResponseObject.builder()
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .message("Failed to save category detail for ID: " + categoryDetailDTO.getSysIdCategory())
+                            .build();
+                }
+            }
         }
 
         return ResponseObject.builder()
                 .status(HttpStatus.CREATED)
                 .message("Create game successfully")
+                .data(game) // Trả về thông tin game đã lưu
                 .build();
-
-//        // Kiểm tra và lưu danh sách category detail
-//        if (gameDTO.getCategoryDetails() != null) {
-//            for (CategoryDetailDTO categoryDetailDTO : gameDTO.getCategoryDetails()) {
-//                // Thiết lập sysIdGame từ game đã lưu
-//                categoryDetailDTO.setSysIdGame(savedGameDTO.getSysIdGame());
-//                System.out.println(">>>>>00" + categoryDetailDTO.getSysIdGame());
-//                // Lưu category detail
-//                try {
-//                    categoryDetailService.saveCategoryDetail(categoryDetailDTO);
-//                } catch (Exception e) {
-//                    log.error("Error saving category detail for ID {}: {}", categoryDetailDTO.getSysIdCategory(), e.getMessage());
-//                    return ResponseObject.builder()
-//                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                            .message("Failed to save category detail for ID: " + categoryDetailDTO.getSysIdCategory())
-//                            .build();
-//                }
-//            }
-//        }
-
-//        return ResponseObject.builder()
-//                .status(HttpStatus.CREATED)
-//                .data(savedGameDTO)
-//                .build();
     }
 
 

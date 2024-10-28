@@ -20,4 +20,9 @@ public class CategoryDetailServiceImpl implements CategoryDetailService {
     public CategoryDetail saveCategoryDetail(CategoryDetailDTO categoryDetailDTO) {
         return categoryDetailRepository.save(categoryDetailMapper.toEntity(categoryDetailDTO));
     }
+
+    @Override
+    public void insertCategoryDetail(Integer sysIdCategory, Integer sysIdGame) {
+        categoryDetailRepository.insertCategoryDetail(sysIdCategory, sysIdGame);
+    }
 }
