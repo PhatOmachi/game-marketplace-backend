@@ -6,4 +6,6 @@ public interface UsersService {
     UsersDTO findByUsername(String username);
 
     int updateUserProfile(UsersDTO usersDTO);
+
+    UsersDTO getCurrentUser();
 }

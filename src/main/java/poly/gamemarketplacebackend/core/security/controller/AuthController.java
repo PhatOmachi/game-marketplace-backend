@@ -11,6 +11,7 @@ import poly.gamemarketplacebackend.core.security.data.LoginRequestDTO;
 import poly.gamemarketplacebackend.core.security.jwt.JwtUtil;
 import poly.gamemarketplacebackend.core.security.service.AuthService;
 import poly.gamemarketplacebackend.core.security.service.TokenBlacklistService;
+import poly.gamemarketplacebackend.core.service.UsersService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -20,6 +21,7 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
     private final AuthService authService;
+    private final UsersService usersService;
     private final HttpServletRequest httpServletRequest;
     private final TokenBlacklistService tokenBlacklistService;
 
@@ -30,6 +32,15 @@ public class AuthController {
                 .status(HttpStatus.OK)
                 .data(authService.authenticate(dto, session.getId()))
                 .message("Login successfully")
+                .build();
+    }
+
+    @GetMapping("/current-user")
+    public ResponseObject<?> getCurrentUser() {
+        var username = jwtUtil.extractUsername(httpServletRequest.getHeader("Authorization").substring(7));
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(usersService.findByUsername(username))
                 .build();
     }
 
