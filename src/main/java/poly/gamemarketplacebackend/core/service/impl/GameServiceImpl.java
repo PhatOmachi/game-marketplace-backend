@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.entity.Game;
@@ -13,6 +14,10 @@ import poly.gamemarketplacebackend.core.mapper.GameMapper;
 import poly.gamemarketplacebackend.core.repository.GameRepository;
 import poly.gamemarketplacebackend.core.service.GameService;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +46,17 @@ public class GameServiceImpl implements GameService {
     public GameDTO findBySlug(String slug) {
         var game = gameRepository.findBySlug(slug);
         return game.map(gameMapper::toDTO).orElse(null);
+    }
+
+    public String saveFile(String uploadDir, MultipartFile file) throws IOException {
+        Path uploadPath = Paths.get("src/main/resources/static/" + uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath);
+        return "/static/" + uploadDir + "/" + fileName;
     }
 
     @Override
