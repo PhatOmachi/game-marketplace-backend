@@ -13,4 +13,5 @@ public class UsersDTO {
     private String balance;
     private LocalDateTime joinTime;
     private String avatar;
+    private Float totalSpent;
 }
