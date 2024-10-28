@@ -39,7 +39,7 @@ public class VNPAYConfig {
         vnpParamsMap.put("vnp_TxnRef", VNPayUtil.getRandomNumber(8));
         vnpParamsMap.put("vnp_OrderType", this.orderType);
         vnpParamsMap.put("vnp_Locale", "vn");
-        vnpParamsMap.put("vnp_ReturnUrl", ServerInfoListener.getAddr() + this.vnp_ReturnUrl);
+        vnpParamsMap.put("vnp_ReturnUrl", this.vnp_ReturnUrl);
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnpCreateDate = formatter.format(calendar.getTime());

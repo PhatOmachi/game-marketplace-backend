@@ -19,4 +19,7 @@ public class VoucherDTO {
 //    private List<GameDTO> games;
     // new field
     private String voucherBanner;
+    private int quantity;
+    private boolean isActive;
+    private int maxDiscount;
 }
