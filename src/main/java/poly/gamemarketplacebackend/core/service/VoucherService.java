@@ -8,6 +8,9 @@ import java.util.List;
 public interface VoucherService {
     List<VoucherDTO> findAll();
     VoucherDTO findByCodeVoucher(String codeVoucher);
+
+    VoucherDTO validVoucherByUser(String codeVoucher);
+
     VoucherDTO findBySysIdVoucher(Integer id);
     VoucherDTO save(Voucher voucher);
     void deleteBySysIdVoucher(Integer id);
@@ -15,4 +18,6 @@ public interface VoucherService {
     List<VoucherDTO> findTopByEndDateNearest(int page, int size);
 
     List<VoucherDTO> getPageVoucher(int page, int size);
+
+
 }

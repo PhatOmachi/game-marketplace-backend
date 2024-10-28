@@ -13,6 +13,9 @@ public class OrdersDTO {
     private float totalGamePrice;
     private float totalPayment;
     private int quantityPurchased;
-    private int gameId;
-    private int userId;
+    private int sysIdProduct;
+    private int sysIdUser;
+    // new field
+    private String slug;
+    private int quantity;
 }

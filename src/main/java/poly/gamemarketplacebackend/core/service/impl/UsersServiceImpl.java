@@ -6,6 +6,7 @@ import poly.gamemarketplacebackend.core.dto.UsersDTO;
 import poly.gamemarketplacebackend.core.entity.Users;
 import poly.gamemarketplacebackend.core.mapper.UsersMapper;
 import poly.gamemarketplacebackend.core.repository.UsersRepository;
+import poly.gamemarketplacebackend.core.security.service.AuthService;
 import poly.gamemarketplacebackend.core.service.UsersService;
 
 @Service
@@ -29,6 +30,11 @@ public class UsersServiceImpl implements UsersService {
                 usersDTO.getJoinTime(),
                 usersDTO.getAvatar(),
                 usersDTO.getUsername());
+    }
+
+    @Override
+    public UsersDTO getCurrentUser() {
+        return usersMapper.toDTO(usersRepository.findByUsername(AuthService.getCurrentAccount().getUsername()));
     }
 
 }

@@ -129,4 +129,12 @@ public class VoucherAPI {
                 .data(voucherService.getPageVoucher(page, size))
                 .build();
     }
+
+    @PostMapping("/validate/{codeVoucher}")
+    public ResponseObject<?> validateVoucher(@PathVariable String codeVoucher) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(voucherService.validVoucherByUser(codeVoucher))
+                .build();
+    }
 }
