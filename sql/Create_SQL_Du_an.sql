@@ -1,12 +1,3 @@
-SET SCHEMA 'Data_DuLieu';
-
-DROP DATABASE IF EXISTS Data_DuLieu;
-
-CREATE DATABASE Data_DuLieu;
-
-SET SCHEMA 'Data_DuLieu';
- 
-
 Create table Account(
     id              int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
     username        varchar(50) NOT NULL UNIQUE,
@@ -71,18 +62,18 @@ CREATE TABLE Game (
     game_code VARCHAR(255),
     game_name VARCHAR(255),
     status BOOLEAN default true,
-    category_name VARCHAR(255),
     price FLOAT default 0.0,
-    discount_pricent FLOAT,
+    discount_percent FLOAT,
     game_image VARCHAR(255),
     slug VARCHAR(255) UNIQUE NOT NULL,
-    game_category VARCHAR(255),
+--     game_category VARCHAR(255),
     description TEXT,
     is_active BOOLEAN DEFAULT True,
-    sys_id_discount INT,
+--     sys_id_discount INT,
     quantity int,
-    quantity_sold int,
-    quantity_count int
+    quantity_sold int
+--     quantity_count int,
+--     FOREIGN KEY (sys_id_discount) REFERENCES Voucher(sys_id_voucher)
 );
 
 CREATE TABLE Owned_game(
@@ -94,12 +85,14 @@ CREATE TABLE Owned_game(
     FOREIGN KEY (sys_id_game) REFERENCES Game (sys_id_game)
 );
 
+drop table if exists Category_detail;
+
 CREATE TABLE Category_detail (
+    sys_id_category_detail INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY,
     sys_id_category INT NOT NULL,
     sys_id_game INT NOT NULL,
     FOREIGN KEY (sys_id_category) REFERENCES Category (sys_id_category),
-    FOREIGN KEY (sys_id_game) REFERENCES Game (sys_id_game),
-    PRIMARY KEY (sys_id_category, sys_id_game)
+    FOREIGN KEY (sys_id_game) REFERENCES Game (sys_id_game)
 );
 
 CREATE TABLE Orders (
@@ -115,7 +108,7 @@ CREATE TABLE Orders (
     FOREIGN KEY (sys_id_product) REFERENCES Game (sys_id_game),
     FOREIGN KEY (sys_id_user) REFERENCES Users (sys_id_user)
 );
- 
+
 Create table Transaction_History(
     sys_id_payment int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY ,
     payment_time TIMESTAMP,
@@ -125,7 +118,7 @@ Create table Transaction_History(
     user_name varchar(255) not null ,
     FOREIGN KEY (user_name) REFERENCES Users (user_name)
 );
- 
+
 
 CREATE TABLE Comment (
     sys_id_comment INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY,

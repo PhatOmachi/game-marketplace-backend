@@ -44,3 +44,14 @@ server:
 
 jwt:
   secret-key: $2a$12$5pIKMCnwfMmotzq3GnVbMOt6dnw5qH8vBG4Lt4vyWgF.NsRH1mRqy
+
+
+payment:
+  vnPay:
+    url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    tmnCode: Z7MCGZGD
+    secretKey: 28LF7UIUL9Z9K0DT8EWMWWCALOF08F63
+    returnUri: http://localhost:9999/api/transactions/p/vn-pay-callback
+    version: 2.1.0
+    command: pay
+    orderType: other

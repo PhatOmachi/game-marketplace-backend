@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import poly.gamemarketplacebackend.core.constant.Role;
 import poly.gamemarketplacebackend.core.dto.AccountDTO;
 import poly.gamemarketplacebackend.core.entity.Account;
 import poly.gamemarketplacebackend.core.exception.CustomException;
@@ -112,6 +113,7 @@ public class AccountServiceImpl implements AccountService {
             accountDTO.setEnabled(true);
             accountDTO.setHashPassword(passwordEncoder.encode(accountDTO.getHashPassword()));
             saveAccount(accountDTO);
+            accountRepository.insertUserAndRole(accountDTO.getUsername(), accountDTO.getEmail(), Role.CUSTOMER.name());
             dataStore.bulkRemoveStartsWith(email);
         } else {
             throw new CustomException("Mã OTP không đúng", HttpStatus.BAD_REQUEST);

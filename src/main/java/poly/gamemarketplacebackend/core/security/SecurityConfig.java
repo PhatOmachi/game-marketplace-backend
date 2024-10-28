@@ -1,9 +1,5 @@
 package poly.gamemarketplacebackend.core.security;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,18 +9,16 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import poly.gamemarketplacebackend.core.constant.Role;
 import poly.gamemarketplacebackend.core.security.jwt.JwtRequestFilter;
 import poly.gamemarketplacebackend.core.security.service.CustomUserDetailsService;
 
-import java.io.IOException;
 import java.util.List;
 
 @Configuration
@@ -41,7 +35,18 @@ public class SecurityConfig {
     public final static String[] nonAuthenticatedUrls = {
             "/api/auth/login",
             "/api/public/**",
-            "/api/accounts/**"
+            "/api/accounts/**",
+            "/api/*/p/**",
+            "/images/*/**",
+    };
+    private final String[] authenticatedUrls = {
+            "/cart", "/user-info", "/order-history", "/transaction", "/security", "/favorite", "/add-funds", "/userinfo"
+    };
+    private final String[] staffUrls = {
+            "/leaders"
+    };
+    private final String[] adminUrls = {
+            "/admin/**"
     };
 
     @Bean
@@ -50,31 +55,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors
                         .configurationSource(corsConfigurationSource()))
-//                .sessionManagement(httpSecuritySessionManagementConfigurer ->
-//                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-//                )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(configurer -> configurer
                                 .requestMatchers(nonAuthenticatedUrls).permitAll()
-                                .requestMatchers("/cart", "/user-info", "/order-history", "/transaction", "/security", "/favorite", "/add-funds").authenticated()
-                                .requestMatchers("/userinfo").hasRole("EMPLOYEE")
-                                .requestMatchers("/leaders").hasRole("MANAGER")
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers(authenticatedUrls).authenticated()
+                                .requestMatchers(staffUrls).hasRole(Role.STAFF.name())
+                                .requestMatchers(adminUrls).hasRole(Role.ADMIN.name())
                                 .anyRequest().authenticated()
                         //                        .anyRequest().permitAll()
                 )
-//                .formLogin(form ->
-//                                form
-//                                        .loginPage("/log-in")
-//                                        .loginProcessingUrl("/authenticateTheUser")
-//                                        .usernameParameter("username")
-//                                        .passwordParameter("password")
-////                    .defaultSuccessUrl("/",true)
-//                                        .successHandler(authenticationSuccessHandler())
-//                                        .permitAll()
-//                )
-//                .logout(logout -> logout.permitAll()
-//                )
 //                .exceptionHandling(configurer ->
 //                        configurer.accessDeniedPage("/access-denied")
 //                )
@@ -106,16 +95,16 @@ public class SecurityConfig {
         return builder.build();
     }
 
-    private AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new AuthenticationSuccessHandler() {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                Cookie loginSuccessCookie = new Cookie("loginSuccess", "true");
-                response.addCookie(loginSuccessCookie);
-                response.sendRedirect("/");
-            }
-        };
-    }
+//    private AuthenticationSuccessHandler authenticationSuccessHandler() {
+//        return new AuthenticationSuccessHandler() {
+//            @Override
+//            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+//                Cookie loginSuccessCookie = new Cookie("loginSuccess", "true");
+//                response.addCookie(loginSuccessCookie);
+//                response.sendRedirect("/");
+//            }
+//        };
+//    }
 /*
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {

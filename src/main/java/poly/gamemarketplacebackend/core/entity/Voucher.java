@@ -1,16 +1,15 @@
 package poly.gamemarketplacebackend.core.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "Voucher")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Voucher {
@@ -39,4 +38,13 @@ public class Voucher {
 
     @OneToMany(mappedBy = "sysIdVoucherUseDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Voucher_use> voucherDetails;
+
+//    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Game> games;
+
+    // new field
+    private String voucherBanner;
+    private int quantity;
+    private boolean isActive;
+    private int maxDiscount;
 }
