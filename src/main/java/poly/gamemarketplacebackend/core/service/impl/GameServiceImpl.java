@@ -5,13 +5,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.entity.Game;
 import poly.gamemarketplacebackend.core.mapper.GameMapper;
 import poly.gamemarketplacebackend.core.repository.GameRepository;
 import poly.gamemarketplacebackend.core.service.GameService;
+import poly.gamemarketplacebackend.core.util.GameSpecification;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +50,17 @@ public class GameServiceImpl implements GameService {
         return game.map(gameMapper::toDTO).orElse(null);
     }
 
+    public String saveFile(String uploadDir, MultipartFile file) throws IOException {
+        Path uploadPath = Paths.get("src/main/resources/static/" + uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath);
+        return "/static/" + uploadDir + "/" + fileName;
+    }
+
     @Override
     public List<GameDTO> getGamesByFieldDesc(String field, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, field));
@@ -50,8 +70,48 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameDTO> getTopGamesByVoucherEndDateNearest(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Game> gamePage = gameRepository.findTopByVoucherEndDateNearest(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "quantity"));
+        Page<Game> gamePage = gameRepository.findAll(pageable);
         return gameMapper.toDTOs(gamePage.getContent());
+    }
+
+    @Override
+    public List<CartItemDTO> isValidCartItems(List<GameDTO> cartItems) {
+        var err = new ArrayList<CartItemDTO>();
+        for (GameDTO cartItem : cartItems) {
+            var game = gameRepository.findBySlug(cartItem.getSlug());
+            if (game.isEmpty()) {
+                err.add(CartItemDTO.builder()
+                        .slug(cartItem.getSlug())
+                        .message("Game " + cartItem.getSlug() + " not found")
+                        .build());
+            } else if (game.get().getQuantity() < cartItem.getQuantity()) {
+                err.add(CartItemDTO.builder()
+                        .slug(cartItem.getSlug())
+                        .message("Game " + cartItem.getSlug() + " only has " + game.get().getQuantity() + " left")
+                        .build());
+            }
+        }
+        return err;
+    }
+
+    @Override
+    public Page<Game> searchGames(String name, Double minPrice, Double maxPrice, String category, String minRatingStr, String maxRatingStr, Pageable pageable) {
+        Specification<Game> spec = Specification.where(null);
+
+        if (name != null && !name.isEmpty()) {
+            spec = spec.and(GameSpecification.hasName(name));
+        }
+        if (minPrice != null && maxPrice != null) {
+            spec = spec.and(GameSpecification.hasPriceBetween(minPrice, maxPrice));
+        }
+        if (category != null && !category.isEmpty()) {
+            spec = spec.and(GameSpecification.hasCategory(category));
+        }
+        if (minRatingStr != null && maxRatingStr != null) {
+            spec = spec.and(GameSpecification.hasRatingBetween(minRatingStr, maxRatingStr));
+        }
+
+        return gameRepository.findAll(spec, pageable);
     }
 }

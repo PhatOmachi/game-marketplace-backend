@@ -30,4 +30,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(CategoryDTO categoryDTO) {
         categoryRepository.delete(categoryMapper.toEntity(categoryDTO));
     }
+
+    @Override
+    public CategoryDTO findById(int id) {
+        return categoryMapper.toDTO(categoryRepository.findById(id));
+    }
 }

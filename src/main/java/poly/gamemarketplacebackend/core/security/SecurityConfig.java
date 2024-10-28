@@ -36,7 +36,8 @@ public class SecurityConfig {
             "/api/auth/login",
             "/api/public/**",
             "/api/accounts/**",
-            "/api/*/p/**"
+            "/api/*/p/**",
+            "/images/*/**",
     };
     private final String[] authenticatedUrls = {
             "/cart", "/user-info", "/order-history", "/transaction", "/security", "/favorite", "/add-funds", "/userinfo"

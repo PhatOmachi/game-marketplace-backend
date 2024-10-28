@@ -11,4 +11,6 @@ public interface CategoryService {
     Category saveCategory(CategoryDTO categoryDTO);
 
     void deleteCategory(CategoryDTO categoryDTO);
+
+    CategoryDTO findById(int id);
 }
