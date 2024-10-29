@@ -1,67 +1,79 @@
 package poly.gamemarketplacebackend.core.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Data
 @Table(name = "Game")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sys_id_game")
-    private int sysIdGame;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer sysIdGame;
 
-    @Column(name = "game_code", length = 255)
+    @Column(name = "game_code")
     private String gameCode;
 
-    @Column(name = "game_name", length = 255)
+    @Column(name = "game_name")
     private String gameName;
 
-    @Column(name = "status")
-    private boolean status = true;
+    private Boolean status;
 
-    @Column(name = "category_name", length = 255)
-    private String categoryName;
+    private Float price;
 
-    @Column(name = "price")
-    private float price = 0.0f;
+    private Float discountPercent;
 
-    @Column(name = "discount_pricent")
-    private float discountPricent;
-
-    @Column(name = "game_image", length = 255)
     private String gameImage;
 
-    @Column(name = "slug", unique = true, nullable = false, length = 255)
+    @Column(name = "slug", unique = true, nullable = false)
     private String slug;
 
-    @Column(name = "game_category", length = 255)
-    private String gameCategory;
+//    @Column(name = "game_category")
+//    private String gameCategory;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "is_active")
-    private boolean isActive = true;
+    @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean isActive;
 
-    @Column(name = "sys_id_discount")
-    private Integer sysIdDiscount;
+//    @Column(name = "sys_id_discount")
+//    private Integer sysIdDiscount;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "quantity_sold")
-    private int quantitySold;
+    private Integer quantitySold;
 
-    @Column(name = "quantity_count")
-    private int quantityCount;
+//    @Column(name = "quantity_count")
+//    private Integer quantityCount;
 
-//    @OneToMany(mappedBy = "game")
-//    private List<Orders> orders;
+//    @ManyToOne
+//    @JoinColumn(name = "sys_id_discount", referencedColumnName = "sys_id_voucher", insertable = false, updatable = false)
+//    private Voucher voucher;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CategoryDetail> categoryDetails;
+
+    // additional fields
+    private Float rating;
+    private Integer ratingCount;
+    private String features;
+    private LocalDate releaseDate;
+    private String developer;
+    private String platform;
+    private String language;
+    private String about;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Media> media;
+
 }
-
