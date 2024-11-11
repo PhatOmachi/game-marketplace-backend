@@ -177,11 +177,19 @@ public class GameAPI {
                 .build();
     }
 
-    @GetMapping("/{slug}")
+    @GetMapping("/p/{slug}")
     public ResponseObject<?> getGameBySlug(@PathVariable String slug) {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .data(gameService.findBySlug(slug))
+                .build();
+    }
+
+    @GetMapping("/p/{slug}/recommendations")
+    public ResponseObject<?> getTop10RecommendedGames(@PathVariable String slug) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.getTop10RecommendedGames(slug))
                 .build();
     }
 
