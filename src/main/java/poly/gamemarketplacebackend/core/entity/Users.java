@@ -37,4 +37,7 @@ public class Users {
     @OneToMany(mappedBy = "users")
     @JsonManagedReference
     private List<Orders> orders;
+
+    @OneToMany(mappedBy = "user")
+    private List<OwnedGame> ownedGames;
 }
