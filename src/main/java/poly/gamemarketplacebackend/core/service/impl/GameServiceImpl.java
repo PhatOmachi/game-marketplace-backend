@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
+import poly.gamemarketplacebackend.core.entity.Category;
+import poly.gamemarketplacebackend.core.entity.CategoryDetail;
 import poly.gamemarketplacebackend.core.entity.Game;
 import poly.gamemarketplacebackend.core.mapper.GameMapper;
 import poly.gamemarketplacebackend.core.repository.GameRepository;
@@ -22,6 +24,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +36,19 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<GameDTO> getAllGame() {
         return gameMapper.toDTOs(gameRepository.findAll());
+    }
+
+    @Override
+    public List<GameDTO> getTop10RecommendedGames(String slug) {
+        Optional<Game> gameOptional = gameRepository.findBySlug(slug);
+        Game game = gameOptional.orElseThrow(() -> new IllegalArgumentException("Game not found"));
+
+        List<Integer> categoryIds = game.getCategoryDetails().stream()
+                .map(CategoryDetail::getCategory)
+                .map(Category::getSysIdCategory)
+                .collect(Collectors.toList());
+        List<Game> relatedGames = gameRepository.findRelatedGames(categoryIds, game.getSysIdGame());
+        return relatedGames.stream().limit(3).map(gameMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override

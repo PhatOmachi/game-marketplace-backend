@@ -6,3 +6,11 @@ INSERT INTO public.users (user_name, email, ho_va_ten, balance, join_time, avata
 
 INSERT INTO public.roles (username, username_user, role) VALUES ('khoadev2004', 'khoadev2004', 'CUSTOMER');
 INSERT INTO public.roles (username, username_user, role) VALUES ('kaiz', 'kaiz', 'ADMIN');
+
+alter table comment
+    drop column start,
+    add column star integer not null default 0;
+
+alter table comment
+drop column sys_id_product,
+    add column sys_id_game integer not null references game;
