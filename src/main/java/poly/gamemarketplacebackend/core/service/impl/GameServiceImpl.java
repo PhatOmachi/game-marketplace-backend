@@ -48,6 +48,11 @@ public class GameServiceImpl implements GameService {
         return game.map(gameMapper::toDTO).orElse(null);
     }
 
+    @Override
+    public GameDTO findById(Integer sysIdGame) {
+        return gameMapper.toDTO(gameRepository.findById(sysIdGame).get());
+    }
+
     public String saveFile(String uploadDir, MultipartFile file) throws IOException {
         Path uploadPath = Paths.get("src/main/resources/static/" + uploadDir);
         if (!Files.exists(uploadPath)) {

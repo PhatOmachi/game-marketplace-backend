@@ -127,7 +127,7 @@ public class GameAPI {
         }
         gameDTO.setMedia(mediaList);
 
-        // Lưu media vào database
+        // save media vào database
         try {
             for (MediaDTO mediaDTO : mediaList) {
                 mediaService.saveMedia(mediaDTO.getMediaName(), mediaDTO.getMediaUrl(), mediaDTO.getSysIdGame());
@@ -140,7 +140,6 @@ public class GameAPI {
                     .build();
         }
 
-        // Bước 3: Kiểm tra và lưu category detail với hai trường sysIdCategory và sysIdGame
         if (gameDTO.getCategoryDetails() != null) {
             for (CategoryDetailDTO categoryDetailDTO : gameDTO.getCategoryDetails()) {
                 categoryDetailDTO.setSysIdGame(game.getSysIdGame()); // Gán sysIdGame từ game đã lưu
@@ -161,6 +160,114 @@ public class GameAPI {
                 .status(HttpStatus.CREATED)
                 .message("Create game successfully")
                 .data(game) // Trả về thông tin game đã lưu
+                .build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseObject<?> updateGame(@PathVariable Integer id, @RequestBody GameDTO gameDTO) {
+        GameDTO game = gameService.findById(id);
+        if (game == null) {
+            return ResponseObject.builder()
+                    .status(HttpStatus.NOT_FOUND)
+                    .message("Game not found with id: " + id)
+                    .build();
+        }
+
+        GameDTO game2 = new GameDTO();
+        // Update game properties
+        game2.setSysIdGame(game.getSysIdGame());
+        game2.setGameName(gameDTO.getGameName());
+        game2.setPrice(gameDTO.getPrice());
+        game2.setDiscountPercent(gameDTO.getDiscountPercent());
+        game2.setQuantity(gameDTO.getQuantity());
+        game2.setStatus(gameDTO.getStatus());
+        game2.setDescription(gameDTO.getDescription());
+        game2.setSlug(gameDTO.getSlug());
+
+        // Save updated game information
+        try {
+            gameService.saveGame(game2);
+        } catch (Exception e) {
+            log.error("Error updating game: {}", e.getMessage());
+            return ResponseObject.builder()
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .message("Failed to update game")
+                    .build();
+        }
+
+        // Handle media update
+        if (gameDTO.getMedia() != null) {
+            File gameDir = new File("src/main/resources/static/images/" + game.getSysIdGame());
+            if (!gameDir.exists()) {
+                gameDir.mkdirs();
+            }
+
+            List<MediaDTO> updatedMediaList = new ArrayList<>();
+            for (MediaDTO mediaDTO : gameDTO.getMedia()) {
+                if (mediaDTO.getMediaUrl() != null && mediaDTO.getMediaUrl().contains(",")) {
+                    try {
+                        byte[] decodedBytes = Base64.getDecoder().decode(mediaDTO.getMediaUrl().split(",")[1]);
+                        String filePath = gameDir.getAbsolutePath() + "/" + mediaDTO.getMediaName() + ".jpg";
+
+                        // Save the image
+                        try (FileOutputStream fos = new FileOutputStream(new File(filePath))) {
+                            fos.write(decodedBytes);
+                            mediaDTO.setMediaUrl("http://localhost:9999/images/" + game.getSysIdGame() + "/" + mediaDTO.getMediaName() + ".jpg");
+                        }
+                    } catch (IOException e) {
+                        log.error("Error saving image for media {}: {}", mediaDTO.getMediaName(), e.getMessage());
+                        return ResponseObject.builder()
+                                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .message("Failed to save image: " + mediaDTO.getMediaName())
+                                .build();
+                    } catch (IllegalArgumentException e) {
+                        log.error("Invalid base64 string for media {}: {}", mediaDTO.getMediaName(), e.getMessage());
+                        return ResponseObject.builder()
+                                .status(HttpStatus.BAD_REQUEST)
+                                .message("Invalid base64 string for media: " + mediaDTO.getMediaName())
+                                .build();
+                    }
+                }
+                mediaDTO.setSysIdGame(game.getSysIdGame());
+                updatedMediaList.add(mediaDTO);
+            }
+
+            // Update media in the database
+            try {
+                mediaService.deleteMediaByGameId(game.getSysIdGame());  // Clear existing media
+                for (MediaDTO mediaDTO : updatedMediaList) {
+                    mediaService.saveMedia(mediaDTO.getMediaName(), mediaDTO.getMediaUrl(), mediaDTO.getSysIdGame());
+                }
+            } catch (Exception e) {
+                log.error("Error saving media for game {}: {}", gameDTO.getGameName(), e.getMessage());
+                return ResponseObject.builder()
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .message("Failed to save media for game: " + gameDTO.getGameName())
+                        .build();
+            }
+        }
+
+        // Handle category detail updates
+        if (gameDTO.getCategoryDetails() != null) {
+            categoryDetailService.deleteCategoryDetailByGameId(game.getSysIdGame());
+            for (CategoryDetailDTO categoryDetailDTO : gameDTO.getCategoryDetails()) {
+                categoryDetailDTO.setSysIdGame(game.getSysIdGame());
+                try {
+                    categoryDetailService.insertCategoryDetail(categoryDetailDTO.getSysIdCategory(), game.getSysIdGame());
+                } catch (Exception e) {
+                    log.error("Error updating category detail for ID {}: {}", categoryDetailDTO.getSysIdCategory(), e.getMessage());
+                    return ResponseObject.builder()
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .message("Failed to update category detail for ID: " + categoryDetailDTO.getSysIdCategory())
+                            .build();
+                }
+            }
+        }
+
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Game updated successfully")
+                .data(game)
                 .build();
     }
 

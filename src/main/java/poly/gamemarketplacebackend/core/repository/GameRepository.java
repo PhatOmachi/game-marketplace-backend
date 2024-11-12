@@ -1,11 +1,8 @@
 package poly.gamemarketplacebackend.core.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Game;
 
 import java.util.List;
@@ -18,6 +15,9 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
     List<Game> findAll();
 
     Game save(Game game);
+
+
+    Optional<Game> findById(Integer id);
 
     void delete(Game game);
 

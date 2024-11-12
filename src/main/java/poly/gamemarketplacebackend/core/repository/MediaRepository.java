@@ -16,4 +16,10 @@ public interface MediaRepository extends JpaRepository<Media, Integer> {
     @Query(value = "INSERT INTO Media (media_name, media_url, sys_id_game) VALUES (:mediaName, :mediaUrl, :sysIdGame)", nativeQuery = true)
     void insertMedia(@Param("mediaName") String mediaName, @Param("mediaUrl") String mediaUrl, @Param("sysIdGame") Integer sysIdGame);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Media m WHERE m.game.sysIdGame = :sysIdGame")
+    int deleteMediaByGameId(@Param("sysIdGame") Integer sysIdGame);
+
+
 }

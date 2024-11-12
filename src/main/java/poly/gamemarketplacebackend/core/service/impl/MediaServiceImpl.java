@@ -15,4 +15,11 @@ public class MediaServiceImpl implements MediaService {
     public void saveMedia(String mediaName, String mediaUrl, Integer sysIdGame) {
         mediaRepository.insertMedia(mediaName, mediaUrl, sysIdGame);
     }
+
+    @Override
+    public int deleteMediaByGameId(Integer sysIdGame) {
+        return mediaRepository.deleteMediaByGameId(sysIdGame);
+    }
+
+
 }
