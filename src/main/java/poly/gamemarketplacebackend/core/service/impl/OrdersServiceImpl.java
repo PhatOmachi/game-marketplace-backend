@@ -79,7 +79,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Transactional
     protected void handleUsedVoucher(PaymentRequestDTO paymentRequestDTO) {
-        if (paymentRequestDTO.getVoucherCode() != null) {
+        if (paymentRequestDTO.getVoucherCode() != null && !paymentRequestDTO.getVoucherCode().isEmpty()) {
             var usedVoucher = voucherService.validVoucherByUser(paymentRequestDTO.getVoucherCode());
             usedVoucher.setQuantity(usedVoucher.getQuantity() - 1);
             var savedVoucher = voucherRepository.save(voucherMapper.toEntity(usedVoucher));
@@ -128,7 +128,14 @@ public class OrdersServiceImpl implements OrdersService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(email);
             helper.setSubject("Your License Keys");
-            helper.setText("Here are your license keys:\n" + String.join("\n", licenseKeys));
+
+            StringBuilder emailContent = new StringBuilder("Here are your license keys:<br>");
+            for (String licenseKey : licenseKeys) {
+                String[] parts = licenseKey.split(": ");
+                emailContent.append("<b>").append(parts[0]).append("</b>: ").append(parts[1]).append("<br>");
+            }
+
+            helper.setText(emailContent.toString(), true);
             mailSender.send(message);
         } catch (MessagingException e) {
             throw new CustomException("Failed to send email", HttpStatus.INTERNAL_SERVER_ERROR);
