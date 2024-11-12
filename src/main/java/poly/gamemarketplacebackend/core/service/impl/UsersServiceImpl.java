@@ -26,8 +26,6 @@ public class UsersServiceImpl implements UsersService {
         return usersRepository.updateUsersByUsername(
                 usersDTO.getEmail(),
                 usersDTO.getHoVaTen(),
-                usersDTO.getBalance(),
-                usersDTO.getJoinTime(),
                 usersDTO.getAvatar(),
                 usersDTO.getUsername());
     }
@@ -36,5 +34,15 @@ public class UsersServiceImpl implements UsersService {
     public UsersDTO getCurrentUser() {
         return usersMapper.toDTO(usersRepository.findByUsername(AuthService.getCurrentAccount().getUsername()));
     }
+
+    @Override
+    public void updateUserAvatar(String username, String avatarUrl) {
+        Users user = usersRepository.findByUsername(username);
+        if (user != null) {
+            user.setAvatar(avatarUrl);
+            usersRepository.save(user);
+        }
+    }
+
 
 }

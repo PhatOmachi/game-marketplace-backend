@@ -16,12 +16,10 @@ public interface UsersRepository extends JpaRepository<Users , Integer> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Users u SET u.email = :email, u.hoVaTen = :hoVaTen, u.balance = :balance, u.joinTime = :joinTime, u.avatar = :avatar WHERE u.username = :username")
+    @Query("UPDATE Users u SET u.email = :email, u.hoVaTen = :hoVaTen, u.avatar = :avatar WHERE u.username = :username")
     int updateUsersByUsername(
             @Param("email") String email,
             @Param("hoVaTen") String hoVaTen,
-            @Param("balance") String balance,
-            @Param("joinTime") LocalDateTime joinTime,
             @Param("avatar") String avatar,
             @Param("username") String username
     );
