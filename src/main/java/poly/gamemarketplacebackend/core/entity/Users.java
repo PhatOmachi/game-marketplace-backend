@@ -1,19 +1,19 @@
 package poly.gamemarketplacebackend.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "users")
+@Data
+@Table(name = "Users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sys_id_user")
     private int sysIdUser ;
 
     @Column(name = "user_name", nullable = false, unique = true, length = 255)
@@ -33,4 +33,11 @@ public class Users {
 
     @Column(name = "avatar")
     private String avatar;
+
+    @OneToMany(mappedBy = "users")
+    @JsonManagedReference
+    private List<Orders> orders;
+
+    @OneToMany(mappedBy = "user")
+    private List<OwnedGame> ownedGames;
 }

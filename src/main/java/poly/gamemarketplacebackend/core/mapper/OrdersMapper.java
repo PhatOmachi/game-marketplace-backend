@@ -14,6 +14,7 @@ public interface OrdersMapper {
 
     @Mapping(target="slug", ignore = true)
     @Mapping(target="quantity", ignore = true)
+    @Mapping(target="sysIdUser", source = "users.sysIdUser")
     OrdersDTO toDTO(Orders orders);
 
     Orders toEntity(OrdersDTO ordersDTO);

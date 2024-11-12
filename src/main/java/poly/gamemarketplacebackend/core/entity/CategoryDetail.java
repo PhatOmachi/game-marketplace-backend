@@ -15,7 +15,7 @@ public class CategoryDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sysIdCategoryDetail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sys_id_category", nullable = false)
     private Category category;
 

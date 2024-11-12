@@ -3,6 +3,9 @@ package poly.gamemarketplacebackend.core.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 
 import java.util.Base64;
@@ -281,11 +284,19 @@ public class GameAPI {
                 .build();
     }
 
-    @GetMapping("/{slug}")
+    @GetMapping("/p/{slug}")
     public ResponseObject<?> getGameBySlug(@PathVariable String slug) {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .data(gameService.findBySlug(slug))
+                .build();
+    }
+
+    @GetMapping("/p/{slug}/recommendations")
+    public ResponseObject<?> getTop10RecommendedGames(@PathVariable String slug) {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameService.getTop10RecommendedGames(slug))
                 .build();
     }
 
@@ -311,5 +322,20 @@ public class GameAPI {
                 .status(HttpStatus.OK)
                 .data(gameService.isValidCartItems(cartItems))
                 .build();
+    }
+
+    @GetMapping("/browser")
+    public Page<Game> searchGames(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String minRatingStr,
+            @RequestParam(required = false) String maxRatingStr,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        return gameService.searchGames(name, minPrice, maxPrice, category, minRatingStr, maxRatingStr, pageable);
     }
 }
