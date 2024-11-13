@@ -36,6 +36,7 @@ public class SecurityConfig {
             "/api/auth/login",
             "/api/public/**",
             "/api/accounts/**",
+            "/api/accounts/*/**",
             "/api/*/p/**",
             "/api/*/p/*/**",
             "/api/*/p/*/*/**",

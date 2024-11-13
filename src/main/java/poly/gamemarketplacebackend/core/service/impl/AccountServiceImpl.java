@@ -3,6 +3,8 @@ package poly.gamemarketplacebackend.core.service.impl;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,6 +25,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
+    private static final Logger log = LoggerFactory.getLogger(AccountServiceImpl.class);
     private final AccountRepository accountRepository;
     private final JavaMailSender emailSender;
     private final AccountMapper accountMapper;
@@ -82,9 +85,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean isUniqueCredentials(String username, String email) {
         if (accountRepository.findByUsername(username) != null) {
-            throw new CustomException("Username đã tồn tại", HttpStatus.BAD_REQUEST);
+            throw new CustomException("User is already existed", HttpStatus.BAD_REQUEST);
         } else if (accountRepository.findByEmail(email) != null) {
-            throw new CustomException("Email đã tồn tại", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Email is already existed", HttpStatus.BAD_REQUEST);
         }
         return true;
     }
@@ -96,7 +99,7 @@ public class AccountServiceImpl implements AccountService {
             dataStore.put(accountDTO.getEmail() + "otp", otp);
             dataStore.put(accountDTO.getEmail() + "otpTime", System.currentTimeMillis());
             dataStore.put(accountDTO.getEmail() + "account", accountDTO);
-            sendMailForUser(accountDTO.getEmail(), otp, "Mã OTP cho đăng ký tài khoản");
+            sendMailForUser(accountDTO.getEmail(), otp, "OTP for registration");
         }
     }
 
@@ -106,7 +109,7 @@ public class AccountServiceImpl implements AccountService {
         Long otpTime = (Long) dataStore.get(email + "otpTime");
 //        System.out.println(otpSession + " | " + otpTime);
         if (otpTime == null || (System.currentTimeMillis() - otpTime) > 2 * 60 * 1000) {
-            throw new CustomException("Mã OTP đã hết hạn", HttpStatus.BAD_REQUEST);
+            throw new CustomException("OTP is expired", HttpStatus.BAD_REQUEST);
         } else if (otp.equals(otpSession)) {
             AccountDTO accountDTO = (AccountDTO) dataStore.get(email + "account");
 //            System.out.println(accountDTO.toString());
@@ -116,7 +119,7 @@ public class AccountServiceImpl implements AccountService {
             accountRepository.insertUserAndRole(accountDTO.getUsername(), accountDTO.getEmail(), Role.CUSTOMER.name());
             dataStore.bulkRemoveStartsWith(email);
         } else {
-            throw new CustomException("Mã OTP không đúng", HttpStatus.BAD_REQUEST);
+            throw new CustomException("OTP is incorrect", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -129,7 +132,61 @@ public class AccountServiceImpl implements AccountService {
             dataStore.put(email + "otpTime", System.currentTimeMillis());
             sendMailForUser(accountDTO.getEmail(), otp, "Mã OTP cho đăng ký tài khoản");
         } else {
-            throw new CustomException("Không tìm thấy thông tin tài khoản", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Cannot found any account", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @Override
+    public void requestPasswordReset(String email) {
+        Account account = accountRepository.findByEmail(email);
+        if (account == null || !account.isEnabled()) {
+            throw new CustomException("Email is not existed or has not been activated", HttpStatus.BAD_REQUEST);
+        }
+        String otp = OTPUtil.generateOTP();
+        dataStore.put(email + "otp", otp);
+        dataStore.put(email + "otp_exp", System.currentTimeMillis() + 2 * 60 * 1000); // 2 minutes expiration
+        sendMailForUser(email, otp, "OTP for reset password");
+    }
+
+    @Override
+    public void verifyForgotPasswordOTP(String email, String otp) {
+        String storedOtp = (String) dataStore.get(email + "otp");
+        Long otpExp = (Long) dataStore.get(email + "otp_exp");
+        log.info("Stored OTP: {}, Expire on {}", storedOtp, otpExp);
+        if (storedOtp == null || otpExp == null || System.currentTimeMillis() > otpExp || !storedOtp.equals(otp)) {
+            throw new CustomException("OTP is invalid or expired", HttpStatus.BAD_REQUEST);
+        }
+        dataStore.remove(email + "otp");
+        dataStore.remove(email + "otp_exp");
+        dataStore.put(email + "approveForgotPassword", true);
+    }
+
+    @Override
+    public void updatePassword(String email, String newPass) {
+        Boolean isApproved = (Boolean) dataStore.get(email + "approveForgotPassword");
+        if (isApproved == null || !isApproved) {
+            throw new CustomException("Reset password request is not valid", HttpStatus.BAD_REQUEST);
+        }
+        Account account = accountRepository.findByEmail(email);
+        if (account == null) {
+            throw new CustomException("Email is not existed", HttpStatus.BAD_REQUEST);
+        }
+        account.setHashPassword(passwordEncoder.encode(newPass));
+        accountRepository.save(account);
+        dataStore.remove(email + "approveForgotPassword");
+    }
+
+    @Override
+    public void resendOTPForForgotPassword(String email) {
+        var otp = dataStore.get(email + "otp");
+        var otpExp = dataStore.get(email + "otp_exp");
+        if (otp == null || otpExp == null) {
+            throw new CustomException("OTP has been not requested before", HttpStatus.BAD_REQUEST);
+        }
+        String newOtp = OTPUtil.generateOTP();
+        dataStore.put(email + "otp", otp);
+        dataStore.put(email + "otp_exp", System.currentTimeMillis() + 2 * 60 * 1000);
+        sendMailForUser(email, newOtp, "OTP for reset password");
+    }
+
 }

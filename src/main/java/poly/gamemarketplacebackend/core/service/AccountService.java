@@ -28,11 +28,15 @@ public interface AccountService {
 
     void requestRegistration(AccountDTO accountDTO);
 
-//    void verifyOTP(String otp);
-
     void verifyOTP(String otp, String email);
 
-//    void resendOTP();
-
     void resendOTP(String email);
+
+    void requestPasswordReset(String email);
+
+    void verifyForgotPasswordOTP(String email, String otp);
+
+    void updatePassword(String email, String newPass);
+
+    void resendOTPForForgotPassword(String email);
 }
