@@ -21,7 +21,7 @@ public class JwtUtil {
     private String secretKey;
 
     public String generateToken(CustomUserDetails user, String sessionId) {
-        int expiration = 1000 * 60 * 60 * 12;
+        int expiration = 1000 * 60 * 60 * 24 * 7;
         return JWT.create()
                 .withSubject(user.getUsername())
                 .withClaim("role", user.getAuthorities().iterator().next().getAuthority())

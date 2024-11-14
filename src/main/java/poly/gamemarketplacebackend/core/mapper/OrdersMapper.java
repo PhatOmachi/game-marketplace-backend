@@ -17,6 +17,7 @@ public interface OrdersMapper {
     @Mapping(target="sysIdUser", source = "users.sysIdUser")
     OrdersDTO toDTO(Orders orders);
 
+    @Mapping(source="sysIdUser", target = "users.sysIdUser")
     Orders toEntity(OrdersDTO ordersDTO);
 
     List<OrdersDTO> toDTOs(List<Orders> orders);
