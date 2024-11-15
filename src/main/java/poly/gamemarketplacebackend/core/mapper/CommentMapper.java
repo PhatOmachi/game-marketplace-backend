@@ -4,12 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
-import poly.gamemarketplacebackend.core.dto.CategoryDTO;
 import poly.gamemarketplacebackend.core.dto.CommentDTO;
-import poly.gamemarketplacebackend.core.entity.Category;
 import poly.gamemarketplacebackend.core.entity.Comment;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {UsersMapper.class})
 public interface CommentMapper {

@@ -40,8 +40,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public CustomUserDetails jwtToCustomUserDetails(DecodedJWT decodedJWT) {
         return CustomUserDetails.builder()
                 .account(accountService.getAccountByUsername(decodedJWT.getSubject()))
-//                        .findByUsernameAndSessionIdAndIsActiveTrue(decodedJWT.getSubject(), decodedJWT.getClaim("session_id").asString())
-//                        .orElse(null))
                 .build();
     }
 }

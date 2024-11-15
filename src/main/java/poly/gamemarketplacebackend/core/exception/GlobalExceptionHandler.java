@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseObject<?>> handleSQLException(SQLException ex) {
         ResponseObject<?> response = ResponseObject.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .message("Lỗi SQL: " + ex.getMessage())
+                .message("SQL exception: " + ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseObject<?>> handleNullPointerException(NullPointerException ex) {
         ResponseObject<?> response = ResponseObject.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .message("Lỗi Null Pointer: " + ex.getMessage())
+                .message("Null pointer exception: " + ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseObject<?>> handleException(Exception ex) {
         ResponseObject<?> response = ResponseObject.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .message("Lỗi: " + ex.getMessage())
+                .message("Exception: " + ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseObject<?>> handleIllegalArgumentException(IllegalArgumentException ex) {
         ResponseObject<?> response = ResponseObject.builder()
                 .status(HttpStatus.BAD_REQUEST)
-                .message("Lỗi: " + ex.getMessage())
+                .message("Illegal argument exception: " + ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseObject<?>> handleRuntimeException(RuntimeException ex) {
         ResponseObject<?> response = ResponseObject.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .message("Lỗi: " + ex.getMessage())
+                .message("Runtime exception: " + ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -72,7 +72,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseObject<?>> handleSignatureVerificationException(SignatureVerificationException ex) {
         ResponseObject<?> response = ResponseObject.builder()
                 .status(HttpStatus.UNAUTHORIZED)
-                .message("Lỗi: " + ex.getMessage())
+                .message("Signature verification exception: " + ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }

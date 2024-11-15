@@ -2,16 +2,11 @@ package poly.gamemarketplacebackend.core.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-import poly.gamemarketplacebackend.core.dto.CategoryDetailDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
-import poly.gamemarketplacebackend.core.entity.CategoryDetail;
 import poly.gamemarketplacebackend.core.entity.Game;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {MediaMapper.class, CategoryDetailMapper.class})
 public interface GameMapper {

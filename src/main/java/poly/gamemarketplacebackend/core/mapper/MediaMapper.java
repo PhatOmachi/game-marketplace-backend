@@ -20,5 +20,6 @@ public interface MediaMapper {
     Media toEntity(MediaDTO mediaDTO);
 
     List<MediaDTO> toDTOs(List<Media> mediaList);
+
     List<Media> toEntities(List<MediaDTO> mediaDTOList);
 }

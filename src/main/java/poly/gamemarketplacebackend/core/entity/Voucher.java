@@ -1,7 +1,10 @@
 package poly.gamemarketplacebackend.core.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +21,7 @@ public class Voucher {
     @Column(name = "sys_id_voucher")
     private Integer sysIdVoucher;
 
-    @Column(name = "code_voucher", nullable = false, length = 255)
+    @Column(name = "code_voucher", nullable = false)
     private String codeVoucher;
 
     @Column(name = "discount_name", nullable = false)

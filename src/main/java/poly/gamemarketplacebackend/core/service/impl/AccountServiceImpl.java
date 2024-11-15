@@ -20,8 +20,6 @@ import poly.gamemarketplacebackend.core.service.AccountService;
 import poly.gamemarketplacebackend.core.util.DataStore;
 import poly.gamemarketplacebackend.core.util.OTPUtil;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -30,29 +28,11 @@ public class AccountServiceImpl implements AccountService {
     private final JavaMailSender emailSender;
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
-    //    private final HttpSession session;
     private final DataStore dataStore;
-
-    @Override
-    public List<AccountDTO> getAllAccount() {
-        List<Account> accounts = accountRepository.findAll();
-        return accountMapper.toDTOs(accounts);
-    }
 
     @Override
     public AccountDTO findByUsername(String username) {
         Account account = accountRepository.findByUsername(username);
-        return account == null ? null : accountMapper.toDTO(account);
-    }
-
-    @Override
-    public Account findByUsernameSecurity(String username) {
-        return accountRepository.findByUsernameQuerySecurity(username);
-    }
-
-    @Override
-    public AccountDTO findByEmail(String email) {
-        Account account = accountRepository.findByEmail(email);
         return account == null ? null : accountMapper.toDTO(account);
     }
 
@@ -70,11 +50,6 @@ public class AccountServiceImpl implements AccountService {
         helper.setSubject(subject);
         helper.setText("Mã OTP của bạn là: " + otp);
         emailSender.send(message);
-    }
-
-    @Override
-    public int updatePassAccountByEmail(AccountDTO accountDTO) {
-        return accountRepository.updatePassAccountByEmail(passwordEncoder.encode(accountDTO.getHashPassword()), accountDTO.getEmail());
     }
 
     @Override
@@ -107,12 +82,10 @@ public class AccountServiceImpl implements AccountService {
     public void verifyOTP(String otp, String email) {
         String otpSession = (String) dataStore.get(email + "otp");
         Long otpTime = (Long) dataStore.get(email + "otpTime");
-//        System.out.println(otpSession + " | " + otpTime);
         if (otpTime == null || (System.currentTimeMillis() - otpTime) > 2 * 60 * 1000) {
             throw new CustomException("OTP is expired", HttpStatus.BAD_REQUEST);
         } else if (otp.equals(otpSession)) {
             AccountDTO accountDTO = (AccountDTO) dataStore.get(email + "account");
-//            System.out.println(accountDTO.toString());
             accountDTO.setEnabled(true);
             accountDTO.setHashPassword(passwordEncoder.encode(accountDTO.getHashPassword()));
             saveAccount(accountDTO);
@@ -144,7 +117,7 @@ public class AccountServiceImpl implements AccountService {
         }
         String otp = OTPUtil.generateOTP();
         dataStore.put(email + "otp", otp);
-        dataStore.put(email + "otp_exp", System.currentTimeMillis() + 2 * 60 * 1000); // 2 minutes expiration
+        dataStore.put(email + "otp_exp", System.currentTimeMillis() + 2 * 60 * 1000);
         sendMailForUser(email, otp, "OTP for reset password");
     }
 

@@ -2,7 +2,7 @@ package poly.gamemarketplacebackend.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,18 +14,18 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sys_id_user")
-    private int sysIdUser ;
+    private int sysIdUser;
 
-    @Column(name = "user_name", nullable = false, unique = true, length = 255)
+    @Column(name = "user_name", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "email", nullable = false, unique = true, length = 255)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "ho_va_ten", length = 255)
+    @Column(name = "ho_va_ten")
     private String hoVaTen;
 
-    @Column(name = "balance", length = 255)
+    @Column(name = "balance")
     private String balance;
 
     @Column(name = "join_time")

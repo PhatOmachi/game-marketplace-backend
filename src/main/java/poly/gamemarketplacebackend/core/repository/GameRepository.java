@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Game;
 
 import java.util.List;
@@ -25,9 +24,6 @@ public interface GameRepository extends JpaRepository<Game, Integer>, JpaSpecifi
     void delete(Game game);
 
     Optional<Game> findBySlug(String slug);
-
-//    @Query("SELECT g FROM Game g JOIN g.voucher v WHERE v.endDate >= CURRENT_DATE ORDER BY v.endDate ASC")
-//    Page<Game> findTopByVoucherEndDateNearest(Pageable pageable);
 
     Page<Game> findAll(Specification<Game> spec, Pageable pageable);
 

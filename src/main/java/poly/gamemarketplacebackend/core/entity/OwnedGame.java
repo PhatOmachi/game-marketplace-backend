@@ -29,6 +29,4 @@ public class OwnedGame {
     @ManyToOne
     @JoinColumn(name = "sys_id_game")
     private Game game;
-
-    // Getters and Setters
 }

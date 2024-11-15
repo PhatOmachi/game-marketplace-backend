@@ -1,7 +1,10 @@
 package poly.gamemarketplacebackend.core.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,30 +38,17 @@ public class Game {
     @Column(name = "slug", unique = true, nullable = false)
     private String slug;
 
-//    @Column(name = "game_category")
-//    private String gameCategory;
-
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean isActive;
 
-//    @Column(name = "sys_id_discount")
-//    private Integer sysIdDiscount;
-
     @Column(name = "quantity")
     private Integer quantity;
 
     @Column(name = "quantity_sold")
     private Integer quantitySold;
-
-//    @Column(name = "quantity_count")
-//    private Integer quantityCount;
-
-//    @ManyToOne
-//    @JoinColumn(name = "sys_id_discount", referencedColumnName = "sys_id_voucher", insertable = false, updatable = false)
-//    private Voucher voucher;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CategoryDetail> categoryDetails;
