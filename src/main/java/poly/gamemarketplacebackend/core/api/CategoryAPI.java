@@ -15,7 +15,7 @@ import poly.gamemarketplacebackend.core.service.CategoryService;
 public class CategoryAPI {
     private final CategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseObject<?> getAllCategory() {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
@@ -23,7 +23,7 @@ public class CategoryAPI {
                 .build();
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseObject<?> saveCategory(@RequestBody CategoryDTO categoryDTO) {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
@@ -31,7 +31,7 @@ public class CategoryAPI {
                 .build();
     }
 
-    @DeleteMapping("")
+    @DeleteMapping
     public ResponseObject<?> deleteCategory(@RequestBody CategoryDTO categoryDTO) {
         categoryService.deleteCategory(categoryDTO);
         return ResponseObject.builder()

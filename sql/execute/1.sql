@@ -1,3 +1,7 @@
+create schema if not exists public;
+
+
+
 Create table Account(
     id              int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
     username        varchar(50) NOT NULL UNIQUE,

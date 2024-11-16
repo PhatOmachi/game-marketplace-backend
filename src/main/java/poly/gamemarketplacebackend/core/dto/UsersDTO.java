@@ -3,6 +3,7 @@ package poly.gamemarketplacebackend.core.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class UsersDTO {
@@ -14,4 +15,5 @@ public class UsersDTO {
     private LocalDateTime joinTime;
     private String avatar;
     private Float totalSpent;
+    private List<OwnedGameDTO> ownedGames;
 }

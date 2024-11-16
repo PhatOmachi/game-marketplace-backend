@@ -12,11 +12,12 @@ import java.util.List;
 public interface OrdersMapper {
     OrdersMapper INSTANCE = Mappers.getMapper(OrdersMapper.class);
 
-    @Mapping(target="slug", ignore = true)
-    @Mapping(target="quantity", ignore = true)
-    @Mapping(target="sysIdUser", source = "users.sysIdUser")
+    @Mapping(target = "slug", ignore = true)
+    @Mapping(target = "quantity", ignore = true)
+    @Mapping(target = "sysIdUser", source = "users.sysIdUser")
     OrdersDTO toDTO(Orders orders);
 
+    @Mapping(source = "sysIdUser", target = "users.sysIdUser")
     Orders toEntity(OrdersDTO ordersDTO);
 
     List<OrdersDTO> toDTOs(List<Orders> orders);

@@ -12,10 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import poly.gamemarketplacebackend.core.exception.CustomException;
-import poly.gamemarketplacebackend.core.security.data.CustomUserDetails;
-import poly.gamemarketplacebackend.core.security.service.CustomUserDetailsService;
 import poly.gamemarketplacebackend.core.security.SecurityConfig;
 import poly.gamemarketplacebackend.core.security.authentication.CustomUserDetailsAuthenticationToken;
+import poly.gamemarketplacebackend.core.security.data.CustomUserDetails;
+import poly.gamemarketplacebackend.core.security.service.CustomUserDetailsService;
 import poly.gamemarketplacebackend.core.security.service.TokenBlacklistService;
 
 import java.io.IOException;
@@ -32,7 +32,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             SecurityConfig.nonAuthenticatedUrls
     );
     private final TokenBlacklistService tokenBlacklistService;
-//    private static final Logger logger = Logger.getLogger(JwtRequestFilter.class.getName());
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -42,10 +41,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
-        String token = getJwtToken(request).orElseThrow(() -> new CustomException("Authorization token không hơp lệ", HttpStatus.FORBIDDEN));
+        String token = getJwtToken(request).orElseThrow(() -> new CustomException("Authorization token is not valid", HttpStatus.FORBIDDEN));
         DecodedJWT decodedJWT = jwtUtil.verifyToken(token);
         if (decodedJWT == null) {
-            throw new CustomException("Token không xác thực", HttpStatus.FORBIDDEN);
+            throw new CustomException("Token is not authorized", HttpStatus.FORBIDDEN);
         }
         CustomUserDetails customUserDetails = service.jwtToCustomUserDetails(decodedJWT);
         if (customUserDetails.getAccount() == null) {

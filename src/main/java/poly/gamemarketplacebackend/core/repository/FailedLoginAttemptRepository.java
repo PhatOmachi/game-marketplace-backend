@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface FailedLoginAttemptRepository extends JpaRepository<FailedLoginAttempt, Long> {
     Optional<FailedLoginAttempt> findByUsername(String username);
+
     void deleteByUsername(String username);
 }

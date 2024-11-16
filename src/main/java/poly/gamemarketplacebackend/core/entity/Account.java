@@ -1,7 +1,10 @@
 package poly.gamemarketplacebackend.core.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -19,10 +22,10 @@ public class Account {
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
-    @Column(nullable = false, unique = true, length = 255)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "hash_password", nullable = false, length = 255)
+    @Column(name = "hash_password", nullable = false)
     private String hashPassword;
 
     @Column(name = "is_enabled", nullable = false)

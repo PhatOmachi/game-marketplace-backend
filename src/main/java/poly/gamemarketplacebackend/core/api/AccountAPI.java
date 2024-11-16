@@ -20,7 +20,7 @@ public class AccountAPI {
         accountService.requestRegistration(accountDTO);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
-                .message("Vui lòng kiểm tra email để xác nhận tài khoản")
+                .message("Please check email for registration verification")
                 .build();
     }
 
@@ -29,7 +29,7 @@ public class AccountAPI {
         accountService.verifyOTP(otp, email);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
-                .message("Xác nhận tài khoản thành công")
+                .message("Account verified successfully")
                 .build();
     }
 
@@ -38,7 +38,44 @@ public class AccountAPI {
         accountService.resendOTP(email);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
-                .message("Vui lòng kiểm tra email để xác nhận tài khoản")
+                .message("Please check email for registration verification")
                 .build();
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseObject<?> forgotPassword(@RequestParam String email) {
+        accountService.requestPasswordReset(email);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Please check your email to verify OTP")
+                .build();
+    }
+
+    @PostMapping("/forgot-password/verify-otp")
+    public ResponseObject<?> verifyForgotPasswordOTP(@RequestParam String email, @RequestParam String otp) {
+        accountService.verifyForgotPasswordOTP(email, otp);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("OTP is correct")
+                .build();
+    }
+
+    @PutMapping("/forgot-password/new-password")
+    public ResponseObject<?> updatePassword(@RequestParam String email, @RequestParam String newPass) {
+        accountService.updatePassword(email, newPass);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Password updated")
+                .build();
+    }
+
+    @PostMapping("/forgot-password/resend-otp")
+    public ResponseObject<?> resendOTPForForgotPassword(@RequestParam String email) {
+        accountService.resendOTPForForgotPassword(email);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Please check your email for OTP")
+                .build();
+    }
+
 }

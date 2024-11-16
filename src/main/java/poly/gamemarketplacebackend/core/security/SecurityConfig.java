@@ -36,7 +36,11 @@ public class SecurityConfig {
             "/api/auth/login",
             "/api/public/**",
             "/api/accounts/**",
+            "/api/accounts/*/**",
             "/api/*/p/**",
+            "/api/*/p/*/**",
+            "/api/*/p/*/*/**",
+            "/api/*/p/*/*/*/**",
             "/images/*/**",
     };
     private final String[] authenticatedUrls = {
@@ -57,16 +61,12 @@ public class SecurityConfig {
                         .configurationSource(corsConfigurationSource()))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(configurer -> configurer
-                                .requestMatchers(nonAuthenticatedUrls).permitAll()
-                                .requestMatchers(authenticatedUrls).authenticated()
-                                .requestMatchers(staffUrls).hasRole(Role.STAFF.name())
-                                .requestMatchers(adminUrls).hasRole(Role.ADMIN.name())
-                                .anyRequest().authenticated()
-                        //                        .anyRequest().permitAll()
+                        .requestMatchers(nonAuthenticatedUrls).permitAll()
+                        .requestMatchers(authenticatedUrls).authenticated()
+                        .requestMatchers(staffUrls).hasRole(Role.STAFF.name())
+                        .requestMatchers(adminUrls).hasRole(Role.ADMIN.name())
+                        .anyRequest().authenticated()
                 )
-//                .exceptionHandling(configurer ->
-//                        configurer.accessDeniedPage("/access-denied")
-//                )
         ;
 
         return http.build();
@@ -94,57 +94,4 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder);
         return builder.build();
     }
-
-//    private AuthenticationSuccessHandler authenticationSuccessHandler() {
-//        return new AuthenticationSuccessHandler() {
-//            @Override
-//            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-//                Cookie loginSuccessCookie = new Cookie("loginSuccess", "true");
-//                response.addCookie(loginSuccessCookie);
-//                response.sendRedirect("/");
-//            }
-//        };
-//    }
-/*
-    @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails john = User.builder()
-                .username("john")
-                .password("{noop}test123")
-                .roles("EMPLOYEE")
-                .build();
-
-        UserDetails mery = User.builder()
-                .username("mery")
-                .password("{noop}test123")
-                .roles("EMPLOYEE", "MANAGER")
-                .build();
-        UserDetails susan = User.builder()
-                .username("susan")
-                .password("{noop}test123")
-                .roles("EMPLOYEE", "MANAGER", "ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(john, mery, susan);
-        }
-    }
-*/
-    // add support for JDBC ... no more hardcoded users :=>
-/*
-    @Bean
-    public UserDetailsManager userDetailsManager (DataSource dataSource){
-
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        // define query to retrieve a user by username
-        jdbcUserDetailsManager.setUsersByUsernameQuery(
-            "select username,hash_password,is_enabled from account where username = ?"
-        );
-        //define query to rerieve the authrities / rolles by username
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
-            "select username,role from roles where username = ?"
-        );
-        return jdbcUserDetailsManager;
-    }
-*/
-
 }
