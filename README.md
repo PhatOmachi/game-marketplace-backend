@@ -1,6 +1,6 @@
-# DivineShop-java5
+# Game Marketplace Backend Service
 
-A project for Java 5.
+Graduation Project - Game Marketplace - Code Oxi by Hive Mind team.
 
 ## Table of Contents
 
@@ -9,11 +9,10 @@ A project for Java 5.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
-DivineShop-java5 is a backend service for a game marketplace. It provides functionalities to manage comments, games, and user interactions.
+GGH is a backend service for a game marketplace. It provides functionalities to manage comments, games, and user interactions.
 
 ## Technologies Used
 
@@ -30,8 +29,7 @@ DivineShop-java5 is a backend service for a game marketplace. It provides functi
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/vakhoa4875/DivineShop-java5.git
-    cd DivineShop-java5
+    git clone https://github.com/PhatOmachi/game-marketplace-backend.git
     ```
 
 2. Build the project using Maven:
@@ -54,10 +52,6 @@ DivineShop-java5 is a backend service for a game marketplace. It provides functi
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature-branch`).
 3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature-branch`).
+4. Commit your changes (`git commit -m '<tag>: <commit description>'`).
+5. Push to the branch (`git push origin feature/branch`).
 6. Open a pull request.
-
-## License
-
-This project is licensed under the MIT License.
