@@ -162,4 +162,23 @@ public class AccountServiceImpl implements AccountService {
         sendMailForUser(email, newOtp, "OTP for reset password");
     }
 
+    @Override
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
+        Account account = accountRepository.findByUsername(username);
+        if(account == null){
+            throw new RuntimeException("User not found");
+        }
+
+        if (!passwordEncoder.matches(oldPassword, account.getHashPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        String hashedPassword = passwordEncoder.encode(newPassword);
+
+        account.setHashPassword(hashedPassword);
+        accountRepository.save(account);
+
+        return true;
+    }
+
 }
