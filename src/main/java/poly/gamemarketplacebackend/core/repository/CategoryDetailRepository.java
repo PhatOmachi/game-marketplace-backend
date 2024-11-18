@@ -15,4 +15,8 @@ public interface CategoryDetailRepository extends JpaRepository<CategoryDetail, 
     @Query(value = "INSERT INTO Category_detail (sys_id_category, sys_id_game) VALUES (:sysIdCategory, :sysIdGame)", nativeQuery = true)
     void insertCategoryDetail(@Param("sysIdCategory") Integer sysIdCategory, @Param("sysIdGame") Integer sysIdGame);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM CategoryDetail c WHERE c.game.sysIdGame = :sysIdGame")
+    int deleteCategoryDetailsByGameId(@Param("sysIdGame") Integer sysIdGame);
 }
