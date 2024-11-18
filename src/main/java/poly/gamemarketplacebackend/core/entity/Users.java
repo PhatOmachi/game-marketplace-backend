@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,6 +34,15 @@ public class Users {
 
     @Column(name = "avatar")
     private String avatar;
+
+    @Column(name = "gender", nullable = false)
+    private Boolean gender;
+
+    @Column(name = "DOB")
+    private LocalDate DOB;
+
+    @Column(name = "phone_number", length = 11)
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "users")
     @JsonManagedReference

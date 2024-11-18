@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.UsersDTO;
+import poly.gamemarketplacebackend.core.entity.Users;
+import poly.gamemarketplacebackend.core.repository.UsersRepository;
 import poly.gamemarketplacebackend.core.service.UsersService;
 import poly.gamemarketplacebackend.core.service.impl.CloudinaryService;
 import poly.gamemarketplacebackend.core.service.impl.UsersServiceImpl;
@@ -20,6 +22,7 @@ import java.io.IOException;
 public class UsersAPI {
     private final UsersService usersService;
     private final CloudinaryService cloudinaryService;
+    private final UsersRepository repository;
 
     @GetMapping("/account-profile")
     public ResponseObject<?> accountProfile(@RequestParam("username") String username){

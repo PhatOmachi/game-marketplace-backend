@@ -8,21 +8,24 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Users;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users , Integer> {
     Users findByUsername(@Param("username") String username);
-
     @Modifying
     @Transactional
-    @Query("UPDATE Users u SET u.email = :email, u.hoVaTen = :hoVaTen, u.avatar = :avatar WHERE u.username = :username")
+    @Query("UPDATE Users u SET u.email = :email, u.hoVaTen = :hoVaTen, u.avatar = :avatar, u.gender = :gender, u.DOB = :dob, u.phoneNumber = :phoneNumber WHERE u.username = :username")
     int updateUsersByUsername(
             @Param("email") String email,
             @Param("hoVaTen") String hoVaTen,
             @Param("avatar") String avatar,
+            @Param("gender") boolean gender,
+            @Param("dob") LocalDate dob,
+            @Param("phoneNumber") String phoneNumber,
             @Param("username") String username
     );
+
 
     @Modifying
     @Transactional

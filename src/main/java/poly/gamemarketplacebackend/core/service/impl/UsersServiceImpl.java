@@ -27,8 +27,13 @@ public class UsersServiceImpl implements UsersService {
                 usersDTO.getEmail(),
                 usersDTO.getHoVaTen(),
                 usersDTO.getAvatar(),
-                usersDTO.getUsername());
+                usersDTO.getGender(),
+                usersDTO.getDOB(),
+                usersDTO.getPhoneNumber(),
+                usersDTO.getUsername() 
+        );
     }
+
 
     @Override
     public UsersDTO getCurrentUser() {
