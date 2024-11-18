@@ -27,7 +27,8 @@ public class CategoryDetailServiceImpl implements CategoryDetailService {
     }
 
     @Override
-    public int deleteCategoryDetailByGameId(Integer sysIdGame) {
-        return categoryDetailRepository.deleteCategoryDetailByGameId(sysIdGame);
+    public int deleteCategoryDetailsByGameId(Integer sysIdGame) {
+        return categoryDetailRepository.deleteCategoryDetailsByGameId(sysIdGame);
     }
+
 }

@@ -19,5 +19,5 @@ public interface CategoryDetailRepository extends JpaRepository<CategoryDetail, 
     @Modifying
     @Transactional
     @Query("DELETE FROM CategoryDetail c WHERE c.game.sysIdGame = :sysIdGame")
-    int deleteCategoryDetailByGameId(@Param("sysIdGame") Integer sysIdGame);
+    int deleteCategoryDetailsByGameId(@Param("sysIdGame") Integer sysIdGame);
 }

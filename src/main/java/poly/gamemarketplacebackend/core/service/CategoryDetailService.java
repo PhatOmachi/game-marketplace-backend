@@ -8,5 +8,5 @@ public interface CategoryDetailService {
 
     void insertCategoryDetail(Integer sysIdCategory, Integer sysIdGame);
 
-    int deleteCategoryDetailByGameId(Integer sysIdGame);
+    int deleteCategoryDetailsByGameId(Integer sysIdGame);
 }

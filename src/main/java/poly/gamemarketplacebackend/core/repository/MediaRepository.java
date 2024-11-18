@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Media;
 
+import java.util.List;
+
 @Repository
 public interface MediaRepository extends JpaRepository<Media, Integer> {
 
@@ -21,5 +23,12 @@ public interface MediaRepository extends JpaRepository<Media, Integer> {
     @Query("DELETE FROM Media m WHERE m.game.sysIdGame = :sysIdGame")
     int deleteMediaByGameId(@Param("sysIdGame") Integer sysIdGame);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Media m WHERE m.mediaUrl = :mediaUrl")
+    int deleteMediaByUrl(@Param("mediaUrl") String mediaUrl);
+
+    @Query("SELECT m FROM Media m WHERE m.game.sysIdGame = :sysIdGame")
+    List<Media> getMediaByGameId(@Param("sysIdGame") Integer sysIdGame);
 
 }
