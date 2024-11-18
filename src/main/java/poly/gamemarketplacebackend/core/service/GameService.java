@@ -22,6 +22,7 @@ public interface GameService {
     GameDTO findBySlug(String slug);
 
     String saveFile(String uploadDir, MultipartFile file) throws IOException;
+
     List<GameDTO> getGamesByFieldDesc(String field, int page, int size);
 
     List<GameDTO> getTopGamesByVoucherEndDateNearest(int page, int size);

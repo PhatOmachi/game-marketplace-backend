@@ -11,7 +11,7 @@ import poly.gamemarketplacebackend.core.entity.Users;
 import java.time.LocalDate;
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users , Integer> {
+public interface UsersRepository extends JpaRepository<Users, Integer> {
     Users findByUsername(@Param("username") String username);
     @Modifying
     @Transactional

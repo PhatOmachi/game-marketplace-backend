@@ -42,7 +42,7 @@ public class GameAPI {
     private final CategoryService categoryService;
     private final MediaService mediaService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseObject<?> getAllGame() {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
@@ -50,7 +50,7 @@ public class GameAPI {
                 .build();
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseObject<?> createGame(@RequestBody GameDTO gameDTO) {
         // Bước 1: Lưu thông tin game trước
         Game game;
@@ -168,7 +168,7 @@ public class GameAPI {
     }
 
 
-    @DeleteMapping("")
+    @DeleteMapping
     public ResponseObject<?> deleteGame(@RequestBody GameDTO gameDTO) {
         gameService.deleteGame(gameDTO);
         return ResponseObject.builder()

@@ -5,7 +5,5 @@ import org.springframework.stereotype.Repository;
 import poly.gamemarketplacebackend.core.entity.Orders;
 
 @Repository
-public interface OrdersRepository extends JpaRepository<Orders,Integer> {
-
-
+public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 }

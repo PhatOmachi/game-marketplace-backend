@@ -113,7 +113,7 @@ public class OrdersServiceImpl implements OrdersService {
                         .build();
                 ownedGameRepository.save(ownedGameMapper.toEntity(ownedGame));
                 for (int i = 0; i < order.getQuantity(); i++) {
-                    licenseKeys.add(game.getGameName() + ": " + LicenseKeyUtils.generateLicenseKey());
+                    licenseKeys.add(game.getGameName() + "!@#%&" + LicenseKeyUtils.generateLicenseKey());
                 }
             }
             sendLicenseKeysByEmail(usersService.getCurrentUser().getEmail(), licenseKeys);
@@ -131,7 +131,7 @@ public class OrdersServiceImpl implements OrdersService {
 
             StringBuilder emailContent = new StringBuilder("Here are your license keys:<br>");
             for (String licenseKey : licenseKeys) {
-                String[] parts = licenseKey.split(": ");
+                String[] parts = licenseKey.split("!@#%&");
                 emailContent.append("<b>").append(parts[0]).append("</b>: ").append(parts[1]).append("<br>");
             }
 

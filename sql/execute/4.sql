@@ -14,3 +14,28 @@ alter table comment
 alter table comment
 drop column sys_id_product,
     add column sys_id_game integer not null references game;
+
+CREATE OR REPLACE PROCEDURE update_game_ratings()
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE game g
+    SET rating = subquery.avg_rating,
+        rating_count = subquery.comment_count
+    FROM (
+        SELECT
+            c.sys_id_game,
+            AVG(c.star) AS avg_rating,
+            COUNT(c.sys_id_comment) AS comment_count
+        FROM
+            comment c
+        WHERE
+            c.comment_date >= CURRENT_DATE - INTERVAL '1 day'
+            AND c.comment_date < CURRENT_DATE
+        GROUP BY
+            c.sys_id_game
+    ) AS subquery
+    WHERE
+        g.sys_id_game = subquery.sys_id_game;
+END;
+$$;

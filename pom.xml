@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>poly</groupId>
     <artifactId>GameMarketplaceBackend</artifactId>
@@ -129,13 +129,6 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
-                        <!-- See https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html -->
-                        <!-- Classpath elements to supply as annotation processor path. If specified, the compiler   -->
-                        <!-- will detect annotation processors only in those classpath elements. If omitted, the     -->
-                        <!-- default classpath is used to detect annotation processors. The detection itself depends -->
-                        <!-- on the configuration of annotationProcessors.                                           -->
-                        <!--                                                                                         -->
-                        <!-- According to this documentation, the provided dependency processor is not considered!   -->
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.mapstruct</groupId>

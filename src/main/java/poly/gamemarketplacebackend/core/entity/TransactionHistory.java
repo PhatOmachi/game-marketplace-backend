@@ -25,6 +25,4 @@ public class TransactionHistory {
 
     @Column(name = "user_name")
     private String username;
-
-    // Getters and Setters
 }

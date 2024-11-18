@@ -6,6 +6,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 import poly.gamemarketplacebackend.core.dto.UsersDTO;
+import poly.gamemarketplacebackend.core.entity.Orders;
 import poly.gamemarketplacebackend.core.entity.Users;
 
 @Mapper(componentModel = "spring", uses = {OwnedGameMapper.class})
@@ -26,7 +27,7 @@ public interface UsersMapper {
             return;
         }
         float totalSpent = (float) users.getOrders().stream()
-                .mapToDouble(order -> order.getTotalPayment())
+                .mapToDouble(Orders::getTotalPayment)
                 .sum();
         usersDTO.setTotalSpent(totalSpent);
     }

@@ -33,23 +33,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TransactionHistoryServiceImpl implements TransactionHistoryService {
     private final VNPAYConfig vnPayConfig;
-    private final TransactionHistoryRepository repo;
-    private final UsersService userService;
+    private final TransactionHistoryRepository transactionHistoryRepository;
     private final UsersRepository usersRepository;
     private final DataStore dataStore;
     private final HttpServletRequest request;
 
     @Override
     public VNPayResponse createVnPayPayment(VNPayRequest vnPayRequest) {
-        long amount = vnPayRequest.getAmount() * 100L;
-        String bankCode = vnPayRequest.getBankCode();
-        Map<String, String> vnpParamsMap = vnPayConfig.getVNPayConfig();
-        vnpParamsMap.put("vnp_Amount", String.valueOf(amount));
-        if (bankCode != null && !bankCode.isEmpty()) {
-            vnpParamsMap.put("vnp_BankCode", bankCode);
-        }
-        vnpParamsMap.put("vnp_IpAddr", VNPayUtil.getIpAddress(request));
-        vnpParamsMap.put("vnp_OrderInfo", "Thanh toan don hang-" + vnPayRequest.getName());
+        Map<String, String> vnpParamsMap = getVNPayMap(vnPayRequest);
         // Build query URL
         String queryUrl = VNPayUtil.getPaymentURL(vnpParamsMap, true);
         String hashData = VNPayUtil.getPaymentURL(vnpParamsMap, false);
@@ -64,6 +55,19 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
                 .paymentUrl(paymentUrl).build();
     }
 
+    private Map<String, String> getVNPayMap(VNPayRequest vnPayRequest) {
+        long amount = vnPayRequest.getAmount() * 100L;
+        String bankCode = vnPayRequest.getBankCode();
+        Map<String, String> vnpParamsMap = vnPayConfig.getVNPayConfig();
+        vnpParamsMap.put("vnp_Amount", String.valueOf(amount));
+        if (bankCode != null && !bankCode.isEmpty()) {
+            vnpParamsMap.put("vnp_BankCode", bankCode);
+        }
+        vnpParamsMap.put("vnp_IpAddr", VNPayUtil.getIpAddress(request));
+        vnpParamsMap.put("vnp_OrderInfo", "Check out order-" + vnPayRequest.getName());
+        return vnpParamsMap;
+    }
+
     @Override
     @Transactional
     @SneakyThrows
@@ -71,22 +75,21 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
         String url = createVnPayPayment(vnPayRequest).paymentUrl;
         String query = new URL(url).getQuery();
         Map<String, String> parameters = getQueryParameters(query);
-
+        // Get & initialize data from VNPayRequest
         String vnpAmount = parameters.get("vnp_Amount");
-        String vnp_TxnRef = parameters.get("vnp_TxnRef");
-        String vnp_OrderInfo = parameters.get("vnp_OrderInfo");
-        int hyphenPos = vnp_OrderInfo.indexOf("-");
-
-        String vnp_CreateDate = parameters.get("vnp_CreateDate").substring(0, 8);
+        String vnpTxnRef = parameters.get("vnp_TxnRef");
+        String vnpOrderInfo = parameters.get("vnp_OrderInfo");
+        int hyphenPos = vnpOrderInfo.indexOf("-");
+        String vnpCreateDate = parameters.get("vnp_CreateDate").substring(0, 8);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate date = LocalDate.parse(vnp_CreateDate, formatter);
+        LocalDate date = LocalDate.parse(vnpCreateDate, formatter);
         Timestamp timestamp = Timestamp.valueOf(date.atStartOfDay());
-
+        // Initialize a TransactionHistory object with existed data
         TransactionHistory newTransaction = TransactionHistory.builder()
-                .description(vnp_TxnRef)
+                .description(vnpTxnRef)
                 .paymentTime(timestamp)
                 .amount(Float.parseFloat(vnpAmount) / 100)
-                .username(vnp_OrderInfo.substring(hyphenPos + 1))
+                .username(vnpOrderInfo.substring(hyphenPos + 1))
                 .status(false)
                 .build();
 
@@ -113,32 +116,23 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     @Override
     @SneakyThrows
     public String payCallbackHandler(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes redirectAttributes) {
-        String status = request.getParameter("vnp_ResponseCode");
-
-        String vnp_OrderInfo = request.getParameter("vnp_OrderInfo"); //người lập hóa đơn
-        int hyphenPos = vnp_OrderInfo.indexOf("-"); //người lập hóa đơn
-        String username = vnp_OrderInfo.substring(hyphenPos + 1);
-        String tien = request.getParameter("vnp_Amount"); // tiền
-        double amount = Double.parseDouble(tien)/100;
-
-        String maDonHang = request.getParameter("vnp_TxnRef");
-
-        System.out.println("status: " + status);
-
-        if (status.equals("00")) {
+        String status = request.getParameter("vnp_ResponseCode");        
+        if (status.equals("00")) { // "00" : Payment success
+            // Get data from input parameters
+            String vnpOrderInfo = request.getParameter("vnp_OrderInfo");
+            int hyphenPos = vnpOrderInfo.indexOf("-");
+            String username = vnpOrderInfo.substring(hyphenPos + 1);
+            String vnpAmount = request.getParameter("vnp_Amount");
+            double amount = Double.parseDouble(vnpAmount)/100;
+            String maDonHang = request.getParameter("vnp_TxnRef");
+            // Align data according to the payment succeed
             updatePaymentByUser(maDonHang);
-
             double currentBalance = Double.parseDouble(usersRepository.findByUsername(username).getBalance());
             currentBalance += amount;
-
             usersRepository.updateUsersByUsername(currentBalance+"",username);
-            // Thay đổi giá trị của flag thành true
-            dataStore.put("flag", true);
-            redirectAttributes.addAttribute("flag", false);
             response.sendRedirect(dataStore.get("succeedPaymentUrl").toString());
             return "true";
         } else {
-            dataStore.put("flag1", true);
             response.sendRedirect(dataStore.get("errorPaymentUrl").toString());
             return "false";
         }
@@ -146,21 +140,21 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 
     @Override
     public void save(TransactionHistory transactionHistory) {
-        repo.save(transactionHistory);
+        transactionHistoryRepository.save(transactionHistory);
     }
 
     @Override
     public void updatePaymentByUser(String name) {
-        repo.updatePaymentuser(true, name);
+        transactionHistoryRepository.updatePaymentuser(true, name);
     }
 
     @Override
     public TransactionHistory findByUsername(String username) {
-        return repo.findByUsername(username);
+        return transactionHistoryRepository.findByUsername(username);
     }
 
     @Override
     public List<TransactionHistory> findAllByUsername(String username) {
-        return repo.findAllByUsername(username);
+        return transactionHistoryRepository.findAllByUsername(username);
     }
 }

@@ -6,9 +6,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Game;
 
 import java.util.List;
@@ -26,11 +26,11 @@ public interface GameRepository extends JpaRepository<Game, Integer>, JpaSpecifi
 
     Optional<Game> findBySlug(String slug);
 
-//    @Query("SELECT g FROM Game g JOIN g.voucher v WHERE v.endDate >= CURRENT_DATE ORDER BY v.endDate ASC")
-//    Page<Game> findTopByVoucherEndDateNearest(Pageable pageable);
-
     Page<Game> findAll(Specification<Game> spec, Pageable pageable);
 
     @Query("SELECT g FROM Game g JOIN CategoryDetail cd ON g.sysIdGame = cd.game.sysIdGame WHERE cd.category.sysIdCategory in :categoryIds AND g.sysIdGame <> :sysIdGame order by g.discountPercent desc")
     List<Game> findRelatedGames(@Param("categoryIds") List<Integer> categoryIds, @Param("sysIdGame") Integer sysIdGame);
+
+    @Procedure(procedureName = "update_game_ratings")
+    void updateGameRatings();
 }
