@@ -31,4 +31,6 @@ public interface AccountService {
     void updatePassword(String email, String newPass);
 
     void resendOTPForForgotPassword(String email);
+
+    boolean changePassword(String username, String passwordOld, String passwordNew);
 }
