@@ -1,7 +1,6 @@
 spring:
   application:
     name: game-marketplace-backend
-    api-prefix: /api/v1
 
   datasource:
     url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
@@ -15,11 +14,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
-#  security:
-#    user:
-#      name: user
-#      password: password
 
   mail:
     host: smtp.gmail.com
@@ -55,3 +49,9 @@ payment:
     version: 2.1.0
     command: pay
     orderType: other
+
+cloudinary:
+  cloud_name: dx66jgmlq
+  api_key: 512594293551369
+  api_secret: lhFCO61qmidjvmhmQSQN3jN69ds
+

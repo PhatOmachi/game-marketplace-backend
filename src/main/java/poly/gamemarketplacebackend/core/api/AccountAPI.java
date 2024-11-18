@@ -20,7 +20,7 @@ public class AccountAPI {
         accountService.requestRegistration(accountDTO);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
-                .message("Vui lòng kiểm tra email để xác nhận tài khoản")
+                .message("Please check email for registration verification")
                 .build();
     }
 
@@ -29,7 +29,7 @@ public class AccountAPI {
         accountService.verifyOTP(otp, email);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
-                .message("Xác nhận tài khoản thành công")
+                .message("Account verified successfully")
                 .build();
     }
 
@@ -38,7 +38,7 @@ public class AccountAPI {
         accountService.resendOTP(email);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
-                .message("Vui lòng kiểm tra email để xác nhận tài khoản")
+                .message("Please check email for registration verification")
                 .build();
     }
 
@@ -78,4 +78,17 @@ public class AccountAPI {
                 .build();
     }
 
+    @PostMapping("/change-password")
+    public ResponseObject<?> changePassword(@RequestBody AccountDTO accountDTO) {
+        boolean result = accountService.changePassword(
+                accountDTO.getUsername(),
+                accountDTO.getOldPassword(),
+                accountDTO.getNewPassword()
+        );
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Update password Sucess")
+                .build();
+
+    }
 }

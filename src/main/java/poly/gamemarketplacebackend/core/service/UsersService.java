@@ -8,4 +8,6 @@ public interface UsersService {
     int updateUserProfile(UsersDTO usersDTO);
 
     UsersDTO getCurrentUser();
+
+    void updateUserAvatar(String username, String avatarUrl);
 }

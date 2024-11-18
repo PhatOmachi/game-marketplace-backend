@@ -2,8 +2,6 @@ package poly.gamemarketplacebackend.core.security.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-//import org.phatgiao.chualinhsonapi.entity.FailedLoginAttempt;
-//import org.phatgiao.chualinhsonapi.repository.FailedLoginAttemptRepository;
 import org.springframework.stereotype.Service;
 import poly.gamemarketplacebackend.core.entity.FailedLoginAttempt;
 import poly.gamemarketplacebackend.core.repository.FailedLoginAttemptRepository;
@@ -15,8 +13,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CustomLoginAttemptService {
-    private final int MAX_ATTEMPTS = 5;
-    private final long LOCK_TIME_DURATION = 30 * 60 * 1000; // 30 minutes
 
     private final FailedLoginAttemptRepository failedLoginAttemptRepository;
 
@@ -40,12 +36,15 @@ public class CustomLoginAttemptService {
         if (attemptOpt.isPresent()) {
             FailedLoginAttempt attempt = attemptOpt.get();
 
+            int MAX_ATTEMPTS = 5;
             if (attempt.getFailedAttempts() >= MAX_ATTEMPTS) {
                 long lastFailedTime = attempt.getLastFailedTime().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
                 long currentTime = System.currentTimeMillis();
 
+                // 30 minutes
+                long LOCK_TIME_DURATION = 30 * 60 * 1000;
                 if ((currentTime - lastFailedTime) < LOCK_TIME_DURATION) {
-                    return true; // Account is still locked
+                    return true;
                 } else {
                     resetFailedAttempts(username);
                 }

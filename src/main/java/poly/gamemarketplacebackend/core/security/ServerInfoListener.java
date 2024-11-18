@@ -25,7 +25,7 @@ public class ServerInfoListener implements ApplicationListener<WebServerInitiali
         System.out.println("Application is running on host: " + host + " and port: " + port);
     }
 
-    public static String getAddr() {
+    public static String getAddress() {
         return host + ":" + port;
     }
 }

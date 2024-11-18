@@ -2,7 +2,6 @@ package poly.gamemarketplacebackend.core.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import poly.gamemarketplacebackend.core.dto.CommentDTO;
 import poly.gamemarketplacebackend.core.entity.Comment;
@@ -26,30 +25,27 @@ public class CommentServiceImpl implements CommentService {
     private final UsersMapper usersMapper;
     private final UsersService usersService;
 
-@Override
-public CommentDTO createComment(CommentDTO commentDTO) {
-    // Get the current user
-    Users currentUser = usersMapper.toEntity(usersService.getCurrentUser());
-
-    // Check if the game is in the user's owned games
-    boolean isOwned = currentUser.getOwnedGames().stream()
-            .anyMatch(game -> game.getGame().getSysIdGame().equals(commentDTO.getGameId()));
-    if (!isOwned) {
-        throw new CustomException("User does not own this game", HttpStatus.NOT_ACCEPTABLE);
+    @Override
+    public CommentDTO createComment(CommentDTO commentDTO) {
+        Users currentUser = usersMapper.toEntity(usersService.getCurrentUser());
+        validateCommentOnInsert(commentDTO, currentUser);
+        Comment comment = commentMapper.toEntity(commentDTO);
+        comment.setUser(currentUser);
+        comment = commentRepository.save(comment);
+        return commentMapper.toDTO(comment);
     }
 
-    // Check if the user has already commented on this game
-    boolean hasCommented = commentRepository.existsByUser_SysIdUserAndGame_SysIdGame(currentUser.getSysIdUser(), commentDTO.getGameId());
-    if (hasCommented) {
-        throw new CustomException("User has already commented on this game", HttpStatus.NOT_ACCEPTABLE);
+    private void validateCommentOnInsert(CommentDTO commentDTO, Users currentUser) {
+        boolean isOwned = currentUser.getOwnedGames().stream()
+                .anyMatch(game -> game.getGame().getSysIdGame().equals(commentDTO.getGameId()));
+        if (!isOwned) {
+            throw new CustomException("User does not own this game", HttpStatus.NOT_ACCEPTABLE);
+        }
+        boolean hasCommented = commentRepository.existsByUser_SysIdUserAndGame_SysIdGame(currentUser.getSysIdUser(), commentDTO.getGameId());
+        if (hasCommented) {
+            throw new CustomException("User has already commented on this game", HttpStatus.NOT_ACCEPTABLE);
+        }
     }
-
-    // Save the comment
-    Comment comment = commentMapper.toEntity(commentDTO);
-    comment.setUser(currentUser);
-    comment = commentRepository.save(comment);
-    return commentMapper.toDTO(comment);
-}
 
     @Override
     public CommentDTO updateComment(Integer id, CommentDTO commentDTO) {

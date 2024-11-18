@@ -43,7 +43,7 @@ public class GameAPI {
     private final CategoryService categoryService;
     private final MediaService mediaService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseObject<?> getAllGame() {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
@@ -51,7 +51,7 @@ public class GameAPI {
                 .build();
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseObject<?> createGame(@RequestBody GameDTO gameDTO) {
         return gameService.saveOrUpdateGame(gameDTO, false);
     }
@@ -62,7 +62,7 @@ public class GameAPI {
         return gameService.saveOrUpdateGame(gameDTO, true);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping
     public ResponseObject<?> deleteGame(@RequestBody GameDTO gameDTO) {
         gameService.deleteGame(gameDTO);
         return ResponseObject.builder()
