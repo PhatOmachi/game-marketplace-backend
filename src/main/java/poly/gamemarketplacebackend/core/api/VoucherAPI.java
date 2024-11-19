@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.VoucherDTO;
+import poly.gamemarketplacebackend.core.exception.CustomException;
 import poly.gamemarketplacebackend.core.mapper.VoucherMapper;
+import poly.gamemarketplacebackend.core.service.EmailService;
 import poly.gamemarketplacebackend.core.service.VoucherService;
 
 @RestController
@@ -141,6 +143,17 @@ public class VoucherAPI {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .data(voucherService.validVoucherByUser(codeVoucher))
+                .build();
+    }
+
+    private final EmailService emailService;
+
+    @PostMapping("/send/{codeVoucher}")
+    public ResponseObject<?> sendVoucher(@PathVariable String codeVoucher) {
+        voucherService.sendVoucherToUser(codeVoucher);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Voucher is sent successfully to your email")
                 .build();
     }
 }
