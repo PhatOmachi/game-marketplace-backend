@@ -8,11 +8,11 @@ INSERT INTO public.roles (username, username_user, role) VALUES ('khoadev2004', 
 INSERT INTO public.roles (username, username_user, role) VALUES ('kaiz', 'kaiz', 'ADMIN');
 
 alter table comment
-    drop column start,
+    drop column if exists start,
     add column star integer not null default 0;
 
 alter table comment
-drop column sys_id_product,
+drop column if exists sys_id_product,
     add column sys_id_game integer not null references game;
 
 CREATE OR REPLACE PROCEDURE update_game_ratings()
@@ -39,3 +39,12 @@ BEGIN
         g.sys_id_game = subquery.sys_id_game;
 END;
 $$;
+
+ALTER TABLE users
+    ADD COLUMN gender BOOLEAN DEFAULT true;
+
+ALTER TABLE users
+    ADD COLUMN DOB DATE DEFAULT '2000-01-01';
+
+ALTER TABLE users
+    ADD COLUMN phone_number VARCHAR(11);

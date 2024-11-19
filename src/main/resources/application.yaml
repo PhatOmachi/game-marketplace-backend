@@ -49,3 +49,9 @@ payment:
     version: 2.1.0
     command: pay
     orderType: other
+
+cloudinary:
+  cloud_name: dx66jgmlq
+  api_key: 512594293551369
+  api_secret: lhFCO61qmidjvmhmQSQN3jN69ds
+

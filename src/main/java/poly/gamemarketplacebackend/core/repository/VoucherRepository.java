@@ -40,7 +40,7 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
             "AND v.endDate >= CURRENT_DATE " +
             "AND v.isActive = true " +
             "AND v.quantity >= 1 " +
-            "AND NOT EXISTS (SELECT vu FROM Voucher_use vu WHERE vu.sysIdVoucherUseDetail = v AND vu.sysIdUser = :sysIdUser)")
+            "AND NOT EXISTS (SELECT vu FROM Voucher_use vu WHERE vu.sysIdVoucherUseDetail.sysIdVoucher = v.sysIdVoucher AND vu.sysIdUser = :sysIdUser)")
     Optional<Voucher> findValidVoucher(@Param("codeVoucher") String codeVoucher, @Param("sysIdUser") int sysIdUser);
 
 }

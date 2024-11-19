@@ -22,6 +22,9 @@ public interface GameRepository extends JpaRepository<Game, Integer>, JpaSpecifi
 
     Game save(Game game);
 
+
+    Optional<Game> findById(Integer id);
+
     void delete(Game game);
 
     Optional<Game> findBySlug(String slug);
