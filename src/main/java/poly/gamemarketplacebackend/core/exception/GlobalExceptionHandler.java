@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
                 .status(ex.getStatus())
                 .message(ex.getMessage())
                 .build();
+        log.error(response.getMessage());
         return new ResponseEntity<>(response, ex.getStatus());
     }
 
@@ -29,6 +30,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .message("SQL exception: " + ex.getMessage())
                 .build();
+        log.error(response.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -38,6 +40,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .message("Null pointer exception: " + ex.getMessage())
                 .build();
+        log.error(response.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -47,6 +50,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .message("Exception: " + ex.getMessage())
                 .build();
+        log.error(response.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -56,6 +60,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .message("Illegal argument exception: " + ex.getMessage())
                 .build();
+        log.error(response.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -65,6 +70,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .message("Runtime exception: " + ex.getMessage())
                 .build();
+        log.error(response.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -74,6 +80,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.UNAUTHORIZED)
                 .message("Signature verification exception: " + ex.getMessage())
                 .build();
+        log.error(response.getMessage());
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 }
