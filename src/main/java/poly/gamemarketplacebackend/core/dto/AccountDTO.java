@@ -9,6 +9,8 @@ public class AccountDTO {
     private String email;
     private String hashPassword;
     private boolean isEnabled;
+    private String oldPassword;
+    private String newPassword;
 
     @Override
     public String toString() {

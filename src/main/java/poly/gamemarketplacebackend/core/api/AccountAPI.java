@@ -78,4 +78,17 @@ public class AccountAPI {
                 .build();
     }
 
+    @PostMapping("/change-password")
+    public ResponseObject<?> changePassword(@RequestBody AccountDTO accountDTO) {
+        boolean result = accountService.changePassword(
+                accountDTO.getUsername(),
+                accountDTO.getOldPassword(),
+                accountDTO.getNewPassword()
+        );
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Update password Sucess")
+                .build();
+
+    }
 }
