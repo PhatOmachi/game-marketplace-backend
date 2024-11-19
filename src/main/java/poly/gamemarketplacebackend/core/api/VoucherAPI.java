@@ -3,6 +3,7 @@ package poly.gamemarketplacebackend.core.api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.VoucherDTO;
@@ -18,12 +19,17 @@ public class VoucherAPI {
     private final VoucherMapper voucherMapper;
 
     @PostMapping("/create")
-    public ResponseObject<?> createVoucher(@RequestBody VoucherDTO voucherDTO) {
-        voucherService.save(voucherMapper.toEntity(voucherDTO));
-        return ResponseObject.builder()
-                .status(HttpStatus.OK)
-                .message("Tạo voucher thành công")
-                .build();
+    public ResponseEntity<ResponseObject> createVoucher(@RequestBody VoucherDTO voucherDTO) {
+        try {
+            voucherService.save(voucherDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject(HttpStatus.OK, "Tạo voucher thành công", null)
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ResponseObject(HttpStatus.INTERNAL_SERVER_ERROR, "Tạo voucher thất bại", e.getMessage())
+            );
+        }
     }
 
     @GetMapping("/all")
@@ -71,30 +77,30 @@ public class VoucherAPI {
                 .build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseObject<?> updateVoucher(@PathVariable Integer id, @RequestBody VoucherDTO dto) {
-        VoucherDTO voucherDTO = voucherService.findBySysIdVoucher(id);
-
-        if (voucherDTO == null) {
-            return ResponseObject.builder()
-                    .status(HttpStatus.NOT_FOUND)
-                    .message("Không có voucher có id = " + id)
-                    .build();
-        }
-
-        voucherDTO.setCodeVoucher(dto.getCodeVoucher());
-        voucherDTO.setDescription(dto.getDescription());
-        voucherDTO.setDiscountName(dto.getDiscountName());
-        voucherDTO.setEndDate(dto.getEndDate());
-        voucherDTO.setStartDate(dto.getStartDate());
-        voucherDTO.setDiscountPercent(dto.getDiscountPercent());
-
-        return ResponseObject.builder()
-                .status(HttpStatus.OK)
-                .message("Cập nhật voucher thành công")
-                .data(voucherService.save(voucherMapper.toEntity(voucherDTO)))
-                .build();
-    }
+//    @PutMapping("/{id}")
+//    public ResponseObject<?> updateVoucher(@PathVariable Integer id, @RequestBody VoucherDTO dto) {
+//        VoucherDTO voucherDTO = voucherService.findBySysIdVoucher(id);
+//
+//        if (voucherDTO == null) {
+//            return ResponseObject.builder()
+//                    .status(HttpStatus.NOT_FOUND)
+//                    .message("Không có voucher có id = " + id)
+//                    .build();
+//        }
+//
+//        voucherDTO.setCodeVoucher(dto.getCodeVoucher());
+//        voucherDTO.setDescription(dto.getDescription());
+//        voucherDTO.setDiscountName(dto.getDiscountName());
+//        voucherDTO.setEndDate(dto.getEndDate());
+//        voucherDTO.setStartDate(dto.getStartDate());
+//        voucherDTO.setDiscountPercent(dto.getDiscountPercent());
+//
+//        return ResponseObject.builder()
+//                .status(HttpStatus.OK)
+//                .message("Cập nhật voucher thành công")
+//                .data(voucherService.save(voucherMapper.toEntity(voucherDTO)))
+//                .build();
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseObject<?> deleteVoucher(@PathVariable Integer id) {

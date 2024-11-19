@@ -3,6 +3,7 @@ package poly.gamemarketplacebackend.core.service;
 import poly.gamemarketplacebackend.core.dto.VoucherDTO;
 import poly.gamemarketplacebackend.core.entity.Voucher;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface VoucherService {
@@ -14,7 +15,7 @@ public interface VoucherService {
 
     VoucherDTO findBySysIdVoucher(Integer id);
 
-    VoucherDTO save(Voucher voucher);
+    void save(VoucherDTO voucher) throws IOException;
 
     void deleteBySysIdVoucher(Integer id);
 
