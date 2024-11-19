@@ -3,9 +3,9 @@ spring:
     name: game-marketplace-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: root
-    password: admin123
+    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
+    username: postgres.liepbbvffjosyozrjpwx
+    password: $2a$12$xXRBsG5lh0MhcV8WOStR4u5OfPQ1DOFVa5y.CCMnFLT2BECZ0Wiqq
     driver-class-name: org.postgresql.Driver
 
   jpa:
