@@ -21,4 +21,6 @@ public interface VoucherService {
     List<VoucherDTO> findTopByEndDateNearest(int page, int size);
 
     List<VoucherDTO> getPageVoucher(int page, int size);
+
+    void sendVoucherToUser(String codeVoucher);
 }
