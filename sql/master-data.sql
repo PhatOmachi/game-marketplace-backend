@@ -1,4 +1,4 @@
-drop schema if exists public cascade ;
+drop schema if exists public cascade;
 create schema if not exists public;
 
 Create table Account
@@ -2481,10 +2481,26 @@ alter table game
     drop column if exists quantity_sold,
     drop column if exists rating,
     drop column if exists rating_count,
-    add column if not exists rating double precision,
-    add column if not exists rating_count integer default 0,
-    add column if not exists quantity integer default 1000,
+    add column if not exists rating        double precision,
+    add column if not exists rating_count  integer default 0,
+    add column if not exists quantity      integer default 1000,
     add column if not exists quantity_sold integer default 0,
     add check (rating_count >= 0),
     add check (quantity >= 0),
     add check (quantity_sold >= 0);
+
+
+create table ChatRoom
+(
+    id       int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
+    userName varchar(255)
+);
+
+create table Message
+(
+    id        int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
+    sender    varchar(255),
+    content   text,
+    timestamp DATE,
+    staff     boolean
+);
