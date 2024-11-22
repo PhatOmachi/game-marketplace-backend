@@ -24,4 +24,5 @@ public class VoucherDTO {
     private int maxDiscount;
 
     private List<String> files; // Base64 encoded images
+    private String fileName;
 }

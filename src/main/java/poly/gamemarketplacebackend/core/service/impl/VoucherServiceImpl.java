@@ -65,14 +65,48 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public void save(VoucherDTO voucherDTO) throws IOException {
+        // Insert voucher
+        voucherRepository.insertVoucher(
+                voucherDTO.getCodeVoucher(),
+                voucherDTO.getDiscountName(),
+                voucherDTO.getDiscountPercent(),
+                voucherDTO.getStartDate(),
+                voucherDTO.getEndDate(),
+                voucherDTO.getDescription(),
+                null, // voucherBanner will be set later
+                voucherDTO.getQuantity(),
+                voucherDTO.isActive(),
+                voucherDTO.getMaxDiscount()
+        );
+
         // Save images and get the path
         String voucherBanner = null;
         if (voucherDTO.getFiles() != null && !voucherDTO.getFiles().isEmpty()) {
-            voucherBanner = saveImage(voucherDTO.getFiles().get(0), voucherDTO.getCodeVoucher());
+            voucherBanner = saveImage(voucherDTO.getFiles().get(0), voucherDTO.getCodeVoucher(), voucherDTO.getFileName());
         }
 
-        // Insert voucher
-        voucherRepository.insertVoucher(
+        // Update voucher with voucherBanner
+        voucherRepository.updateVoucherBanner(voucherDTO.getCodeVoucher(), voucherBanner);
+    }
+
+    public void update(Integer id, VoucherDTO voucherDTO) throws IOException {
+        // Get current voucher data
+        VoucherDTO currentVoucher = voucherMapper.toDTO(voucherRepository.findBySysIdVoucher(id));
+
+        // Save images and get the path
+        String voucherBanner = currentVoucher.getVoucherBanner();
+        if (voucherDTO.getFiles() != null && !voucherDTO.getFiles().isEmpty()) {
+            // Delete old image
+            if (voucherBanner != null) {
+                deleteImage(voucherBanner);
+            }
+            // Save new image
+            voucherBanner = saveImage(voucherDTO.getFiles().get(0), voucherDTO.getCodeVoucher(), voucherDTO.getFileName());
+        }
+
+        // Update voucher
+        voucherRepository.updateVoucher(
+                id,
                 voucherDTO.getCodeVoucher(),
                 voucherDTO.getDiscountName(),
                 voucherDTO.getDiscountPercent(),
@@ -86,7 +120,15 @@ public class VoucherServiceImpl implements VoucherService {
         );
     }
 
-    private String saveImage(String base64Image, String codeVoucher) throws IOException {
+    private void deleteImage(String imageUrl) {
+        String filePath = "src/main/resources/static" + imageUrl.substring(imageUrl.indexOf("/VoucherImages"));
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    private String saveImage(String base64Image, String codeVoucher, String fileName) throws IOException {
         // Create directory for voucher images
         File voucherDir = new File("src/main/resources/static/VoucherImages/" + codeVoucher);
         if (!voucherDir.exists()) {
@@ -95,7 +137,7 @@ public class VoucherServiceImpl implements VoucherService {
 
         // Decode base64 image
         byte[] decodedBytes = Base64.getDecoder().decode(base64Image.split(",")[1]);
-        String filePath = "src/main/resources/static/VoucherImages/" + codeVoucher + "/" + codeVoucher + ".jpg"; // Adjust the path and file name as needed
+        String filePath = "src/main/resources/static/VoucherImages/" + codeVoucher + "/" + fileName; // Adjust the path and file name as needed
 
         // Save image to file
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
@@ -104,7 +146,7 @@ public class VoucherServiceImpl implements VoucherService {
 
         // Build full URL for the image
         String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        return baseUrl + "/VoucherImages/" + codeVoucher + "/" + codeVoucher + ".jpg";
+        return baseUrl + "/VoucherImages/" + codeVoucher + "/" + fileName;
     }
 
     @Override
