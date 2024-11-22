@@ -14,4 +14,6 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findTop3ByGameSlugOrderByCommentDateDesc(@Param("slug") String slug);
 
     boolean existsByUser_SysIdUserAndGame_SysIdGame(Integer userId, Integer gameId);
+
+    List<Comment> findByUserUsername(String username);
 }

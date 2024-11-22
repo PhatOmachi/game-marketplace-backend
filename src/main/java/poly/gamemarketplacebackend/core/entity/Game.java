@@ -66,4 +66,7 @@ public class Game {
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Media> media;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Orders> orders;
+
 }

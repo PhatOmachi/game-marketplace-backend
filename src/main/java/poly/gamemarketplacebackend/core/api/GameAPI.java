@@ -22,6 +22,7 @@ import poly.gamemarketplacebackend.core.dto.MediaDTO;
 import poly.gamemarketplacebackend.core.entity.Category;
 import poly.gamemarketplacebackend.core.entity.CategoryDetail;
 import poly.gamemarketplacebackend.core.entity.Game;
+import poly.gamemarketplacebackend.core.repository.GameRepository;
 import poly.gamemarketplacebackend.core.service.CategoryDetailService;
 import poly.gamemarketplacebackend.core.service.CategoryService;
 import poly.gamemarketplacebackend.core.service.GameService;
@@ -124,5 +125,14 @@ public class GameAPI {
 
         Pageable pageable = PageRequest.of(page, size);
         return gameService.searchGames(name, minPrice, maxPrice, category, minRatingStr, maxRatingStr, pageable);
+    }
+
+    @GetMapping("/id")
+    public ResponseObject<?> findByid(@RequestParam("id") Integer id){
+        GameDTO gameDTO = gameService.findById(id);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(gameDTO)
+                .build();
     }
 }

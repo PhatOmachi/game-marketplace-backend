@@ -15,10 +15,12 @@ public interface OrdersMapper {
     @Mapping(target = "slug", ignore = true)
     @Mapping(target = "quantity", ignore = true)
     @Mapping(target = "sysIdUser", source = "users.sysIdUser")
+    @Mapping(target = "gameName", source = "game.gameName")
     OrdersDTO toDTO(Orders orders);
 
     @Mapping(source = "sysIdUser", target = "users.sysIdUser")
     Orders toEntity(OrdersDTO ordersDTO);
+
 
     List<OrdersDTO> toDTOs(List<Orders> orders);
 

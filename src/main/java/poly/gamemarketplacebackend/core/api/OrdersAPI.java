@@ -12,6 +12,7 @@ import poly.gamemarketplacebackend.core.mapper.VoucherMapper;
 import poly.gamemarketplacebackend.core.service.OrdersService;
 import poly.gamemarketplacebackend.core.service.VoucherService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,31 @@ public class OrdersAPI {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .message("Payment success")
+                .build();
+    }
+
+    @GetMapping("/find-order-by-username")
+    public ResponseObject<?> findOrdersByUsername (@RequestParam("username") String username) {
+        List<OrdersDTO> ordersList = ordersService.findOrderByUsername(username);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("List Order By Username")
+                .data(ordersList)
+                .build();
+    }
+
+    @GetMapping("/find-order")
+    public ResponseObject<?> findOrdersWithGameNameAndDateRange (
+            @RequestParam("username") String username,
+            @RequestParam(value = "des", required = false) String des,
+            @RequestParam(value = "startDate", required = false) LocalDateTime startDate,
+            @RequestParam(value = "endDate", required = false) LocalDateTime endDate
+    ) {
+        List<OrdersDTO> ordersList = ordersService.findOrdersWithGameNameAndDateRange(username,des,startDate,endDate);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("List Order")
+                .data(ordersList)
                 .build();
     }
 
