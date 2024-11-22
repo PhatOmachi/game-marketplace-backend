@@ -10,9 +10,9 @@ public class OrdersDTO {
     private String orderCode;
     private Timestamp orderDate;
     private boolean paymentStatus;
-//    private float totalGamePrice;
+    //    private float totalGamePrice;
     private float totalPayment;
-//    private int quantityPurchased;
+    //    private int quantityPurchased;
     private int sysIdProduct;
     private int sysIdUser;
     // new field
@@ -20,6 +20,7 @@ public class OrdersDTO {
     private int quantity;
     private int price;
     private String gameName;
+    private GameDTO gameDTO;
 
     @Override
     public String toString() {

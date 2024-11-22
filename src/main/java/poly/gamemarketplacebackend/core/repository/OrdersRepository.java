@@ -15,5 +15,5 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
     List<Orders> findByUsersUsername(String username);
 
-
+    List<Orders> findByOrderCode(String orderCode);
 }

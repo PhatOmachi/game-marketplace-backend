@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import poly.gamemarketplacebackend.core.dto.OrderDetailDTO;
+import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
 import poly.gamemarketplacebackend.core.dto.VNPayRequest;
 import poly.gamemarketplacebackend.core.dto.VNPayResponse;
 import poly.gamemarketplacebackend.core.entity.TransactionHistory;
@@ -26,4 +28,8 @@ public interface TransactionHistoryService {
     TransactionHistory findByUsername(String username);
 
     List<TransactionHistory> findAllByUsername(String username);
+
+    List<TransactionHistoryDTO> findOrdersTransactionByUsername(String username);
+
+    TransactionHistoryDTO findByDescription(String description);
 }

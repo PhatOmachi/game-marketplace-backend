@@ -26,7 +26,6 @@ import poly.gamemarketplacebackend.core.service.*;
 import poly.gamemarketplacebackend.core.util.LicenseKeyUtils;
 import poly.gamemarketplacebackend.core.util.TimeUtils;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -104,6 +103,10 @@ public class OrdersServiceImpl implements OrdersService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<OrdersDTO> findByOrderCode(String orderCode) {
+        return ordersMapper.toDTOs(ordersRepository.findByOrderCode(orderCode));
+    }
 
     @Transactional
     protected void handleUserBalance(PaymentRequestDTO paymentRequestDTO) {
@@ -112,7 +115,7 @@ public class OrdersServiceImpl implements OrdersService {
             throw new CustomException("Invalid user commit payment", HttpStatus.UNAUTHORIZED);
         }
         var userBalance = Float.parseFloat(currentUser.getBalance());
-        userBalance -= paymentRequestDTO.getTotalPayment();
+        userBalance += paymentRequestDTO.getTotalPayment();
         if (userBalance < 0) {
             throw new CustomException("Not enough balance", HttpStatus.BAD_REQUEST);
         }

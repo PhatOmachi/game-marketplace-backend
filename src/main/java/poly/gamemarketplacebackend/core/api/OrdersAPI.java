@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.OrdersDTO;
 import poly.gamemarketplacebackend.core.dto.PaymentRequestDTO;
-import poly.gamemarketplacebackend.core.dto.VoucherDTO;
-import poly.gamemarketplacebackend.core.mapper.VoucherMapper;
+import poly.gamemarketplacebackend.core.service.OrderDetailService;
 import poly.gamemarketplacebackend.core.service.OrdersService;
-import poly.gamemarketplacebackend.core.service.VoucherService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +31,7 @@ public class OrdersAPI {
     }
 
     @GetMapping("/find-order-by-username")
-    public ResponseObject<?> findOrdersByUsername (@RequestParam("username") String username) {
+    public ResponseObject<?> findOrdersByUsername(@RequestParam("username") String username) {
         List<OrdersDTO> ordersList = ordersService.findOrderByUsername(username);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
@@ -43,13 +41,13 @@ public class OrdersAPI {
     }
 
     @GetMapping("/find-order")
-    public ResponseObject<?> findOrdersWithGameNameAndDateRange (
+    public ResponseObject<?> findOrdersWithGameNameAndDateRange(
             @RequestParam("username") String username,
             @RequestParam(value = "des", required = false) String des,
             @RequestParam(value = "startDate", required = false) LocalDateTime startDate,
             @RequestParam(value = "endDate", required = false) LocalDateTime endDate
     ) {
-        List<OrdersDTO> ordersList = ordersService.findOrdersWithGameNameAndDateRange(username,des,startDate,endDate);
+        List<OrdersDTO> ordersList = ordersService.findOrdersWithGameNameAndDateRange(username, des, startDate, endDate);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .message("List Order")

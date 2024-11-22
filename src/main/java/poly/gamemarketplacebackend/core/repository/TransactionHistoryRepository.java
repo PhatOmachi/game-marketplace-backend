@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.TransactionHistory;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TransactionHistoryRepository extends JpaRepository<TransactionHistory, Integer> {
@@ -20,4 +21,9 @@ public interface TransactionHistoryRepository extends JpaRepository<TransactionH
     TransactionHistory findByUsername(String userName);
 
     List<TransactionHistory> findAllByUsername(String userName);
+
+    List<TransactionHistory> findByDescriptionStartingWithAndUsername(String descriptionPrefix, String username);
+
+    Optional<TransactionHistory> findByDescription(String description);
+
 }
