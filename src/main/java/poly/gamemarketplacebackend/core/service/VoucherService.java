@@ -17,6 +17,8 @@ public interface VoucherService {
 
     void save(VoucherDTO voucher) throws IOException;
 
+    void update(Integer id, VoucherDTO voucherDTO) throws IOException;
+
     void deleteBySysIdVoucher(Integer id);
 
     List<VoucherDTO> findTopByEndDateNearest(int page, int size);

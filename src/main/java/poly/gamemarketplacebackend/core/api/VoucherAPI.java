@@ -79,30 +79,19 @@ public class VoucherAPI {
                 .build();
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseObject<?> updateVoucher(@PathVariable Integer id, @RequestBody VoucherDTO dto) {
-//        VoucherDTO voucherDTO = voucherService.findBySysIdVoucher(id);
-//
-//        if (voucherDTO == null) {
-//            return ResponseObject.builder()
-//                    .status(HttpStatus.NOT_FOUND)
-//                    .message("Không có voucher có id = " + id)
-//                    .build();
-//        }
-//
-//        voucherDTO.setCodeVoucher(dto.getCodeVoucher());
-//        voucherDTO.setDescription(dto.getDescription());
-//        voucherDTO.setDiscountName(dto.getDiscountName());
-//        voucherDTO.setEndDate(dto.getEndDate());
-//        voucherDTO.setStartDate(dto.getStartDate());
-//        voucherDTO.setDiscountPercent(dto.getDiscountPercent());
-//
-//        return ResponseObject.builder()
-//                .status(HttpStatus.OK)
-//                .message("Cập nhật voucher thành công")
-//                .data(voucherService.save(voucherMapper.toEntity(voucherDTO)))
-//                .build();
-//    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseObject> updateVoucher(@PathVariable Integer id, @RequestBody VoucherDTO voucherDTO) {
+        try {
+            voucherService.update(id, voucherDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject(HttpStatus.OK, "Cập nhật voucher thành công", null)
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new ResponseObject(HttpStatus.INTERNAL_SERVER_ERROR, "Cập nhật voucher thất bại", e.getMessage())
+            );
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseObject<?> deleteVoucher(@PathVariable Integer id) {
