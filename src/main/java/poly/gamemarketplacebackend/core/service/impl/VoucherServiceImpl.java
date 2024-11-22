@@ -52,7 +52,6 @@ public class VoucherServiceImpl implements VoucherService {
     @Override
     public VoucherDTO validVoucherByUser(String codeVoucher) {
         var userId = usersService.getCurrentUser().getSysIdUser();
-        log.info("User id: {}, code voucher: {}", userId, codeVoucher);
         var voucher = voucherRepository.findValidVoucher(codeVoucher, userId)
                 .orElseThrow(() -> new CustomException("Invalid voucher or already used", HttpStatus.NOT_ACCEPTABLE));
         return voucherMapper.toDTO(voucher);

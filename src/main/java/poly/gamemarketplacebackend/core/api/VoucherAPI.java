@@ -146,8 +146,6 @@ public class VoucherAPI {
                 .build();
     }
 
-    private final EmailService emailService;
-
     @PostMapping("/send/{codeVoucher}")
     public ResponseObject<?> sendVoucher(@PathVariable String codeVoucher) {
         voucherService.sendVoucherToUser(codeVoucher);

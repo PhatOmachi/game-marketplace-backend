@@ -48,3 +48,9 @@ ALTER TABLE users
 
 ALTER TABLE users
     ADD COLUMN phone_number VARCHAR(11);
+
+alter table orders
+    drop column if exists quantity_purchased,
+    drop column if exists total_game_price,
+    add column if not exists quantity int default 1,
+    add column if not exists price int default 0;
