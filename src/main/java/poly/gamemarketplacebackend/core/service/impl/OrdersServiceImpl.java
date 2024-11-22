@@ -8,9 +8,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import poly.gamemarketplacebackend.core.dto.OrdersDTO;
 import poly.gamemarketplacebackend.core.dto.OwnedGameDTO;
 import poly.gamemarketplacebackend.core.dto.PaymentRequestDTO;
 import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
+import poly.gamemarketplacebackend.core.entity.Orders;
 import poly.gamemarketplacebackend.core.entity.Voucher_use;
 import poly.gamemarketplacebackend.core.exception.CustomException;
 import poly.gamemarketplacebackend.core.mapper.OrdersMapper;
@@ -22,8 +24,13 @@ import poly.gamemarketplacebackend.core.service.*;
 import poly.gamemarketplacebackend.core.util.LicenseKeyUtils;
 import poly.gamemarketplacebackend.core.util.TimeUtils;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +57,50 @@ public class OrdersServiceImpl implements OrdersService {
         handleUsedVoucher(paymentRequestDTO);
         handleOrders(paymentRequestDTO);
     }
+
+    @Override
+    public List<OrdersDTO> findOrderByUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username must not be null or empty");
+        }
+
+        List<Orders> orders = ordersRepository.findByUsersUsername(username);
+        if (orders.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return ordersMapper.toDTOs(orders);
+    }
+
+    @Override
+    public List<OrdersDTO> findOrdersWithGameNameAndDateRange(String username, String des, LocalDateTime startDate, LocalDateTime endDate) {
+        List<Orders> orders = ordersRepository.findByUsersUsername(username);
+
+        // Xây dựng predicate cho các điều kiện lọc
+        Predicate<Orders> filterPredicate = order -> true; // Mặc định tất cả đơn hàng hợp lệ
+
+        // Nếu có điều kiện lọc theo tên game
+        if (des != null) {
+            filterPredicate = filterPredicate.and(order -> order.getGame().getGameName().contains(des));
+        }
+
+        // Nếu có điều kiện lọc theo ngày bắt đầu
+        if (startDate != null) {
+            filterPredicate = filterPredicate.and(order -> !order.getOrderDate().toLocalDateTime().isBefore(startDate));
+        }
+
+        // Nếu có điều kiện lọc theo ngày kết thúc
+        if (endDate != null) {
+            filterPredicate = filterPredicate.and(order -> !order.getOrderDate().toLocalDateTime().isAfter(endDate));
+        }
+
+        // Lọc và chuyển đổi các đơn hàng
+        return orders.stream()
+                .filter(filterPredicate)  // Áp dụng tất cả các điều kiện lọc
+                .map(order -> ordersMapper.toDTO(order))  // Chuyển đổi thành OrdersDTO
+                .collect(Collectors.toList());
+    }
+
 
     @Transactional
     protected void handleUserBalance(PaymentRequestDTO paymentRequestDTO) {

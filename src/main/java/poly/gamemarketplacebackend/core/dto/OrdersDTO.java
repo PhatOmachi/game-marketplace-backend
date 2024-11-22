@@ -18,4 +18,5 @@ public class OrdersDTO {
     // new field
     private String slug;
     private int quantity;
+    private String gameName;
 }

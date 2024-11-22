@@ -13,7 +13,10 @@ import poly.gamemarketplacebackend.core.repository.CommentRepository;
 import poly.gamemarketplacebackend.core.service.CommentService;
 import poly.gamemarketplacebackend.core.service.UsersService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,6 +81,37 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = commentRepository.findTop3ByGameSlugOrderByCommentDateDesc(slug);
         return comments.stream().limit(3)
                 .map(commentMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommentDTO> getCommentByUsername(String username) {
+        List<Comment> comments = commentRepository.findByUserUsername(username);
+        return comments.stream()
+                .map(commentMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommentDTO> findCommentWithDesAndDateRange(String username, String des, LocalDate startDate, LocalDate endDate) {
+        List<Comment> comments = commentRepository.findByUserUsername(username);
+        Predicate<Comment> filterPredicate = comment -> true;
+
+        if(des != null){
+            filterPredicate = filterPredicate.and(comment -> comment.getContext().contains(des));
+        }
+
+        if(startDate != null){
+            filterPredicate = filterPredicate.and(comment -> !comment.getCommentDate().toLocalDate().isBefore(startDate));
+        }
+
+        if(endDate != null){
+            filterPredicate = filterPredicate.and(comment -> !comment.getCommentDate().toLocalDate().isAfter(endDate));
+        }
+
+        return comments.stream()
+                .filter(filterPredicate)
+                .map(comment -> commentMapper.toDTO(comment))
                 .collect(Collectors.toList());
     }
 }
