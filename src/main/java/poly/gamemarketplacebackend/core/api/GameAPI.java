@@ -112,7 +112,7 @@ public class GameAPI {
                 .build();
     }
 
-    @GetMapping("/browser")
+    @GetMapping("/p/browser")
     public Page<Game> searchGames(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Double minPrice,
