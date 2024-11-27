@@ -8,6 +8,9 @@ import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.AccountDTO;
 import poly.gamemarketplacebackend.core.service.AccountService;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/accounts")
@@ -90,5 +93,14 @@ public class AccountAPI {
                 .message("Update password Sucess")
                 .build();
 
+    }
+
+    @PostMapping("/insert-account-user-role")
+    public ResponseObject<?> insertAccountUserAndRole(@RequestBody AccountDTO accountDTO) throws SQLException, IOException {
+        accountService.insertAccountUserAndRole(accountDTO);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Insert account user and role success")
+                .build();
     }
 }

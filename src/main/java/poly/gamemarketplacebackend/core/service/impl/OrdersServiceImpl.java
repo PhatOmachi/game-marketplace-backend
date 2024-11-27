@@ -75,6 +75,25 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public List<OrdersDTO> findAll() {
+        return ordersMapper.toDTOs(ordersRepository.findAll());
+    }
+
+    @Override
+    public OrdersDTO findBySysIdOrder(Integer sysIdOrder) {
+        if (sysIdOrder == null) {
+            throw new IllegalArgumentException("sysIdOrder must not be null");
+        }
+
+        Orders orders = ordersRepository.findBySysIdOrder(sysIdOrder);
+        if (orders == null) {
+            return null;
+        }
+
+        return ordersMapper.toDTO(orders);
+    }
+
+    @Override
     public List<OrdersDTO> findOrdersWithGameNameAndDateRange(String username, String des, LocalDateTime startDate, LocalDateTime endDate) {
         List<Orders> orders = ordersRepository.findByUsersUsername(username);
 

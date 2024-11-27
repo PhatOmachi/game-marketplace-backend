@@ -17,4 +17,8 @@ public interface OrdersService {
 
     List<OrdersDTO> findByOrderCode(String orderCode);
 
+    List<OrdersDTO> findAll();
+
+    OrdersDTO findBySysIdOrder(Integer sysIdOrder);
+
 }

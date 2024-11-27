@@ -24,8 +24,17 @@ public class UsersAPI {
     private final CloudinaryService cloudinaryService;
     private final UsersRepository repository;
 
+    @GetMapping("/all")
+    public ResponseObject<?> getAllUsers() {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Danh sách tất cả người dùng")
+                .data(usersService.getAllUsers())
+                .build();
+    }
+
     @GetMapping("/account-profile")
-    public ResponseObject<?> accountProfile(@RequestParam("username") String username){
+    public ResponseObject<?> accountProfile(@RequestParam("username") String username) {
         UsersDTO usersDTO = usersService.findByUsername(username);
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
@@ -46,7 +55,7 @@ public class UsersAPI {
 
     @PostMapping("/upload-avatar")
     public ResponseObject<?> uploadAvatar(@RequestParam("file") MultipartFile file
-                            /*, @RequestParam("username") String username*/) {
+            /*, @RequestParam("username") String username*/) {
         try {
             String avatarUrl = cloudinaryService.uploadImage(file);
 //            usersService.updateUserAvatar(username, avatarUrl);

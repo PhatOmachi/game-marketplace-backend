@@ -18,6 +18,7 @@ import java.util.Optional;
 public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
     // Sử dụng phương thức findAll() để lấy tất cả các đối tượng Voucher từ cơ sở dữ liệu.
+    @Query("SELECT v FROM Voucher v order by v.sysIdVoucher asc")
     List<Voucher> findAll();
 
     // Sử dụng phương thức findByCode() để tìm kiếm đối tượng Voucher theo mã code.

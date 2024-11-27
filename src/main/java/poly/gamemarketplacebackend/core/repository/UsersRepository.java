@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Users;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Integer> {
@@ -31,5 +32,13 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     @Transactional
     @Query("UPDATE Users u SET u.balance = :balance WHERE u.username = :username")
     void updateUsersByUsername(@Param("balance") String balance, @Param("username") String username);
+
+    @Query("SELECT u FROM Users u order by u.sysIdUser asc")
+    List<Users> findAll();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Users u SET u.avatar = :avatar WHERE u.username = :username")
+    void updateAvatarByUsername(@Param("avatar") String avatar, @Param("username") String username);
 
 }

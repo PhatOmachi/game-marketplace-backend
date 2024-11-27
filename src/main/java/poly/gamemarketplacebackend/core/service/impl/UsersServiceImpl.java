@@ -9,6 +9,8 @@ import poly.gamemarketplacebackend.core.repository.UsersRepository;
 import poly.gamemarketplacebackend.core.security.service.AuthService;
 import poly.gamemarketplacebackend.core.service.UsersService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
@@ -47,6 +49,11 @@ public class UsersServiceImpl implements UsersService {
             user.setAvatar(avatarUrl);
             usersRepository.save(user);
         }
+    }
+
+    @Override
+    public List<UsersDTO> getAllUsers() {
+        return usersMapper.toDTOs(usersRepository.findAll());
     }
 
 

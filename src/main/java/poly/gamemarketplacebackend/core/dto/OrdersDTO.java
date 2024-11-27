@@ -21,6 +21,7 @@ public class OrdersDTO {
     private int price;
     private String gameName;
     private GameDTO gameDTO;
+    private UsersDTO usersDTO;
 
     @Override
     public String toString() {
