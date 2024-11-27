@@ -76,4 +76,64 @@ create table media
 alter table media
     owner to postgres;
 
+drop table if exists public.voucher_use cascade;
 
+alter table public.game
+    drop column if exists quantity_count cascade,
+    drop column if exists sys_id_discount cascade,
+    drop column if exists game_category cascade,
+    drop column if exists sys_id_voucher cascade;
+
+alter table public.voucher
+    add column quantity integer not null default 0,
+    add column is_active boolean not null default true,
+    add column voucher_banner text,
+    add column max_discount integer not null default 0;
+
+alter table comment
+    drop column if exists start,
+    add column star integer not null default 0;
+
+alter table comment
+    drop column if exists sys_id_product,
+    add column sys_id_game integer not null references game;
+
+CREATE OR REPLACE PROCEDURE update_game_ratings()
+    LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE game g
+    SET rating = subquery.avg_rating,
+        rating_count = subquery.comment_count
+    FROM (
+             SELECT
+                 c.sys_id_game,
+                 AVG(c.star) AS avg_rating,
+                 COUNT(c.sys_id_comment) AS comment_count
+             FROM
+                 comment c
+             WHERE
+                 c.comment_date >= CURRENT_DATE - INTERVAL '1 day'
+               AND c.comment_date < CURRENT_DATE
+             GROUP BY
+                 c.sys_id_game
+         ) AS subquery
+    WHERE
+        g.sys_id_game = subquery.sys_id_game;
+END;
+$$;
+
+ALTER TABLE users
+    ADD COLUMN gender BOOLEAN DEFAULT true;
+
+ALTER TABLE users
+    ADD COLUMN DOB DATE DEFAULT '2000-01-01';
+
+ALTER TABLE users
+    ADD COLUMN phone_number VARCHAR(11);
+
+alter table orders
+    drop column if exists quantity_purchased,
+    drop column if exists total_game_price,
+    add column if not exists quantity int default 1,
+    add column if not exists price int default 0;
