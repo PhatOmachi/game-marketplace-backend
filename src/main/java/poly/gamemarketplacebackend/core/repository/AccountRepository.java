@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Account;
 
+import java.time.LocalDate;
+
 
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     Account findByUsernameOrEmailAndIsEnabledTrue(@Param("username") String username, @Param("email") String email);
@@ -25,5 +27,12 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query(value = "SELECT insert_user_and_role(:username, :email, :role)", nativeQuery = true)
     void insertUserAndRole(@Param("username") String username, @Param("email") String email, @Param("role") String role);
+
+    @Query(value = "SELECT insert_account_user_and_role(:username, :email, :hashPassword, :hoVaTen, :phoneNumber)", nativeQuery = true)
+    void insertAccountUserAndRole(@Param("username") String username,
+                                  @Param("email") String email,
+                                  @Param("hashPassword") String hashPassword,
+                                  @Param("hoVaTen") String hoVaTen,
+                                  @Param("phoneNumber") String phoneNumber);
 
 }

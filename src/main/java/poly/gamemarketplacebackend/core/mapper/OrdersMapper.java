@@ -17,6 +17,7 @@ public interface OrdersMapper {
     @Mapping(target = "gameName", source = "game.gameName")
     @Mapping(target = "sysIdProduct", source = "game.sysIdGame")
     @Mapping(target = "gameDTO", source = "game")
+    @Mapping(target = "usersDTO", source = "users")
     OrdersDTO toDTO(Orders orders);
 
     @Mapping(target = "game", ignore = true)

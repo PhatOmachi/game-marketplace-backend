@@ -9,6 +9,8 @@ import poly.gamemarketplacebackend.core.dto.UsersDTO;
 import poly.gamemarketplacebackend.core.entity.Orders;
 import poly.gamemarketplacebackend.core.entity.Users;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {OwnedGameMapper.class})
 public interface UsersMapper {
     UsersMapper INSTANCE = Mappers.getMapper(UsersMapper.class);
@@ -19,6 +21,12 @@ public interface UsersMapper {
 
     @Mapping(target = "ownedGames", source = "ownedGames")
     Users toEntity(UsersDTO usersDTO);
+
+    @Mapping(target = "totalSpent", ignore = true)
+    @Mapping(target = "ownedGames", source = "ownedGames")
+    List<UsersDTO> toDTOs(List<Users> users);
+
+    List<Users> toEntities(List<UsersDTO> usersDTOs);
 
     @AfterMapping
     default void calculateTotalSpent(Users users, @MappingTarget UsersDTO usersDTO) {

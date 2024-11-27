@@ -40,6 +40,27 @@ public class OrdersAPI {
                 .build();
     }
 
+    @GetMapping("/find-all")
+    public ResponseObject<?> findAll() {
+        List<OrdersDTO> ordersList = ordersService.findAll();
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("List Order")
+                .data(ordersList)
+                .build();
+    }
+
+    @GetMapping("/find-by-sys-id-order")
+    public ResponseObject<?> findBySysIdOrder(@RequestParam("sysIdOrder") Integer sysIdOrder) {
+        OrdersDTO ordersDTO = ordersService.findBySysIdOrder(sysIdOrder);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Order")
+                .data(ordersDTO)
+                .build();
+    }
+
+
     @GetMapping("/find-order")
     public ResponseObject<?> findOrdersWithGameNameAndDateRange(
             @RequestParam("username") String username,

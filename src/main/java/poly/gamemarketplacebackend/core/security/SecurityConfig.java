@@ -43,6 +43,7 @@ public class SecurityConfig {
             "/api/*/p/*/*/*/**",
             "/images/*/**",
             "/VoucherImages/*/**",
+            "/CustomerImages/*/**",
             "/api/chat/**"
     };
     private final String[] authenticatedUrls = {

@@ -3,7 +3,9 @@ package poly.gamemarketplacebackend.core.service;
 import poly.gamemarketplacebackend.core.dto.AccountDTO;
 import poly.gamemarketplacebackend.core.entity.Account;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 public interface AccountService {
@@ -33,4 +35,6 @@ public interface AccountService {
     void resendOTPForForgotPassword(String email);
 
     boolean changePassword(String username, String passwordOld, String passwordNew);
+
+    void insertAccountUserAndRole(AccountDTO accountDTO) throws SQLException, IOException;
 }
