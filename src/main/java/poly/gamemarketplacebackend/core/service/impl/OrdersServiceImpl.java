@@ -120,17 +120,18 @@ public class OrdersServiceImpl implements OrdersService {
             throw new CustomException("Not enough balance", HttpStatus.BAD_REQUEST);
         }
         usersRepository.updateUsersByUsername(String.valueOf(userBalance), currentUser.getUsername());
-        handleTransactionHistory(paymentRequestDTO);
+        handleTransactionHistory(paymentRequestDTO, userBalance);
     }
 
     @Transactional
-    protected void handleTransactionHistory(PaymentRequestDTO paymentRequestDTO) {
+    protected void handleTransactionHistory(PaymentRequestDTO paymentRequestDTO, double userBalance) {
         var transactionHistory = new TransactionHistoryDTO();
         transactionHistory.setAmount(paymentRequestDTO.getTotalPayment());
         transactionHistory.setDescription(paymentRequestDTO.getOrderCode());
         transactionHistory.setPaymentTime(paymentRequestDTO.getOrderDate());
         transactionHistory.setStatus(true);
         transactionHistory.setUsername(paymentRequestDTO.getUsername());
+        transactionHistory.setUserBalance(userBalance);
         transactionHistoryService.save(transactionHistoryMapper.toEntity(transactionHistory));
     }
 
@@ -154,7 +155,7 @@ public class OrdersServiceImpl implements OrdersService {
         if (paymentRequestDTO.getOrders() != null) {
             List<String> licenseKeys = new ArrayList<>();
             for (var order : paymentRequestDTO.getOrders()) {
-                log.info("order: {}", order);
+//                log.info("order: {}", order);
                 var game = gameService.findBySlug(order.getSlug());
                 order.setSysIdUser(paymentRequestDTO.getUserId());
                 order.setOrderCode(paymentRequestDTO.getOrderCode());
@@ -163,7 +164,7 @@ public class OrdersServiceImpl implements OrdersService {
 //                order.setQuantityPurchased();
                 order.setTotalPayment(paymentRequestDTO.getTotalPayment());
                 order.setSysIdProduct(game.getSysIdGame());
-                log.info("order2: {}", order);
+//                log.info("order2: {}", order);
                 ordersRepository.save(ordersMapper.toEntity(order));
 
                 var ownedGame = OwnedGameDTO.builder()

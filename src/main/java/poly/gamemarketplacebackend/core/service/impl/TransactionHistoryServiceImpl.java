@@ -89,15 +89,16 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDate date = LocalDate.parse(vnpCreateDate, formatter);
         Timestamp timestamp = Timestamp.valueOf(date.atStartOfDay());
+        String username = vnpOrderInfo.substring(hyphenPos + 1);
         // Initialize a TransactionHistory object with existed data
         TransactionHistory newTransaction = TransactionHistory.builder()
                 .description(vnpTxnRef)
                 .paymentTime(timestamp)
                 .amount(Float.parseFloat(vnpAmount) / 100)
-                .username(vnpOrderInfo.substring(hyphenPos + 1))
+                .username(username)
                 .status(false)
+                .userBalance(Double.parseDouble(usersRepository.findByUsername(username).getBalance()))
                 .build();
-
         save(newTransaction);
         return url;
     }
@@ -120,6 +121,7 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 
     @Override
     @SneakyThrows
+    @Transactional
     public String payCallbackHandler(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes redirectAttributes) {
         String status = request.getParameter("vnp_ResponseCode");
         if (status.equals("00")) { // "00" : Payment success
@@ -131,9 +133,9 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
             double amount = Double.parseDouble(vnpAmount) / 100;
             String maDonHang = request.getParameter("vnp_TxnRef");
             // Align data according to the payment succeed
-            updatePaymentByUser(maDonHang);
             double currentBalance = Double.parseDouble(usersRepository.findByUsername(username).getBalance());
             currentBalance += amount;
+            updatePaymentByUser(maDonHang, currentBalance);
             usersRepository.updateUsersByUsername(currentBalance + "", username);
             response.sendRedirect(dataStore.get("succeedPaymentUrl").toString());
             return "true";
@@ -144,13 +146,15 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
     }
 
     @Override
+    @Transactional
     public void save(TransactionHistory transactionHistory) {
         transactionHistoryRepository.save(transactionHistory);
     }
 
     @Override
-    public void updatePaymentByUser(String name) {
-        transactionHistoryRepository.updatePaymentuser(true, name);
+    @Transactional
+    public void updatePaymentByUser(String name, double userBalance) {
+        transactionHistoryRepository.updatePaymentuser(true, userBalance, name);
     }
 
     @Override

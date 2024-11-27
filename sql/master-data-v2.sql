@@ -1259,3 +1259,6 @@ INSERT INTO public.users (user_name, email, ho_va_ten, balance, join_time, avata
 
 INSERT INTO public.roles (username, username_user, role) VALUES ('khoadev2004', 'khoadev2004', 'CUSTOMER');
 INSERT INTO public.roles (username, username_user, role) VALUES ('kaiz', 'kaiz', 'ADMIN');
+
+alter table postgres.public.transaction_history
+add column user_balance double precision;

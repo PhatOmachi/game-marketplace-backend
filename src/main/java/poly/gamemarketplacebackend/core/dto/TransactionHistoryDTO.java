@@ -11,6 +11,21 @@ public class TransactionHistoryDTO {
     private String description;
     private float amount;
     private boolean status;
-//    private int userId;
+    //    private int userId;
     private String username;
+    // new field
+    private double userBalance;
+
+    @Override
+    public String toString() {
+        return "TransactionHistoryDTO{" +
+                "sysIdPayment=" + sysIdPayment +
+                ", paymentTime=" + paymentTime +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                ", status=" + status +
+                ", username='" + username + '\'' +
+                ", userBalance=" + userBalance +
+                '}';
+    }
 }
