@@ -72,4 +72,13 @@ public class UsersAPI {
         }
     }
 
+    @PostMapping("/update-avatar-and-ho-va-ten-by-username")
+    public ResponseObject<?> updateAvatarAndHoVaTenByUsername(@RequestBody UsersDTO usersDTO) throws IOException {
+        usersService.updateAvatarAndHoVaTenByUsername(usersDTO);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Update avatar and ho va ten by username")
+                .build();
+    }
+
 }

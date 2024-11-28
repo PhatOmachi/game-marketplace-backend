@@ -2,6 +2,10 @@ package poly.gamemarketplacebackend.core.service.impl;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import poly.gamemarketplacebackend.core.dto.OrdersDTO;
-import poly.gamemarketplacebackend.core.dto.OwnedGameDTO;
-import poly.gamemarketplacebackend.core.dto.PaymentRequestDTO;
-import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
+import poly.gamemarketplacebackend.core.dto.*;
 import poly.gamemarketplacebackend.core.entity.Orders;
 import poly.gamemarketplacebackend.core.entity.Voucher_use;
 import poly.gamemarketplacebackend.core.exception.CustomException;
@@ -26,6 +27,7 @@ import poly.gamemarketplacebackend.core.service.*;
 import poly.gamemarketplacebackend.core.util.LicenseKeyUtils;
 import poly.gamemarketplacebackend.core.util.TimeUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,6 +93,29 @@ public class OrdersServiceImpl implements OrdersService {
         }
 
         return ordersMapper.toDTO(orders);
+    }
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public AnalyticsDataDTO getAnalyticsSummary() {
+        StoredProcedureQuery query = entityManager
+                .createStoredProcedureQuery("get_analytics_summary");
+
+        // Đăng ký các tham số OUT
+        query.registerStoredProcedureParameter("total_revenue", Double.class, ParameterMode.OUT);
+        query.registerStoredProcedureParameter("total_items_sold", Integer.class, ParameterMode.OUT);
+        query.registerStoredProcedureParameter("total_users", Integer.class, ParameterMode.OUT);
+
+        // Thực thi procedure
+        query.execute();
+
+        // Lấy giá trị từ OUT parameters
+        Double totalRevenue = (Double) query.getOutputParameterValue("total_revenue");
+        Integer totalItemsSold = (Integer) query.getOutputParameterValue("total_items_sold");
+        Integer totalUsers = (Integer) query.getOutputParameterValue("total_users");
+
+        return new AnalyticsDataDTO(totalRevenue, totalItemsSold, totalUsers);
     }
 
     @Override

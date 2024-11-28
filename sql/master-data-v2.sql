@@ -167,6 +167,27 @@ END;
 $$
     LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION insert_account_user_and_role(
+    p_username VARCHAR,
+    p_email VARCHAR,
+    p_hash_password VARCHAR,
+    p_ho_va_ten VARCHAR,
+    p_phone_number VARCHAR
+)
+    RETURNS VOID AS
+$$
+BEGIN
+    INSERT INTO account(username, email, hash_password, is_enabled)
+    VALUES (p_username, p_email, p_hash_password, TRUE);
+
+    INSERT INTO users(user_name, email, ho_va_ten, join_time, gender, phone_number)
+    VALUES (p_username, p_email, p_ho_va_ten, now(), true, p_phone_number);
+
+    INSERT INTO roles(username, username_user, role)
+    VALUES (p_username, p_username, 'CUSTOMER');
+END;
+$$ LANGUAGE plpgsql;
+
 drop table if exists category cascade;
 drop table if exists game cascade;
 drop table if exists media cascade;
@@ -309,6 +330,26 @@ alter table orders
         column if exists total_game_price,
     add column if not exists quantity int default 1,
     add column if not exists price    int default 0;
+
+CREATE OR REPLACE PROCEDURE get_analytics_summary(
+    OUT total_revenue FLOAT,
+    OUT total_items_sold INT,
+    OUT total_users INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Calculate total revenue
+    SELECT COALESCE(SUM(price), 0) INTO total_revenue FROM Orders;
+
+    -- Calculate total items sold
+    SELECT COALESCE(SUM(quantity), 0) INTO total_items_sold FROM Orders;
+
+    -- Calculate total users
+    SELECT COUNT(*) INTO total_users FROM Users;
+END;
+$$;
+
 ---
 ---insert
 ---

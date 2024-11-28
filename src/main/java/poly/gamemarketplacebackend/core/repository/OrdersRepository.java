@@ -2,14 +2,12 @@ package poly.gamemarketplacebackend.core.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import poly.gamemarketplacebackend.core.dto.OrdersDTO;
 import poly.gamemarketplacebackend.core.entity.Orders;
 
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Integer> {
@@ -24,4 +22,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     Orders findBySysIdOrder(@Param("sysIdOrder") Integer sysIdOrder);
 
     List<Orders> findByOrderCode(String orderCode);
+
+    @Procedure(procedureName = "public.get_analytics_summary")
+    List<Object[]> getAnalyticsSummary(); // Trả về mảng Object (sẽ chứa các giá trị OUT)
+
 }

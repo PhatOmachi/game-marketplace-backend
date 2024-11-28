@@ -20,4 +20,8 @@ public class UsersDTO {
     private LocalDate DOB;
     private String phoneNumber;
     private List<OwnedGameDTO> ownedGames;
+
+    // new field
+    private List<String> files;
+    private String fileName;
 }

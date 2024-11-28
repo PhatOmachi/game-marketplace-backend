@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Integer> {
     Users findByUsername(@Param("username") String username);
+
     @Modifying
     @Transactional
     @Query("UPDATE Users u SET u.email = :email, u.hoVaTen = :hoVaTen, u.avatar = :avatar, u.gender = :gender, u.DOB = :dob, u.phoneNumber = :phoneNumber WHERE u.username = :username")
@@ -40,5 +41,12 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     @Transactional
     @Query("UPDATE Users u SET u.avatar = :avatar WHERE u.username = :username")
     void updateAvatarByUsername(@Param("avatar") String avatar, @Param("username") String username);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Users u set u.avatar = :avatar, u.hoVaTen = :hoVaTen where u.username = :username")
+    void updateAvatarAndHoVaTenByUsername(@Param("avatar") String avatar,
+                                          @Param("hoVaTen") String hoVaTen,
+                                          @Param("username") String username);
 
 }
