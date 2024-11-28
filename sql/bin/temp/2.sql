@@ -1,110 +1,108 @@
-
-
 INSERT INTO category (category_name, description)
 VALUES ('', 'Description for ')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Horror', 'Description for Horror')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Indie', 'Description for Indie')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('RPG', 'Description for RPG')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Action-Adventure', 'Description for Action-Adventure')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Puzzle', 'Description for Puzzle')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Platformer', 'Description for Platformer')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Action ', 'Description for Action ')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('RPG ', 'Description for RPG ')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('City Builder', 'Description for City Builder')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Fantasy', 'Description for Fantasy')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Adventure', 'Description for Adventure')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Simulation', 'Description for Simulation')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Survival', 'Description for Survival')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Rogue-Lite', 'Description for Rogue-Lite')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('MOBA', 'Description for MOBA')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Party', 'Description for Party')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Dungeon Crawler', 'Description for Dungeon Crawler')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Exploration', 'Description for Exploration')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Turn-Based', 'Description for Turn-Based')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Action', 'Description for Action')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Open World ', 'Description for Open World ')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('First Person', 'Description for First Person')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Comedy', 'Description for Comedy')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Single Player', 'Description for Single Player')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Casual', 'Description for Casual')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Music', 'Description for Music')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Open World', 'Description for Open World')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Racing', 'Description for Racing')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Turn-Based Strategy', 'Description for Turn-Based Strategy')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Tower Defense', 'Description for Tower Defense')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Horror ', 'Description for Horror ')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Strategy', 'Description for Strategy')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('First Person ', 'Description for First Person ')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category (category_name, description)
 VALUES ('Shooter', 'Description for Shooter')
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-7E016', 'Dying Light 2 Stay Human - Reloaded Edition', True, 990000, 60, 'dying-light-2-stay-human',
@@ -145,32 +143,32 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 1
 FROM category
 WHERE category_name = 'Action '
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 1
 FROM category
 WHERE category_name = 'First Person '
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 1
 FROM category
 WHERE category_name = 'Horror '
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 1
 FROM category
 WHERE category_name = 'Open World '
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 1
 FROM category
 WHERE category_name = 'RPG '
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 1
 FROM category
 WHERE category_name = 'Survival'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-38CE1', 'Frostpunk 2', True, 525000, 0, 'frostpunk-2',
@@ -213,7 +211,7 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 2
 FROM category
 WHERE category_name = 'Single Player'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-0E0DC', 'Trinity Building Editor', True, 261000, 0, 'trinity-building-editor-94501c',
@@ -258,7 +256,7 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 3
 FROM category
 WHERE category_name = 'Single Player'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-92811', 'Earniverse', True, 0.0, 0, 'earniverse-732d09',
@@ -302,17 +300,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 4
 FROM category
 WHERE category_name = 'City Builder'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 4
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 4
 FROM category
 WHERE category_name = 'Open World'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-B8911', 'Horticular', True, 209000, 0, 'horticular-7ddf4c',
@@ -356,17 +354,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 5
 FROM category
 WHERE category_name = 'City Builder'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 5
 FROM category
 WHERE category_name = 'Simulation'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 5
 FROM category
 WHERE category_name = 'Strategy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-D7131', 'Megapolis', True, 52000, 0, 'megapolis-925016',
@@ -410,17 +408,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 6
 FROM category
 WHERE category_name = 'Casual'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 6
 FROM category
 WHERE category_name = 'City Builder'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 6
 FROM category
 WHERE category_name = 'Simulation'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-E3642', 'Illuvium Zero', True, 0.0, 0, 'illuvium-zero-ca46a6',
@@ -465,17 +463,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 7
 FROM category
 WHERE category_name = 'City Builder'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 7
 FROM category
 WHERE category_name = 'Simulation'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 7
 FROM category
 WHERE category_name = 'Strategy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-DA6A6', 'Romopolis', True, 52000, 80, 'romopolis-49e1bf',
@@ -519,7 +517,7 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 8
 FROM category
 WHERE category_name = 'Simulation'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-16D9C', 'Barbie Project Friendship™', True, 470000, 0, 'barbie-project-friendship-9434fc',
@@ -563,17 +561,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 9
 FROM category
 WHERE category_name = 'Action-Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 9
 FROM category
 WHERE category_name = 'Casual'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 9
 FROM category
 WHERE category_name = 'Music'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-69EEA', 'The Jackbox Survey Scramble', True, 142000, 0, 'the-jackbox-survey-scramble-8cfeb4',
@@ -596,17 +594,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 10
 FROM category
 WHERE category_name = 'Casual'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 10
 FROM category
 WHERE category_name = 'Comedy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 10
 FROM category
 WHERE category_name = 'Party'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-C20D4', 'No More Room in Hell 2', True, 313000, 0, 'no-more-room-in-hell-2-ea1b5c',
@@ -648,17 +646,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 11
 FROM category
 WHERE category_name = 'Action'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 11
 FROM category
 WHERE category_name = 'First Person'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 11
 FROM category
 WHERE category_name = 'Horror'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-ED2CE', 'Legion TD 2', True, 209000, 0, 'legion-td-2-a244b9',
@@ -701,17 +699,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 12
 FROM category
 WHERE category_name = 'Casual'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 12
 FROM category
 WHERE category_name = 'Indie'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 12
 FROM category
 WHERE category_name = 'Tower Defense'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-9B57D', 'Brilliantcrypto', True, 0.0, 0, 'brilliant-crypto-5b06e1',
@@ -764,12 +762,12 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 13
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 13
 FROM category
 WHERE category_name = 'Simulation'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-38D39', 'MechWarrior 5: Clans', True, 522000, 0, 'mechwarrior-5-clans-e50e3a', 'In MECHWARRIOR 5: CLANS, players are new Smoke Jaguar pilots in the Clan Invasion of the Inner Sphere. Lead your five-mech "Star" across diverse planets, engaging in an expansive campaign with immersive gameplay and combat. Customize BattleMechs and explore tactical options.
@@ -811,17 +809,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 14
 FROM category
 WHERE category_name = 'Action'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 14
 FROM category
 WHERE category_name = 'Shooter'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 14
 FROM category
 WHERE category_name = 'Simulation'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-B6679', 'Legion TD 2', True, 209000, 0, 'legion-td-2-a244b9-2',
@@ -864,17 +862,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 15
 FROM category
 WHERE category_name = 'Casual'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 15
 FROM category
 WHERE category_name = 'Indie'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 15
 FROM category
 WHERE category_name = 'Tower Defense'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-9D28D', 'Blindfire', True, 94000, 0, 'eos_test-5cd09d',
@@ -929,12 +927,12 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 16
 FROM category
 WHERE category_name = 'First Person'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 16
 FROM category
 WHERE category_name = 'Shooter'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-7D6F5', '3 Minutes to Midnight', True, 261000, 0, '3-minutes-to-midnight-3b506f',
@@ -1007,17 +1005,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 17
 FROM category
 WHERE category_name = 'Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 17
 FROM category
 WHERE category_name = 'Indie'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 17
 FROM category
 WHERE category_name = 'Puzzle'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-E91AC', 'EA SPORTS™ WRC 24', True, 899000, 0, 'ea-sports-wrc-24',
@@ -1066,12 +1064,12 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 18
 FROM category
 WHERE category_name = 'Racing'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 18
 FROM category
 WHERE category_name = 'Simulation'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-805D6', 'WW2 Frontline 1942', True, 0.0, 0, 'ww2-frontline-1942-96fe8f',
@@ -1130,17 +1128,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 19
 FROM category
 WHERE category_name = 'First Person'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 19
 FROM category
 WHERE category_name = 'Shooter'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 19
 FROM category
 WHERE category_name = 'Strategy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-93A0C', 'BATTLE BEARS HEROES', True, 0.0, 0, 'battle-bears-heroes-690879',
@@ -1247,17 +1245,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 20
 FROM category
 WHERE category_name = 'Action'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 20
 FROM category
 WHERE category_name = 'Action-Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 20
 FROM category
 WHERE category_name = 'MOBA'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-58100', 'KMON: World of Kogaea
@@ -1315,17 +1313,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 21
 FROM category
 WHERE category_name = 'Fantasy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 21
 FROM category
 WHERE category_name = 'Open World'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 21
 FROM category
 WHERE category_name = 'RPG'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-1E0ED', 'Juna - The Dreamwalker', True, 209000, 0, 'juna-the-dreamwalker-d4fbd7',
@@ -1394,17 +1392,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 22
 FROM category
 WHERE category_name = 'Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 22
 FROM category
 WHERE category_name = 'Dungeon Crawler'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 22
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-1BCD1', 'Etherscape', True, 0.0, 0, 'the-etherscape-b2e3d2',
@@ -1449,17 +1447,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 23
 FROM category
 WHERE category_name = 'Dungeon Crawler'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 23
 FROM category
 WHERE category_name = 'RPG'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 23
 FROM category
 WHERE category_name = 'Rogue-Lite'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-8EBB5', 'Arhaekon', True, 157000, 0, 'arhaekon-f69cf5',
@@ -1521,22 +1519,22 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 24
 FROM category
 WHERE category_name = 'Dungeon Crawler'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 24
 FROM category
 WHERE category_name = 'RPG'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 24
 FROM category
 WHERE category_name = 'Turn-Based'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 24
 FROM category
 WHERE category_name = ''
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-6374C', 'Dragon Chronicles: Black Tears', True, 157000, 0, 'dragon-chronicles-black-tears-46329e',
@@ -1618,17 +1616,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 25
 FROM category
 WHERE category_name = 'Dungeon Crawler'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 25
 FROM category
 WHERE category_name = 'RPG'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 25
 FROM category
 WHERE category_name = 'Turn-Based Strategy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-C91F3', 'Dark and Darker', True, 0.0, 0, 'dark-and-darker-qa-c1e629',
@@ -1673,17 +1671,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 26
 FROM category
 WHERE category_name = 'Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 26
 FROM category
 WHERE category_name = 'Dungeon Crawler'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 26
 FROM category
 WHERE category_name = 'Survival'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-715C9', 'Tomb nightmares
@@ -1744,17 +1742,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 27
 FROM category
 WHERE category_name = 'Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 27
 FROM category
 WHERE category_name = 'Dungeon Crawler'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 27
 FROM category
 WHERE category_name = 'Horror'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-FEEBB', 'Surfing Legends
@@ -1808,17 +1806,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 28
 FROM category
 WHERE category_name = 'Action-Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 28
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 28
 FROM category
 WHERE category_name = 'Fantasy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-21F31', 'Voidwrought', True, 209000, 20, 'voidwrought-ce8f4b',
@@ -1888,17 +1886,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 29
 FROM category
 WHERE category_name = 'Action'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 29
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 29
 FROM category
 WHERE category_name = 'Platformer'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-066EC', 'Labyrinth Destroyer
@@ -1952,12 +1950,12 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 30
 FROM category
 WHERE category_name = 'Fantasy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 30
 FROM category
 WHERE category_name = 'Puzzle'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-6A471', 'Interlude', True, 4.4, 4.4, 'interlude-c2e8b4',
@@ -2002,12 +2000,12 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 31
 FROM category
 WHERE category_name = 'Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 31
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-9F9CC', 'Honeycomb: The World Beyond', True, 4.4, 4.4, 'honeycomb-45501f',
@@ -2077,17 +2075,17 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 32
 FROM category
 WHERE category_name = 'Action-Adventure'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 32
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 32
 FROM category
 WHERE category_name = 'Survival'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO game (game_code, game_name, status, price, discount_percent, slug, description, is_active, release_date,
                   rating, about)
 VALUES ('GAME-4D7F4', 'The Magical Mixture Mill
@@ -2146,131 +2144,14 @@ INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 33
 FROM category
 WHERE category_name = 'Exploration'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 33
 FROM category
 WHERE category_name = 'Fantasy'
-ON CONFLICT DO NOTHING;
+    ON CONFLICT DO NOTHING;
 INSERT INTO category_detail (sys_id_category, sys_id_game)
 SELECT sys_id_category, 33
 FROM category
 WHERE category_name = 'Indie'
-ON CONFLICT DO NOTHING;
-
-drop table if exists public.voucher_use cascade;
-
-alter table public.game
-    drop column if exists quantity_count cascade,
-    drop column if exists sys_id_discount cascade,
-    drop column if exists game_category cascade,
-    drop column if exists sys_id_voucher cascade;
-
-alter table public.voucher
-    add column quantity       integer not null default 0,
-    add column is_active      boolean not null default true,
-    add column voucher_banner text,
-    add column max_discount   integer not null default 0;
-
-INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description,
-                            voucher_banner, quantity, is_active, max_discount)
-VALUES ('fallout', 'Fallout Day Sale', 50, '2024-10-20', '2024-10-31',
-        'Celebrate Fallout Day with discounts on Fallout games and more',
-        'https://cdn2.unrealengine.com/falloutday-sale-2024-epic-keyart-1920x1080-01-1920x1080-1c74e27f2de9.jpg?resize=1&w=854&h=480&quality=medium',
-        77, true, 500000);
-INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description,
-                            voucher_banner, quantity, is_active, max_discount)
-VALUES ('elder', 'Elder Festival', 44, '2024-10-20', '2024-10-28', 'Elder Festival for Halloween holiday',
-        'https://cdn2.unrealengine.com/egs-eso-witches-festival-2024-breaker-1920x1080-817df397bcf1.jpg?resize=1&w=854&h=480&quality=medium',
-        55, true, 777777);
-INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description,
-                            voucher_banner, quantity, is_active, max_discount)
-VALUES ('about-to', 'Brand new seasons', 69, '2024-10-20', '2024-10-31', 'New nuke of voucher seasons',
-        'https://cdn2.unrealengine.com/egs-nis-america-publisher-sale-2024-breaker-1920x1080-44eaff94888a.jpg?resize=1&w=854&h=480&quality=medium',
-        65, true, 444444);
-
-INSERT INTO public.account (username, email, hash_password, is_enabled)
-VALUES ('khoadev2004', 'khoadev2004@gmail.com', '$2a$12$IYKGkvL9vqdI3fJWJzi2QeSajsCVD4VkoU7NVJVmLjK4PwtXLHAP6', true);
-INSERT INTO public.account (username, email, hash_password, is_enabled)
-VALUES ('kaiz', 'kaisamaslain@gmail.com', '$2a$12$GHE5C2wkSTCm3VGMNRS.r.e6XhxLp7Ciq4evDtIdovVRKtdmWzLk6', true);
-
-INSERT INTO public.users (user_name, email, ho_va_ten, balance, join_time, avatar)
-VALUES ('kaiz', 'kaisamaslain@gmail.com', 'Nguyen van A', '2323136.0', null, null);
-INSERT INTO public.users (user_name, email, ho_va_ten, balance, join_time, avatar)
-VALUES ('khoadev2004', 'khoadev2004@gmail.com', 'Nguyen van A', '793332.25', null, null);
-
-INSERT INTO public.roles (username, username_user, role)
-VALUES ('khoadev2004', 'khoadev2004', 'CUSTOMER');
-INSERT INTO public.roles (username, username_user, role)
-VALUES ('kaiz', 'kaiz', 'ADMIN');
-
-alter table comment
-    drop column if exists start,
-    add column star integer not null default 0;
-
-alter table comment
-    drop column if exists sys_id_product,
-    add column sys_id_game integer not null references game;
-
-CREATE OR REPLACE PROCEDURE update_game_ratings()
-    LANGUAGE plpgsql
-AS
-$$
-BEGIN
-    UPDATE game g
-    SET rating       = subquery.avg_rating,
-        rating_count = subquery.comment_count
-    FROM (SELECT c.sys_id_game,
-                 AVG(c.star)             AS avg_rating,
-                 COUNT(c.sys_id_comment) AS comment_count
-          FROM comment c
-          WHERE c.comment_date >= CURRENT_DATE - INTERVAL '1 day'
-            AND c.comment_date < CURRENT_DATE
-          GROUP BY c.sys_id_game) AS subquery
-    WHERE g.sys_id_game = subquery.sys_id_game;
-END;
-$$;
-
-ALTER TABLE users
-    ADD COLUMN gender BOOLEAN DEFAULT true;
-
-ALTER TABLE users
-    ADD COLUMN DOB DATE DEFAULT '2000-01-01';
-
-ALTER TABLE users
-    ADD COLUMN phone_number VARCHAR(11);
-
-alter table game
-    drop column if exists quantity,
-    drop column if exists quantity_sold,
-    drop column if exists rating,
-    drop column if exists rating_count,
-    add column if not exists rating        double precision,
-    add column if not exists rating_count  integer default 0,
-    add column if not exists quantity      integer default 1000,
-    add column if not exists quantity_sold integer default 0,
-    add check (rating_count >= 0),
-    add check (quantity >= 0),
-    add check (quantity_sold >= 0);
-
-
-create table ChatRoom
-(
-    id       int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
-    userName varchar(255)
-);
-
-create table Message
-(
-    id        int GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
-    sender    varchar(255),
-    content   text,
-    timestamp DATE,
-    staff     boolean
-);
-
-alter table orders
-    drop column if exists quantity_purchased,
-    drop column if exists total_game_price,
-    add column if not exists quantity int default 1,
-    add column if not exists price int default 0;
+    ON CONFLICT DO NOTHING;
