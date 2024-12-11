@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
@@ -36,4 +37,8 @@ public interface GameRepository extends JpaRepository<Game, Integer>, JpaSpecifi
 
     @Procedure(procedureName = "update_game_ratings")
     void updateGameRatings();
+
+    @Modifying
+    @Query("UPDATE Game g SET g.quantity = g.quantity - :amount, g.quantitySold = g.quantitySold + :amount WHERE g.sysIdGame = :sysIdGame")
+    void updateGameQuantityAndSold(@Param("sysIdGame") Integer sysIdGame, @Param("amount") Integer amount);
 }

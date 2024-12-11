@@ -48,7 +48,6 @@ public class ChatAPI {
     @GetMapping("/room/{userName}")
     public ResponseEntity<List<Message>> getMessages(@PathVariable String userName) {
         ChatRoom chatRoom = chatRoomRepository.findByUserName(userName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        System.out.println(chatRoom);
         return ResponseEntity.ok(chatRoom.getMessages());
     }
 
@@ -56,7 +55,6 @@ public class ChatAPI {
     public ResponseObject<?> getRoom() {
         List<Optional<ChatRoom>> chatRoom = chatRoomRepository.timPhongChat();
 
-        System.out.println(chatRoom);
         return ResponseObject.builder()
                 .message("Lấy room thành công")
                 .data(roomChatMapper.toDTOs(chatRoom.stream().map(Optional::get).collect(Collectors.toList())))
