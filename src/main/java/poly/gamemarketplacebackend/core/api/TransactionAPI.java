@@ -5,16 +5,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
+import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
 import poly.gamemarketplacebackend.core.dto.VNPayRequest;
 import poly.gamemarketplacebackend.core.service.OrderDetailService;
 import poly.gamemarketplacebackend.core.service.TransactionHistoryService;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -60,5 +64,22 @@ public class TransactionAPI {
                 .message("Get order detail successfully")
                 .build();
     }
+
+
+    @GetMapping("/find-transaction")
+    public ResponseObject<?> findTransactionsByUserAndDesAndDate(
+            @RequestParam("username") String username,
+            @RequestParam(value = "des", required = false) String des,
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
+    ) {
+        List<TransactionHistoryDTO> transactions = transactionHistoryService.findTransactionByUserAndDesAndDate(username, des, startDate, endDate);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Transaction History List")
+                .data(transactions)
+                .build();
+    }
+
 
 }
