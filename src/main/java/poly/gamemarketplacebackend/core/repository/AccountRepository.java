@@ -35,4 +35,10 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
                                   @Param("hoVaTen") String hoVaTen,
                                   @Param("phoneNumber") String phoneNumber);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Account a SET a.email = :email WHERE a.username = :username")
+    int updateEmailByUsername(@Param("email") String email, @Param("username") String username);
+
+
 }
