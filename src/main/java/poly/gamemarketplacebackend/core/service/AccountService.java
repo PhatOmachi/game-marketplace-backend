@@ -37,4 +37,8 @@ public interface AccountService {
     boolean changePassword(String username, String passwordOld, String passwordNew);
 
     void insertAccountUserAndRole(AccountDTO accountDTO) throws SQLException, IOException;
+
+    boolean verifyPw(String username,String pass);
+
+    void updateEmail(String username, String email);
 }
