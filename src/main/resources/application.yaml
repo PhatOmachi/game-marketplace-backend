@@ -18,8 +18,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: cskh.divineshop@gmail.com
-    password: vpycwonbktedhjsg
+    username: codeoxi.com@gmail.com
+    password: bcdi oqkq sltg wapq
     properties:
       mail:
         smtp:
