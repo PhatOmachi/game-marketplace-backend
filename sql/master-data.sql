@@ -2506,3 +2506,20 @@ VALUES (3, 'about-to', 'Brand new seasons', 69, '2024-10-20', '2024-12-25', 'New
 
 ALTER TABLE voucher
     ALTER COLUMN sys_id_voucher ADD GENERATED ALWAYS AS IDENTITY;
+--- new
+ALTER TABLE game
+    ALTER COLUMN sys_id_game RESTART WITH 36;
+
+ALTER TABLE category
+    ALTER COLUMN sys_id_category RESTART WITH 36;
+
+ALTER TABLE voucher
+    ALTER COLUMN sys_id_voucher RESTART WITH 4;
+
+update media
+set media_url = 'http://localhost:9999/images/35/thumbnail.jpg'
+where sys_id_game = 35 and media_name = 'thumbnail';
+
+update media
+set media_url = 'http://localhost:9999/images/34/thumbnail.png'
+where sys_id_game = 34 and media_name = 'thumbnail';

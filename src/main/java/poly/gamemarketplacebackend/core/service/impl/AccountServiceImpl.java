@@ -210,6 +210,28 @@ public class AccountServiceImpl implements AccountService {
         usersRepository.updateAvatarByUsername(avatar2, accountDTO.getUsername());
     }
 
+    @Override
+    public boolean verifyPw(String username,String pass) {
+        Account account = accountRepository.findByUsername(username);
+        if (account == null) {
+            return false;
+        }
+        if (passwordEncoder.matches(pass, account.getHashPassword())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void updateEmail(String username, String email) {
+        int rowsAffected = accountRepository.updateEmailByUsername(email,username);
+        if (rowsAffected > 0) {
+            System.out.println("Email updated successfully for username: " + username);
+        } else {
+            System.out.println("Failed to update email for username: " + username);
+        }
+    }
+
     private void deleteImage(String imageUrl) {
         String filePath = "src/main/resources/static" + imageUrl.substring(imageUrl.indexOf("/CustomerImages"));
         File file = new File(filePath);

@@ -37,6 +37,7 @@ public interface UsersMapper {
         float totalSpent = (float) users.getOrders().stream()
                 .mapToDouble(Orders::getTotalPayment)
                 .sum();
-        usersDTO.setTotalSpent(totalSpent);
+        String totailString = String.valueOf(totalSpent).replace("-","");
+        usersDTO.setTotalSpent(Float.parseFloat(totailString));
     }
 }

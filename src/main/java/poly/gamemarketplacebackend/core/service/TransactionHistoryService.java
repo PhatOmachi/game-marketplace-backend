@@ -11,6 +11,7 @@ import poly.gamemarketplacebackend.core.entity.TransactionHistory;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TransactionHistoryService {
@@ -33,4 +34,6 @@ public interface TransactionHistoryService {
     List<TransactionHistoryDTO> findOrdersTransactionByUsername(String username);
 
     TransactionHistoryDTO findByDescription(String description);
+
+    List<TransactionHistoryDTO> findTransactionByUserAndDesAndDate(String username, String des, LocalDateTime startDate, LocalDateTime endDate);
 }

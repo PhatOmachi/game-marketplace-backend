@@ -2,6 +2,7 @@ package poly.gamemarketplacebackend.core.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
@@ -37,4 +38,7 @@ public interface GameService {
     ResponseObject<?> saveOrUpdateGame(GameDTO gameDTO, boolean isUpdate);
 
     void deleteImage(String imageUrl);
+
+    @Transactional
+    void updateGameQuantityAndSold(Integer sysIdGame, Integer amount);
 }

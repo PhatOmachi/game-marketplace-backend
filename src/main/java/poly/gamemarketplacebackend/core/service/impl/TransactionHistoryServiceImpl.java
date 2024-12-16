@@ -27,10 +27,12 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -181,5 +183,45 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
         );
         return transactionHistoryMapper.toDTO(th);
     }
+
+    @Override
+    public List<TransactionHistoryDTO> findTransactionByUserAndDesAndDate(
+            String username, String des, LocalDateTime startDate, LocalDateTime endDate) {
+
+        // Lấy danh sách lịch sử giao dịch dựa trên username
+        List<TransactionHistory> transactionHistories = transactionHistoryRepository.findAllByUsername(username);
+
+        // Xây dựng predicate cho các điều kiện lọc
+        Predicate<TransactionHistory> filterPredicate = transaction -> true; // Mặc định tất cả hợp lệ
+
+        // Lọc theo mô tả (description)
+        if (des != null) {
+            filterPredicate = filterPredicate.and(transaction -> transaction.getDescription().contains(des));
+        }
+
+        // Lọc theo ngày bắt đầu
+        if (startDate != null) {
+            filterPredicate = filterPredicate.and(transaction -> {
+                LocalDateTime paymentTime = transaction.getPaymentTime().toLocalDateTime();
+                return !paymentTime.isBefore(startDate);
+            });
+        }
+
+        // Lọc theo ngày kết thúc
+        if (endDate != null) {
+            filterPredicate = filterPredicate.and(transaction -> {
+                LocalDateTime paymentTime = transaction.getPaymentTime().toLocalDateTime();
+                return !paymentTime.isAfter(endDate);
+            });
+        }
+
+        // Áp dụng các điều kiện lọc và chuyển đổi thành DTO
+        return transactionHistories.stream()
+                .filter(filterPredicate) // Áp dụng bộ lọc
+                .map(transaction -> transactionHistoryMapper.toDTO(transaction)) // Chuyển đổi thành DTO
+                .collect(Collectors.toList());
+    }
+
+
 
 }

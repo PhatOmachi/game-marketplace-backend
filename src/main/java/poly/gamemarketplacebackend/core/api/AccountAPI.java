@@ -103,4 +103,25 @@ public class AccountAPI {
                 .message("Insert account user and role success")
                 .build();
     }
+
+    @PostMapping("/verify-pass")
+    public ResponseObject<?> verifyPass(@RequestParam("username") String userName, @RequestParam("pass") String pass) throws SQLException, IOException {
+        Boolean check =  accountService.verifyPw(userName,pass);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(check)
+                .message("Insert account user and role success")
+                .build();
+    }
+
+    @PostMapping("/update-email")
+    public ResponseObject<?> updateEmail(@RequestParam("username") String userName, @RequestParam("email") String email) throws SQLException, IOException {
+        accountService.updateEmail(userName,email);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("update success")
+                .build();
+    }
+
+
 }

@@ -209,6 +209,7 @@ public class OrdersServiceImpl implements OrdersService {
                 order.setTotalPayment(paymentRequestDTO.getTotalPayment());
                 order.setSysIdProduct(game.getSysIdGame());
 //                log.info("order2: {}", order);
+                gameService.updateGameQuantityAndSold(game.getSysIdGame(), order.getQuantity());
                 ordersRepository.save(ordersMapper.toEntity(order));
 
                 var ownedGame = OwnedGameDTO.builder()
