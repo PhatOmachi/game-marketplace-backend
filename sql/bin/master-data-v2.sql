@@ -167,6 +167,27 @@ END;
 $$
     LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION insert_account_user_and_role(
+    p_username VARCHAR,
+    p_email VARCHAR,
+    p_hash_password VARCHAR,
+    p_ho_va_ten VARCHAR,
+    p_phone_number VARCHAR
+)
+    RETURNS VOID AS
+$$
+BEGIN
+    INSERT INTO account(username, email, hash_password, is_enabled)
+    VALUES (p_username, p_email, p_hash_password, TRUE);
+
+    INSERT INTO users(user_name, email, ho_va_ten, join_time, gender, phone_number)
+    VALUES (p_username, p_email, p_ho_va_ten, now(), true, p_phone_number);
+
+    INSERT INTO roles(username, username_user, role)
+    VALUES (p_username, p_username, 'CUSTOMER');
+END;
+$$ LANGUAGE plpgsql;
+
 drop table if exists category cascade;
 drop table if exists game cascade;
 drop table if exists media cascade;
@@ -262,6 +283,73 @@ alter table public.voucher
     add column is_active      boolean not null default true,
     add column voucher_banner text,
     add column max_discount   integer not null default 0;
+
+alter table comment
+    drop
+        column if exists start,
+    add column star integer not null default 0;
+
+alter table comment
+    drop
+        column if exists sys_id_product,
+    add column sys_id_game integer not null references game;
+
+CREATE
+    OR REPLACE PROCEDURE update_game_ratings()
+    LANGUAGE plpgsql
+AS
+$$
+BEGIN
+    UPDATE game g
+    SET rating       = subquery.avg_rating,
+        rating_count = subquery.comment_count
+    FROM (SELECT c.sys_id_game,
+                 AVG(c.star)             AS avg_rating,
+                 COUNT(c.sys_id_comment) AS comment_count
+          FROM comment c
+          WHERE c.comment_date >= CURRENT_DATE - INTERVAL '1 day'
+            AND c.comment_date < CURRENT_DATE
+          GROUP BY c.sys_id_game) AS subquery
+    WHERE g.sys_id_game = subquery.sys_id_game;
+END;
+$$;
+
+ALTER TABLE users
+    ADD COLUMN gender BOOLEAN DEFAULT true;
+
+ALTER TABLE users
+    ADD COLUMN DOB DATE DEFAULT '2000-01-01';
+
+ALTER TABLE users
+    ADD COLUMN phone_number VARCHAR(11);
+
+alter table orders
+    drop
+        column if exists quantity_purchased,
+    drop
+        column if exists total_game_price,
+    add column if not exists quantity int default 1,
+    add column if not exists price    int default 0;
+
+CREATE OR REPLACE PROCEDURE get_analytics_summary(
+    OUT total_revenue FLOAT,
+    OUT total_items_sold INT,
+    OUT total_users INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Calculate total revenue
+    SELECT COALESCE(SUM(price), 0) INTO total_revenue FROM Orders;
+
+    -- Calculate total items sold
+    SELECT COALESCE(SUM(quantity), 0) INTO total_items_sold FROM Orders;
+
+    -- Calculate total users
+    SELECT COUNT(*) INTO total_users FROM Users;
+END;
+$$;
+
 ---
 ---insert
 ---

@@ -208,7 +208,6 @@ public class AccountServiceImpl implements AccountService {
         }
 
         usersRepository.updateAvatarByUsername(avatar2, accountDTO.getUsername());
-
     }
 
     @Override

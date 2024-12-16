@@ -180,6 +180,26 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE PROCEDURE get_analytics_summary(
+    OUT total_revenue FLOAT,
+    OUT total_items_sold INT,
+    OUT total_users INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Calculate total revenue
+    SELECT COALESCE(SUM(price), 0) INTO total_revenue FROM Orders;
+
+    -- Calculate total items sold
+    SELECT COALESCE(SUM(quantity), 0) INTO total_items_sold FROM Orders;
+
+    -- Calculate total users
+    SELECT COUNT(*) INTO total_users FROM Users;
+END;
+$$;
+
+
 drop table if exists category cascade;
 drop table if exists game cascade;
 drop table if exists media cascade;

@@ -60,6 +60,15 @@ public class OrdersAPI {
                 .build();
     }
 
+    @GetMapping("/analytics-summary")
+    public ResponseObject<?> getAnalyticsSummary() {
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Analytics Summary")
+                .data(ordersService.getAnalyticsSummary())
+                .build();
+    }
+
 
     @GetMapping("/find-order")
     public ResponseObject<?> findOrdersWithGameNameAndDateRange(
