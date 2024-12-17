@@ -199,6 +199,57 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE PROCEDURE get_revenue_vs_profit(
+    OUT revenue TEXT,
+    OUT profit TEXT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Tính toán doanh thu hàng tháng
+    WITH revenue_data AS (
+        SELECT to_char(order_date, 'YYYY-MM') AS month, SUM(price) AS amount
+        FROM Orders
+        GROUP BY to_char(order_date, 'YYYY-MM')
+        ORDER BY to_char(order_date, 'YYYY-MM')
+    )
+    SELECT json_agg(json_build_object('month', month, 'amount', amount))::TEXT INTO revenue
+    FROM revenue_data;
+
+    -- Tính toán lợi nhuận hàng tháng (giả sử lợi nhuận là doanh thu trừ đi một số chi phí, ở đây chúng ta giả định một tỷ lệ chi phí cố định cho đơn giản)
+    WITH profit_data AS (
+        SELECT to_char(order_date, 'YYYY-MM') AS month, SUM(price) * 0.5 AS amount
+        FROM Orders
+        GROUP BY to_char(order_date, 'YYYY-MM')
+        ORDER BY to_char(order_date, 'YYYY-MM')
+    )
+    SELECT json_agg(json_build_object('month', month, 'amount', amount))::TEXT INTO profit
+    FROM profit_data;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE get_monthly_user_growth(
+    OUT user_growth TEXT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Tính toán tăng trưởng người dùng hàng tháng
+    WITH user_growth_data AS (
+        SELECT to_char(join_time, 'YYYY-MM') AS month, COUNT(*) AS new_users
+        FROM Users
+        WHERE join_time IS NOT NULL
+        GROUP BY to_char(join_time, 'YYYY-MM')
+        ORDER BY to_char(join_time, 'YYYY-MM')
+    )
+    SELECT json_agg(json_build_object('month', month, 'new_users', new_users))::TEXT INTO user_growth
+    FROM user_growth_data;
+END;
+$$;
+
+CALL get_revenue_vs_profit(NULL, NULL);
+CALL get_monthly_user_growth(NULL);
+
 
 drop table if exists category cascade;
 drop table if exists game cascade;
