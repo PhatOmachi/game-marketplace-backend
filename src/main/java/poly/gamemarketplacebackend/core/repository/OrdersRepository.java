@@ -24,6 +24,11 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     List<Orders> findByOrderCode(String orderCode);
 
     @Procedure(procedureName = "public.get_analytics_summary")
-    List<Object[]> getAnalyticsSummary(); // Trả về mảng Object (sẽ chứa các giá trị OUT)
+    List<Object[]> getAnalyticsSummary();
 
+    @Procedure(procedureName = "public.get_revenue_vs_profit")
+    List<Object[]> getRevenueVsProfit();
+
+    @Procedure(procedureName = "public.get_monthly_user_growth")
+    List<Object[]> getMonthlyUserGrowth();
 }
