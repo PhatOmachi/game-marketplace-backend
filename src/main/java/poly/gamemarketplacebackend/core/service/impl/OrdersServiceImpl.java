@@ -1,5 +1,8 @@
 package poly.gamemarketplacebackend.core.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityManager;
@@ -7,9 +10,13 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import lombok.RequiredArgsConstructor;
+import org.cloudinary.json.JSONArray;
+import org.cloudinary.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -27,7 +34,10 @@ import poly.gamemarketplacebackend.core.service.*;
 import poly.gamemarketplacebackend.core.util.LicenseKeyUtils;
 import poly.gamemarketplacebackend.core.util.TimeUtils;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,8 +104,11 @@ public class OrdersServiceImpl implements OrdersService {
 
         return ordersMapper.toDTO(orders);
     }
+
     @PersistenceContext
     private EntityManager entityManager;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public AnalyticsDataDTO getAnalyticsSummary() {
@@ -116,6 +129,75 @@ public class OrdersServiceImpl implements OrdersService {
         Integer totalUsers = (Integer) query.getOutputParameterValue("total_users");
 
         return new AnalyticsDataDTO(totalRevenue, totalItemsSold, totalUsers);
+    }
+
+    @Override
+    public RevenueAndProfitDTO getRevenueVsProfit() {
+        StoredProcedureQuery query = entityManager
+                .createStoredProcedureQuery("get_revenue_vs_profit");
+
+        // Đăng ký các tham số OUT
+        query.registerStoredProcedureParameter("revenue", String.class, ParameterMode.OUT);
+        query.registerStoredProcedureParameter("profit", String.class, ParameterMode.OUT);
+
+        // Thực thi procedure
+        query.execute();
+
+        // Lấy giá trị từ OUT parameters
+        String revenueJson = (String) query.getOutputParameterValue("revenue");
+        String profitJson = (String) query.getOutputParameterValue("profit");
+
+        List<RevenueAndProfitDTO.MonthlyData> revenue = parseRevenueAndProfitJson(revenueJson);
+        List<RevenueAndProfitDTO.MonthlyData> profit = parseRevenueAndProfitJson(profitJson);
+
+        return new RevenueAndProfitDTO(revenue, profit);
+    }
+
+    private List<RevenueAndProfitDTO.MonthlyData> parseRevenueAndProfitJson(String json) {
+        List<RevenueAndProfitDTO.MonthlyData> dataList = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(json);
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String month = jsonObject.getString("month");
+            Double amount = jsonObject.getDouble("amount");
+            dataList.add(new RevenueAndProfitDTO.MonthlyData(month, amount));
+        }
+
+        return dataList;
+    }
+
+    @Override
+    public MonthlyUserGrowthDTO getMonthlyUserGrowth() {
+        StoredProcedureQuery query = entityManager
+                .createStoredProcedureQuery("get_monthly_user_growth");
+
+        // Đăng ký các tham số OUT
+        query.registerStoredProcedureParameter("user_growth", String.class, ParameterMode.OUT);
+
+        // Thực thi procedure
+        query.execute();
+
+        // Lấy giá trị từ OUT parameters
+        String userGrowthJson = (String) query.getOutputParameterValue("user_growth");
+
+        List<MonthlyUserGrowthDTO.MonthlyData> userGrowth = parseUserGrowthJson(userGrowthJson);
+
+        return new MonthlyUserGrowthDTO(userGrowth);
+    }
+
+    private List<MonthlyUserGrowthDTO.MonthlyData> parseUserGrowthJson(String json) {
+        List<MonthlyUserGrowthDTO.MonthlyData> dataList = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(json);
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String month = jsonObject.getString("month");
+            Integer newUsers = jsonObject.getInt("new_users");
+            dataList.add(new MonthlyUserGrowthDTO.MonthlyData(month, newUsers));
+        }
+
+        return dataList;
     }
 
     @Override
