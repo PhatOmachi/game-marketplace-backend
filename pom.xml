@@ -11,7 +11,7 @@
     <groupId>poly</groupId>
     <artifactId>GameMarketplaceBackend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>GameMarketplaceBackend</name>
     <description>GameMarketplaceBackend</description>
     <properties>
