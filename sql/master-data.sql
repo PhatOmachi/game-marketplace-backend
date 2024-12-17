@@ -2517,9 +2517,9 @@ ALTER TABLE voucher
     ALTER COLUMN sys_id_voucher RESTART WITH 4;
 
 update media
-set media_url = 'http://localhost:9999/images/35/thumbnail.jpg'
+set media_url = 'http://54.89.226.119:9999/images/35/thumbnail.jpg'
 where sys_id_game = 35 and media_name = 'thumbnail';
 
 update media
-set media_url = 'http://localhost:9999/images/34/thumbnail.png'
+set media_url = 'http://54.89.226.119:9999/images/34/thumbnail.png'
 where sys_id_game = 34 and media_name = 'thumbnail';
