@@ -1,0 +1,40 @@
+name: Jenkins Build Status
+
+on:
+  workflow_run:
+    workflows: ["Jenkins Build"]
+    types:
+      - completed
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Debug Environment Variables
+        run: |
+          echo "JENKINS_BUILD_STATUS=${{ secrets.JENKINS_BUILD_STATUS }}"
+          echo "COMMIT_SHA=${{ secrets.COMMIT_SHA }}"
+
+      - name: Update status
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { Octokit } = require("@octokit/rest");
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+            const status = process.env.JENKINS_BUILD_STATUS; // success, failure, error, pending
+            const sha = process.env.COMMIT_SHA; // SHA của commit
+            const repoOwner = 'vakhoa4875'; // Tên người dùng hoặc tổ chức
+            const repoName = 'ChuaLinhSonAPI'; // Tên repository
+
+
+            await octokit.repos.createCommitStatus({
+              owner: repoOwner,
+              repo: repoName,
+              sha: sha,
+              state: status,
+              context: 'Jenkins Build',
+              description: 'Build status from Jenkins',
+              target_url: 'http://103.15.222.65:8080/job/Deploy_CI-CD/lastBuild'
+            });
