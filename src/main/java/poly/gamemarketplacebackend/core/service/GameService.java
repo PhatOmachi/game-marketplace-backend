@@ -41,4 +41,6 @@ public interface GameService {
 
     @Transactional
     void updateGameQuantityAndSold(Integer sysIdGame, Integer amount);
+
+    List<Game> getTopSellingGames();
 }

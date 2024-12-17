@@ -318,4 +318,9 @@ public class GameServiceImpl implements GameService {
     public void updateGameQuantityAndSold(Integer sysIdGame, Integer amount) {
         gameRepository.updateGameQuantityAndSold(sysIdGame, amount);
     }
+
+    @Override
+    public List<Game> getTopSellingGames() {
+        return gameRepository.getTopSelling();
+    }
 }

@@ -135,4 +135,14 @@ public class GameAPI {
                 .data(gameDTO)
                 .build();
     }
+
+    @GetMapping("/top-selling")
+    public ResponseObject<?> getTopSellingGames() {
+        List<Game> topSellingGames = gameService.getTopSellingGames();
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Top selling games retrieved successfully")
+                .data(topSellingGames)
+                .build();
+    }
 }
