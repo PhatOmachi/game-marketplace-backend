@@ -3,10 +3,13 @@ package poly.gamemarketplacebackend.core.api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
+import poly.gamemarketplacebackend.core.dto.MonthlyUserGrowthDTO;
 import poly.gamemarketplacebackend.core.dto.OrdersDTO;
 import poly.gamemarketplacebackend.core.dto.PaymentRequestDTO;
+import poly.gamemarketplacebackend.core.dto.RevenueAndProfitDTO;
 import poly.gamemarketplacebackend.core.service.OrderDetailService;
 import poly.gamemarketplacebackend.core.service.OrdersService;
 
@@ -67,6 +70,18 @@ public class OrdersAPI {
                 .message("Analytics Summary")
                 .data(ordersService.getAnalyticsSummary())
                 .build();
+    }
+
+    @GetMapping("/revenue-vs-profit")
+    public ResponseEntity<RevenueAndProfitDTO> getRevenueVsProfit() {
+        RevenueAndProfitDTO data = ordersService.getRevenueVsProfit();
+        return ResponseEntity.ok(data);
+    }
+
+    @GetMapping("/monthly-user-growth")
+    public ResponseEntity<MonthlyUserGrowthDTO> getMonthlyUserGrowth() {
+        MonthlyUserGrowthDTO data = ordersService.getMonthlyUserGrowth();
+        return ResponseEntity.ok(data);
     }
 
 

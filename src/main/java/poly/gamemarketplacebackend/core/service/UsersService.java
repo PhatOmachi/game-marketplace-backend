@@ -1,5 +1,6 @@
 package poly.gamemarketplacebackend.core.service;
 
+import poly.gamemarketplacebackend.core.dto.Statistic;
 import poly.gamemarketplacebackend.core.dto.UsersDTO;
 
 import java.io.IOException;
@@ -17,4 +18,6 @@ public interface UsersService {
     List<UsersDTO> getAllUsers();
 
     void updateAvatarAndHoVaTenByUsername(UsersDTO usersDTO) throws IOException;
+
+    List<Statistic> getUserStatistics();
 }

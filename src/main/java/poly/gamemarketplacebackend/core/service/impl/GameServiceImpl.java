@@ -179,7 +179,7 @@ public class GameServiceImpl implements GameService {
                 // Xóa các hình ảnh cũ
                 deleteOldMedia(gameDTO, game);
             }
-            saveMedia(gameDTO, game);
+            saveMedia(gameDTO, game, isUpdate);
         } catch (Exception e) {
             return ResponseObject.builder()
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -229,7 +229,7 @@ public class GameServiceImpl implements GameService {
         return saveGame(gameDTO1);
     }
 
-    private void saveMedia(GameDTO gameDTO, Game game) throws Exception {
+    private void saveMedia(GameDTO gameDTO, Game game, boolean isUpdate) throws Exception {
         File gameDir = new File("src/main/resources/static/images/" + game.getSysIdGame());
         if (!gameDir.exists()) {
             gameDir.mkdirs();
@@ -270,7 +270,7 @@ public class GameServiceImpl implements GameService {
 
         // Sắp xếp lại các hình ảnh mới từ đầu và thay đổi tên
         for (MediaDTO mediaDTO : mediaList) {
-            if (!mediaDTO.getMediaName().equals("thumbnail") && !mediaDTO.getMediaName().equals("logo")) {
+            if (!mediaDTO.getMediaName().equals("thumbnail") && !mediaDTO.getMediaName().equals("logo") && !mediaDTO.getMediaName().contains("p")) {
                 mediaDTO.setMediaName("p" + imageIndex++);
                 mediaDTO.setMediaUrl(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/images/" + game.getSysIdGame() + "/" + mediaDTO.getMediaName() + ".jpg");
             }
@@ -317,5 +317,10 @@ public class GameServiceImpl implements GameService {
     @Transactional
     public void updateGameQuantityAndSold(Integer sysIdGame, Integer amount) {
         gameRepository.updateGameQuantityAndSold(sysIdGame, amount);
+    }
+
+    @Override
+    public List<Game> getTopSellingGames() {
+        return gameRepository.getTopSelling();
     }
 }

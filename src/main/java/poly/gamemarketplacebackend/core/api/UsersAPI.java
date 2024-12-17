@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
+import poly.gamemarketplacebackend.core.dto.Statistic;
 import poly.gamemarketplacebackend.core.dto.UsersDTO;
 import poly.gamemarketplacebackend.core.entity.Users;
 import poly.gamemarketplacebackend.core.repository.UsersRepository;
@@ -14,6 +15,7 @@ import poly.gamemarketplacebackend.core.service.impl.CloudinaryService;
 import poly.gamemarketplacebackend.core.service.impl.UsersServiceImpl;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -78,6 +80,16 @@ public class UsersAPI {
         return ResponseObject.builder()
                 .status(HttpStatus.OK)
                 .message("Update avatar and ho va ten by username")
+                .build();
+    }
+
+    @GetMapping("/statistics/new-users")
+    public ResponseObject<?> getUserStatistics() {
+        List<Statistic> statistics = usersService.getUserStatistics();
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Get user statistics")
+                .data(statistics)
                 .build();
     }
 

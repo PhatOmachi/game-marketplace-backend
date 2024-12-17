@@ -35,6 +35,12 @@ public interface GameRepository extends JpaRepository<Game, Integer>, JpaSpecifi
     @Query("SELECT g FROM Game g JOIN CategoryDetail cd ON g.sysIdGame = cd.game.sysIdGame WHERE cd.category.sysIdCategory in :categoryIds AND g.sysIdGame <> :sysIdGame order by g.discountPercent desc")
     List<Game> findRelatedGames(@Param("categoryIds") List<Integer> categoryIds, @Param("sysIdGame") Integer sysIdGame);
 
+    @Query(value = "SELECT * " +
+            "FROM game " +
+            "ORDER BY price * quantity_sold * (1 - discount_percent / 100) DESC " +
+            "LIMIT 5;", nativeQuery = true)
+    List<Game> getTopSelling();
+
     @Procedure(procedureName = "update_game_ratings")
     void updateGameRatings();
 

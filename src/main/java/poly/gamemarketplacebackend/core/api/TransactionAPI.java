@@ -10,8 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import poly.gamemarketplacebackend.core.constant.ResponseObject;
-import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
-import poly.gamemarketplacebackend.core.dto.VNPayRequest;
+import poly.gamemarketplacebackend.core.dto.*;
 import poly.gamemarketplacebackend.core.service.OrderDetailService;
 import poly.gamemarketplacebackend.core.service.TransactionHistoryService;
 
@@ -81,5 +80,33 @@ public class TransactionAPI {
                 .build();
     }
 
+    @GetMapping("/statistics/new-orders")
+    public ResponseObject<?> getTransactionStatistics() {
+        List<Statistic> statistics = transactionHistoryService.getTransactionStatistics();
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Transaction Statistics")
+                .data(statistics)
+                .build();
+    }
 
+    @GetMapping("/statistics/sums")
+    public ResponseObject<?> getTransactionSums() {
+        TransactionSums transactionSums = transactionHistoryService.getTransactionSums();
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Transaction sums retrieved successfully")
+                .data(transactionSums)
+                .build();
+    }
+
+    @GetMapping("/statistics/summary")
+    public ResponseObject<?> getTransactionSummary() {
+        List<TransactionSummary> transactionSummary = transactionHistoryService.getTransactionSummary();
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Transaction summary retrieved successfully")
+                .data(transactionSummary)
+                .build();
+    }
 }
