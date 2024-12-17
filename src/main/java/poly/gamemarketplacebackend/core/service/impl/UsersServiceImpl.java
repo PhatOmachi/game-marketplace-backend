@@ -3,6 +3,7 @@ package poly.gamemarketplacebackend.core.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import poly.gamemarketplacebackend.core.dto.Statistic;
 import poly.gamemarketplacebackend.core.dto.UsersDTO;
 import poly.gamemarketplacebackend.core.entity.Users;
 import poly.gamemarketplacebackend.core.mapper.UsersMapper;
@@ -13,6 +14,8 @@ import poly.gamemarketplacebackend.core.service.UsersService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -115,5 +118,17 @@ public class UsersServiceImpl implements UsersService {
         return baseUrl + "/CustomerImages/" + username + "/" + fileName;
     }
 
+    @Override
+    public List<Statistic> getUserStatistics() {
+        List<Object[]> results = usersRepository.getUserStatistics();
+        List<Statistic> statistics = new ArrayList<>();
+        for (Object[] result : results) {
+            statistics.add(Statistic.builder()
+                    .thisMonth((Integer) result[0])
+                    .increasedPercent((BigDecimal) result[1])
+                    .build());
+        }
+        return statistics;
+    }
 
 }

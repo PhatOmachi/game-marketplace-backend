@@ -3,6 +3,7 @@ package poly.gamemarketplacebackend.core.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +26,14 @@ public interface TransactionHistoryRepository extends JpaRepository<TransactionH
     List<TransactionHistory> findByDescriptionStartingWithAndUsername(String descriptionPrefix, String username);
 
     Optional<TransactionHistory> findByDescription(String description);
+
+    @Query(value = "SELECT * FROM get_transaction_statistics()", nativeQuery = true)
+    List<Object[]> getTransactionStatistics();
+
+    @Query(value = "SELECT * FROM get_transaction_sums()", nativeQuery = true)
+    List<Object[]> getTransactionSums();
+
+    @Query(value = "SELECT * FROM get_transaction_summary()", nativeQuery = true)
+    List<Object[]> getTransactionSummary();
 
 }

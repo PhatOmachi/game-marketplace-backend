@@ -49,4 +49,6 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
                                           @Param("hoVaTen") String hoVaTen,
                                           @Param("username") String username);
 
+    @Query(value = "SELECT * FROM get_user_statistics()", nativeQuery = true)
+    List<Object[]> getUserStatistics();
 }

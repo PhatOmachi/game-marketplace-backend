@@ -4,9 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
-import poly.gamemarketplacebackend.core.dto.VNPayRequest;
-import poly.gamemarketplacebackend.core.dto.VNPayResponse;
+import poly.gamemarketplacebackend.core.dto.*;
 import poly.gamemarketplacebackend.core.entity.TransactionHistory;
 
 import java.io.IOException;
@@ -36,4 +34,10 @@ public interface TransactionHistoryService {
     TransactionHistoryDTO findByDescription(String description);
 
     List<TransactionHistoryDTO> findTransactionByUserAndDesAndDate(String username, String des, LocalDateTime startDate, LocalDateTime endDate);
+
+    List<Statistic> getTransactionStatistics();
+
+    TransactionSums getTransactionSums();
+
+    List<TransactionSummary> getTransactionSummary();
 }

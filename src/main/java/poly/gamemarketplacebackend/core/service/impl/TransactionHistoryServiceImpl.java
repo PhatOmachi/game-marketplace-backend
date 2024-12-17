@@ -9,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import poly.gamemarketplacebackend.core.dto.TransactionHistoryDTO;
-import poly.gamemarketplacebackend.core.dto.VNPayRequest;
-import poly.gamemarketplacebackend.core.dto.VNPayResponse;
+import poly.gamemarketplacebackend.core.dto.*;
 import poly.gamemarketplacebackend.core.entity.TransactionHistory;
 import poly.gamemarketplacebackend.core.exception.CustomException;
 import poly.gamemarketplacebackend.core.mapper.TransactionHistoryMapper;
@@ -22,6 +20,7 @@ import poly.gamemarketplacebackend.core.service.TransactionHistoryService;
 import poly.gamemarketplacebackend.core.util.DataStore;
 import poly.gamemarketplacebackend.core.util.VNPayUtil;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -29,6 +28,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -221,7 +221,38 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
                 .map(transaction -> transactionHistoryMapper.toDTO(transaction)) // Chuyển đổi thành DTO
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<Statistic> getTransactionStatistics() {
+        List<Object[]> results = transactionHistoryRepository.getTransactionStatistics();
+        List<Statistic> statistics = new ArrayList<>();
+        for (Object[] result : results) {
+            statistics.add(Statistic.builder()
+                    .thisMonth((Integer) result[0])
+                    .increasedPercent((BigDecimal) result[1])
+                    .build());
+        }
+        return statistics;
+    }
 
+    @Override
+    public TransactionSums getTransactionSums() {
+        List<Object[]> results = transactionHistoryRepository.getTransactionSums();
+        Object[] result = results.get(0);
+        return TransactionSums.builder()
+                .totalIncome((BigDecimal) result[0])
+                .todayIncome((BigDecimal) result[1])
+                .build();
+    }
 
-
+    @Override
+    public List<TransactionSummary> getTransactionSummary() {
+        List<Object[]> results = transactionHistoryRepository.getTransactionSummary();
+        return results.stream()
+                .map(result -> TransactionSummary.builder()
+                        .date((String) result[0])
+                        .orderCount((Integer) result[1])
+                        .userCount((Integer) result[2])
+                        .build())
+                .collect(Collectors.toList());
+    }
 }
