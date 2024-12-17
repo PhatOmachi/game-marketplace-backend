@@ -248,10 +248,6 @@ BEGIN
 END;
 $$;
 
-CALL get_revenue_vs_profit(NULL, NULL);
-CALL get_monthly_user_growth(NULL);
-
-
 drop table if exists category cascade;
 drop table if exists game cascade;
 drop table if exists media cascade;
@@ -519,12 +515,248 @@ truncate table game cascade;
 ALTER TABLE game
     ALTER COLUMN sys_id_game DROP IDENTITY;
 
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (17, 'GAME-7D6F5', '3 Minutes to Midnight', true, 261000, 0, null, '3-minutes-to-midnight-3b506f',
-        'In a race against time, Betty embarks on a thrilling, comedy-packed adventure to crack a conspiracy that starts with a bang and ends at 3 Minutes to Midnight.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'3 Minutes to Midnight
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (18, 'GAME-E91AC', 'EA SPORTS™ WRC 24', true, 899000, 0, null, 'ea-sports-wrc-24', 'Experience the thrill of the 2024 rally season with new locations, moments, stages, high-performance vehicles, new liveries and more. Brace yourself to embark on your continued rally journey!', true, null, '2024-07-15', ' ', ' ', ' ', e'Buy EA SPORTS™ WRC 24* to get:
+EA SPORTS™ WRC
+
+Locations & Car Content Pack
+
+Le Maestros Content Pack
+
+Hard Chargers Content Pack', 4, 3, 678, 42);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (24, 'GAME-8EBB5', 'Arhaekon', true, 157000, 0, null, 'arhaekon-f69cf5', 'Embark on a perilous journey as an Arhaekon in this challenging roguelike turn-based RPG dungeon crawler. Lead your minions through treacherous dungeons, uncover ancient treasures, and face relentless abominations in a quest for humanity''s deliverance from corruption.', true, null, '2024-08-08', ' ', ' ', ' ', e'Embark on a perilous journey as an Arhaekon in this challenging roguelike turn-based RPG dungeon crawler, where every choice is crucial
+Arhaekon is a challenging roguelike turn-based RPG dungeon crawler, set in a grimdark world teetering on the brink of destruction. As humanity grapples with the corruption they unwittingly unleashed, players must navigate treacherous dungeons, confront empowered enemies, and make strategic decisions to prevent humanity\'s extinction. Immerse yourself in a relentless struggle for survival, where a single misstep can lead to utter ruin. Are you ready to face your predestined arch-nemesis and redeem humanity?
+
+Turn-Based Combat: Engage in battle-centered, turn-based gameplay with very limited mobility
+• Roguelike Elements: Enjoy units permadeath, procedural dungeons & loot
+• Diverse Units: Command 12 units across 4 classes, each with unique abilities and progressions
+• 14 Themed Regions: Explore diverse dungeons filled with themed enemies & lore
+• Punishing Decisions: Every choice matters in both management and combat - there\'s no going back
+• Varied Loot: Discover crafting recipes, lore pages, and ritual rites of five rarity tiers
+• Augment Equipment: Equipment system to that prevents hoarding, with randomly generated, soul-bound augments
+• Dark Atmosphere: Immerse yourself in a bleak, grim world
+• Endless Music: Experience experimental, quasi-procedurally generated music
+• Corruption System: Manage your units\' health and sanity as they tune into the enemies\' song
+• Unit & Party Management: Recruit, enhance, level-up, mend wounds and strengthen resolve of your units
+• Camp Management: Upgrade and manage your refugee camp and facilities
+• Crafting System: Use the compendium of shaping to upgrade or obtain new equipment
+• Progress Management: Non-linear dungeon progression and allocable unit stat points on level-up
+• Collectible Lore: Enjoy bonuses from lore, or at least the experience - if lore isn\'t your thing.
+• Indie Development: Created by a very small, passionate team.
+
+', 3.7, 15, 202, 46);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (34, 'GAME-4D7F7', 'The Scourge | Tai Ương', true, 260000, 10, null, 'The_Scourge__Tai_ng', 'The Scourge game tells stories revolving around urban legends from the 1990s in Saigon, Vietnam. The male protagonist is trapped by past sins caused by his and his family''s mistakes. Now, he must confront and overcome the consequences to find a path to redemption, and you are him.', true, e'Single-player
+                                                                                                                                                                                                                                               Family sharing
+                                                                                                                                                                                                                                               Xbox Controller', '2024-10-23', 'Rare Reversee, Beaztek', ' ', ' ', e'"The Scourge" is a first person horror puzzle game, immersing you in the heart of Saigon (Vietnam) through urban legends from the 1990s. You will follow the tragic fate of a family and the main character, who made mistakes in the past and is now haunted by a sinister supernatural force.
+
+The protagonist, a person overwhelmed by delusions due to past tragedies and life\'s despair, frequently finds himself in nightmares. In these dreams, the line between reality and illusion becomes blurred. To rediscover his inner light and escape from the shadows of his past, he must confront his sorrows, make amends for his mistakes, and defeat the most formidable enemy that exists not only in his mind but also in the real world.
+
+                                                                                                                                                                                                                                               Starting in a rundown apartment during an era of an unnamed epidemic, where mysteries and supernatural phenomena occur incessantly, you\'ll need to use your intellect to solve intricate puzzles, explore new areas, and prepare for the ultimate showdown. Every decision, every action, will determine his fate and future. Stay alert and be ready to face all challenges.
+
+Mature Content Description
+The developers describe the content like this:
+
+Dear players,
+
+                                                                                                                                                                                                                                               We\'d like to provide some clarity about the mature content present in our game. It\'s essential for our community to have a clear understanding of what to expect and to ensure a comfortable gaming experience for all:
+
+                                                                                                                                                                                                                                               Sexual Content: Our horror game does not contain depictions of sexual acts, nor does it touch upon topics of sexual assault or non-consensual sex. The narrative focuses on horror elements that are separate from any sexual themes.
+
+Violence: The game does contain elements of horror and suspense, which can manifest in intense scenes. However, this is in line with the genre and is not gratuitous. Players should be prepared for tense atmospheres and potentially startling moments, but not graphic violence.
+
+Drug and Alcohol Abuse: There are no depictions or narratives surrounding drug and alcohol abuse in our game.
+
+Self-harm: We have taken care to avoid sensitive topics such as self-harm, and it is not present or implied within our storyline.
+
+                                                                                                                                                                                                                                               We urge potential players to consider these points and gauge their comfort level with the content. Our primary goal is to provide a thrilling horror experience without delving into topics that could be triggering for some players. If you have any concerns or questions about the content, please feel free to reach out to us. We\'re here to assist and ensure everyone enjoys our game safely and comfortably.
+
+
+
+                                                                                                                                                                                                                                               System Requirements
+                                                                                                                                                                                                                                               Minimum:
+                                                                                                                                                                                                                                               Requires a 64-bit processor and operating system
+                                                                                                                                                                                                                                               OS: Windows 10 x64
+                                                                                                                                                                                                                                               Processor: Core I5 Gen 9, Ryzen 5 3600/5600X
+Memory: 8 GB RAM
+Graphics: GTX 1050 4GB
+DirectX: Version 11
+Storage: 10 GB available space
+Sound Card: Yes
+VR Support:
+Recommended:
+Requires a 64-bit processor and operating system
+OS: Windows 10 x64
+Processor: Core I7 Gen 9, Ryzen 7 3700X
+Memory: 16 GB RAM
+Graphics: GTX 1660
+DirectX: Version 11
+Storage: 10 GB available space
+Sound Card: Yes
+VR Support:', 4.4, 49, 999, 149);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (1, 'GAME-7E016', 'Dying Light 2 Stay Human - Reloaded Edition', true, 990000, 60, null, 'dying-light-2-stay-human', 'Now with guns! With the Reloaded Edition, the arsenal at your disposal has grown massively. Be creative with your combat or outrun your foes as you enjoy the perks of more than 10 post-launch updates. Good luck out there, and stay human!', true, null, '2022-02-04', ' ', ' ', ' ', e'RELOADED EDITION
+Dying Light 2 Stay Human: Reloaded Edition includes:
+
+Dying Light 2 Stay Human
+
+‘Bloody Ties’ DLC
+
+Now with guns! With the Reloaded Edition, the arsenal at your disposal has grown massively. Be creative with your combat or outrun your foes as you enjoy the perks of more than 10 post-launch updates. Good luck out there, and stay human!
+
+It’s been 20 years since the events of the original game. The virus won, and humanity is slowly dying. You play as Aiden Caldwell, a wandering Pilgrim who delivers goods, brings news, and connects the few remaining survivor settlements in barren lands devastated by the zombie virus. However, your true goal is to find your little sister Mia, who you left behind as a kid to escape Dr. Waltz\'s torturous experiments. Haunted by the past, you eventually make the decision to confront it when you learn that Mia may still be alive in Villedor — the last city standing on Earth.
+
+You quickly find yourself in a settlement torn by conflict. You’ll need to engage in creative and gory combat, so hone your skills to defeat hordes of zombies and make allies. Roam the city, free run across Villedor’s buildings and rooftops in search of loot in remote areas, and be wary of the night. With every sunset, monsters take control of the streets.', 3.6, 15, 472, 44);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (29, 'GAME-21F31', 'Voidwrought', true, 209000, 20, null, 'voidwrought-ce8f4b', 'Voidwrought is a 2D action-platformer set in a hand-drawn world of cosmic horrors. Explore the thawing ruins of the First Civilisation and strike down the gods that dwell there. Grow your powers, uncover ancient Artifacts, and expand your shrine amid the wreckage.', true, null, '2024-07-15', ' ', ' ', ' ', e'The coming of the Red Star heralds a new age. Emerging from its cocoon, the Simulacrum is driven to collect Ichor, the blood of the gods, from the monstrosities who hoard it.
+
+Voidwrought is a fast-paced action-platformer with tight traversal, varied abilities, and formidable boss battles. Find and equip powerful Artifacts to customize your playstyle. Excavate into the rubble of the Gray City to construct a shrine filled with loyal followers.
+
+Delve Beneath the Surface
+Descend below the star-scorched surface and explore the multidimensional depths below. Witness the corrupted revelry of the Court, lose yourself in the icy tunnels of the Old Waters, and discover the grim fate of the Abandoned Expedition.
+
+With sharp controls, engaging exploration, and deep lore to discover, Voidwrought is a dynamic addition to the modern Metroidvania genre.
+
+Unleash Ancient Artifacts
+The world is filled with treasures sought by the learned, the brave, and the mad. Scour the halls of your shrine, rend the corpses of defeated deities, and hunt in the hidden corners of the cosmos to find Artifacts capable of granting unique powers.
+
+Discover and equip over 50 Relics and Souls, from spectral weapons to passive buffs, to match your preferred playstyle.
+
+Build your Shrine
+Some still cling to the original faith. From a tiny cult, expand your influence and excavate further into the ruins. As you expand your shrine and followers, new secrets, rewards, and horrors come to light.
+
+Features
+Experience smooth, satisfying movement and tight controls.
+
+Explore atmospheric, hand-drawn biomes, from the star-scorched Surface to the biomechanical Abandoned Expedition.
+
+Fight over 70 enemies and 11 formidable bosses.
+
+Customize your playstyle with over 50 active Relics and passive Souls.
+
+Expand your shrine to discover new treasures, abilities, and secrets.
+
+Enjoy a rich, foreboding score by Neverinth and Vigil: The Longest Night composer Jouni Valjakka.', 3.5, 24, 927, 73);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (7, 'GAME-E3642', 'Illuvium Zero', true, 24999, 0, null, 'illuvium-zero-ca46a6', 'Engage in the ultimate city-building and economic strategy experience with Illuvium: Zero. Strategically build your city, manage resources, to rule resources in Illuvium, every decision impacts your City’s success.', true, null, '2024-07-12', ' ', ' ', ' ', e'This is an Early Access Game
+
+Early Access games are still under development and may change significantly over time. As a result, you may experience unforeseen issues or completely new gameplay elements while playing this game.
+You can play now to experience the game while it\'s being built or wait until it offers a more complete experience.', 2.7, 12, 632, 72);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (31, 'GAME-6A471', 'Interlude', true, 24999, 5, null, 'interlude-c2e8b4', 'Explore a virtual dungeon where each room is an entire game world, each with its own characters, gameplay, and themes. Dive deeper and deeper, unlock more and more worlds, and be the first to reach the Core!', true, null, '2024-07-15', ' ', ' ', ' ', e'A virtual dungeon where each room is an entire game world, each with its own characters, gameplay, and themes.
+Interlude can be seen as a dungeon crawler with a time-based exploration loop, with one key particularity: each room is an entire game map. The game can be of any genre (action, shooter, platformer, 2D or 3D...), and the map can be of any size and type (from a small room to an entire game world with many biomes and cities)
+
+Each portal costs a given amount of energy to traverse. Energy is produced by special assets that can be found by exploring and playing the games in the rooms. Thus exploring the dungeon/network and playing its games will make you ever more powerful, and allow you to dive even deeper - and maybe, one day, discover the unspeakable power that lies in the depth of the Interlude!', 3.4, 13, 194, 25);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (8, 'GAME-DA6A6', 'Romopolis', true, 52000, 80, null, 'romopolis-49e1bf', 'Casual city building. Become an architect. Manage the small polis. Construct an idyllic ancient Roman city with plenty of houses. Work your way to the top through the campaign mode, or create your own scenarios.', true, null, '2009-03-29', ' ', ' ', ' ', e'Build ancient Roman cities. Earn money, fame and honor in this casual simulation game.
+
+Construct an idyllic ancient Roman city with plenty of houses and keep your residents happy by providing all the services they need. You\'ll be rewarded with money, fame and honor. It\'s up to you how to play - you can work your way to the top in the comprehensive campaign mode or you can create and play your own custom scenarios. Build dozens of Roman-styled houses, structures and other buildings. Trophies and awards available for the meticulous gamer!', 4.5, 17, 936, 42);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (23, 'GAME-1BCD1', 'Etherscape', true, 24999, 0, null, 'the-etherscape-b2e3d2', 'Etherscape is a multiplayer online rogue-lite action RPG with an on-chain backend that allows users to own and trade their items as NFTs.', true, null, '2024-08-16', ' ', ' ', ' ', e'Welcome Etherborn
+Welcome to Etherscape, a realm where the boundaries between life and death blur, and the eternal struggle for survival takes on a new meaning. As an Etherborn, you possess an eternal soul that defies the finality of death, resurrecting you to face the challenges anew. In this multiplayer fantasy action RPG, every death is a lesson, and every resurrection is a chance to rise stronger.
+
+Prepare to embark on an epic adventure where your actions echo through eternity. Welcome to Etherscape – where death is but a doorway, and your legacy is immortal.', 3, 9, 851, 75);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (30, 'GAME-066EC', 'Labyrinth Destroyer', true, 24999, 5, null, 'labyrinth-destroyer-1-0994f2', 'A mind game who can break your brain. And your patience ! You have to resolve 10 labyrinth. But you have some quest to do inside too !!! Keep in mind that the first one is easy. But it got harder the farther you go !', true, null, '2024-07-15', ' ', ' ', ' ', e'Labyrinth Destroyer
+Follow Kirt in the strange world he got stuck inside, and follow the way your patience tell you to follow.
+
+Play this game with all your mind and keep calm. You will need to.
+
+Destroy the labyrinth and listen what some strange little girl tell you.
+
+Will you be able to go back to Earth ? Will it be alright ?
+
+Give it a try, after all you don\'t know until you do it !
+
+You can play this game with almost anything.', 3.2, 1, 915, 69);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (26, 'GAME-C91F3', 'Dark and Darker', true, 24999, 0, null, 'dark-and-darker-qa-c1e629', 'An unforgiving hardcore fantasy FPS dungeon PvPvE adventure. Band together with your friends and use your courage, wits, and cunning to uncover mythical treasures, defeat gruesome monsters, while staying one step ahead of the other devious treasure-hunters.', true, null, '2024-06-08', ' ', ' ', ' ', e'Free-To-Play Version!
+The free version of Dark and Darker allows players to create one character and play Normal mode on all maps, complete quests, and build a stash of loot! Players who enjoy their time with the free version and want to experience everything the game has to offer can upgrade to the full version for 15 Redstone shards (equivalent to $30.00). The full version of the game includes access to the High-Roller mode, where players can equip their hard-earned gear to take on even more dangerous dungeons and increase the stakes. Players will also gain full access to the marketplace where they can trade with other adventurers, 9 total character slots, and the Shared Stash!
+
+We hope that this version will give players a chance to experience some of what Dark and Darker has to offer and to give players who have not played since the playtests a chance to see what\'s new before they dive into the full edition.', 3.8, 13, 383, 42);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (12, 'GAME-ED2CE', 'Legion TD 2', true, 209000, 0, null, 'legion-td-2-a244b9', 'An infinitely replayable multiplayer and single-player tower defense. Defend against waves of enemies and destroy the enemy''s king before they destroy yours. Legion TD 2 is a one-of-a-kind game of tactics, teamwork, and prediction. Party as 1-8 players.', true, null, '2024-07-15', ' ', ' ', ' ', 'ACTIVE DEVELOPMENT & THRIVING COMMUNITY! As of 2024, Legion TD 2 has continued to receive major game updates every month since Early Access launched in 2017, and has a steady playerbase of tens of thousands of players. With full cross-play between Epic & Steam, fair matches are formed typically within a minute or two. If multiplayer isn''t your cup of tea, the included solo/co-op campaign & Play vs. AI modes provide plenty of hours of fun.', 3.8, 3, 436, 71);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (3, 'GAME-0E0DC', 'Trinity Building Editor', true, 261000, 0, null, 'trinity-building-editor-94501c', 'Home building simulator game with a goal of ultimate freedom for your creativity. Play with landscape, build the foundation, change the size of all building parts, combine pieces for a unique design, stack, rotate and scale. Complete tasks and increase your architect level!', true, null, '2024-07-15', ' ', ' ', ' ', e'Home building simulator game with a goal of ultimate freedom for your creativity.
+Trinity Building Editor is a standalone simulator game that we are making in preparation for a bigger release in the future. Our main big project is Trinity Mysterious System, but we have decided that allowing players to access a complex and unique Building Editor on its own will be a lot of fun, so we have made it our first step towards the goal.
+
+Trinity Building Editor will give you an unlimited freedom of creation. Build homes, play with interior design and landscaping, try special tools and mechanics. Our block focused system allows for an ultimate variety of shapes and sizes of almost every detail in the house.', 4, 4, 391, 46);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (9, 'GAME-16D9C', 'Barbie Project Friendship™', true, 470000, 0, null, 'barbie-project-friendship-9434fc', 'Join Barbie™ on a fun summer adventure to save the Malibu Waves Community Center! Help friends, unlock minigames and earn points for upgrades while you restore a beloved landmark.', true, null, '2024-07-15', ' ', ' ', ' ', e'Get ready for the ultimate Barbie™ gaming adventure as Barbie and Barbie work together to save a beloved Malibu landmark, the Malibu Waves Community Center! The once thriving destination is nearly abandoned and on the verge of being closed. It’s time to band together to restore the beloved community center to its former glory.
+
+Play as Barbie and Barbie as you team up with their BFFs and family to save the day! Put your own stamp on the Malibu landmark by combining talents and creativity to transform six spaces including the Animal Care Center, Campsite, Crafting Studio, and more!', 3.7, 12, 201, 61);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (16, 'GAME-9D28D', 'Blindfire', true, 94000, 0, null, 'eos_test-5cd09d', 'Blindfire is an online multiplayer first-person shooter that takes place in the dark. Brave the arena alone or team up in matches of up to 8 players.', true, null, '2024-07-15', ' ', ' ', ' ', e'WEAPONS LIVE, LIGHTS OUT
+Blindfire is an online multiplayer first-person shooter. Set in a shadowy underworld, the ultra-wealthy bet on illicit bloodsports beneath a neon skyline. For contestants lured by the promise of untold riches and unimaginable glory, it’s kill or be killed.
+
+EVERY KILL COUNTS
+Brave the arena alone or team up in matches of up to 8 players. In Bodycount mode, score the most points over five rapid-fire rounds. Be the last person standing when the lights come on and earn your place in the winner’s showcase.
+
+DANGER LURKS IN THE DARK
+Light is a rarity in close-quarter arenas riddled with traps for intense firefights. Players must decide where and when to fire at the risk of exposing their position. Hone your senses with the room-scanning Echo mechanic to help you navigate the arena and locate your opponents.
+
+REVENGE UNDER THE BLACKLIGHTS
+When defeated, spectators gain access to the arena\'s cutting-edge night vision cameras. Blacklight reveals the vibrant hues of hidden street art and transforms the slick designs of contestants’ outfits. The eliminated spectators can assume control of traps in the arena to influence the outcome of the match and exact revenge.
+
+LIGHT THEM UP
+The pitch-black battlefields of Blindfire turn the first-person shooter genre on its head. Stalk the shadows as the tension builds, then run for cover as the shots start flying in a volley of muzzle flashes. Think you’ve got what it takes to eliminate the competition in Blindfire? Then grab your weapon and LIGHT THEM UP.', 2.5, 14, 911, 60);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (19, 'GAME-805D6', 'WW2 Frontline 1942', true, 24999, 0, null, 'ww2-frontline-1942-96fe8f', 'FPS online multiplayer action World war II military simulator and army battle.', true, null, '2024-07-15', ' ', ' ', ' ', e'FPS online multiplayer action World war II military simulator and army battle
+World War II Shooter - an exciting blend of action and military games. Choose your side and join online shooting games with players from different countries. Equip a variety of weapons and immerse yourself in realistic battles with stunning graphics. Experience the atmosphere of war as you engage in dynamic shooting action that will give you unforgettable impressions and adrenaline.
+
+Key Features of the WW2 Shooter:
+
+Explore thrilling battlegrounds during World War II where the action never stops. The maps are filled with legendary locations, including tanks, ships, and constant combat. Each map is unique, offering diverse tactical opportunities.
+
+Step into the shoes of heroes from different countries - the United States, Russia, Japan, and Germany. These war games offer the choice of characters with different appearances, allowing you to relive epic battles.
+
+Unleash a vast arsenal of 23 different weapons, including legendary Mosin and Mauser sniper rifles, powerful Thompson submachine guns, and a wide selection of pistols and machine guns. Feel the power and variety of weapons as you dive into the dynamic action shooter.
+
+Upgrade your favorite weapons using the upgrade tree to add new characteristics and increase damage. Customize your weapons to suit your play style and become an even more effective fighter.
+
+Each soldier possesses unique passive skills that come into play during combat engagements. This means that you don\'t have to activate them manually; they automatically influence the gameplay, making your soldier more effective in battle.
+
+Join forces with like-minded players in war games and engage in team battles to crush enemies in online shooters dedicated to World War II. Collaborative efforts, coordination, and strategic thinking will help you achieve victory and become an irresistible force on the battlefield.
+
+Frontline 1942 is an exhilarating online action shooter that allows players to immerse themselves in the intense atmosphere of warfare. With a vast arsenal of weapons, unique maps, and diverse characters, this online military game offers an unforgettable experience and the opportunity to compete with players from around the world. With team battles and weapon upgrades, players can feel the true intensity and strategic depth of military action. Be part of history and relive epic moments of World War II in this gripping shooter.', 3.8, 17, 352, 28);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (28, 'GAME-FEEBB', 'Surfing Legends', true, 146000, 15, null, 'surfing-legends-880017', 'Surf the waves, rescue the wildlife, and collect the magic diamonds in this thrilling single player adventure! Buy faster boards and beat the clock to open new levels!', true, null, '2024-07-15', ' ', ' ', ' ', e'Surf the waves, rescue the wildlife, and collect the magic diamonds in this thrilling single player adventure!
+Embark on a thrilling adventure and surf across the globe, from tropical islands to the arctic, from desert oases to canyon rivers, and beyond. Rescue endangered wildlife and collect dazzling magic diamonds to boost your speed. Clean up the water by removing oil cans, plastic, and other hazards. Solve a fun ball challenge in every level. Leap over majestic waterfalls, gather shiny coins, buy awesome boards and beat the clock. Surfing Legends offers you a fun and unique surfing experience.
+
+Features:
+
+● 3 characters with 3 outfits each
+● 9 levels
+● Each level has multiple challenges
+● 19 boards
+● Boost upgrades
+● No dying, just pure fun and enjoyable surfing
+● And more!', 4.1, 10, 190, 47);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (15, 'GAME-B6679', 'Legion TD 2', true, 209000, 0, null, 'legion-td-2-a244b9-2', 'An infinitely replayable multiplayer and single-player tower defense. Defend against waves of enemies and destroy the enemy''s king before they destroy yours. Legion TD 2 is a one-of-a-kind game of tactics, teamwork, and prediction. Party as 1-8 players.', true, null, '2002-10-22', ' ', ' ', ' ', 'ACTIVE DEVELOPMENT & THRIVING COMMUNITY! As of 2024, Legion TD 2 has continued to receive major game updates every month since Early Access launched in 2017, and has a steady playerbase of tens of thousands of players. With full cross-play between Epic & Steam, fair matches are formed typically within a minute or two. If multiplayer isn''t your cup of tea, the included solo/co-op campaign & Play vs. AI modes provide plenty of hours of fun.', 4.4, 14, 833, 71);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (33, 'GAME-4D7F4', 'The Magical Mixture Mill', true, 260000, 5, null, 'magical-mixture-mill-f66c25', 'Brew magical mixtures for the local questing heroes - and keep them coming back for more! Team up with a mushroom-loving witch to restore her run-down shop. Build automated production lines, experiment with exotic ingredients, explore a cozy world, and hope nothing blows up.', true, null, '2024-07-15', ' ', ' ', ' ', e'Brew big or go broke!
+For centuries, Griselda’s Magical Mixtures has been the go-to shop for travelers and heroes in search of performance-enhancing concoctions; be it to obtain mighty strength, incredible intelligence, enviable beauty or... less heroic attributes.
+
+Giselda, an elderly mushroom-loving witch, has always run the business with great dedication but time has taken its toll, and it\'s time to train someone who can replace her. In short, her knowledge must be handed down and YOU - a former RPG adventurer whose career was cut short mixture intolerance - are the perfect candidate!
+
+Together with your goblin assistant, build automated production lines of alchemical workstations to provide potent mixtures to the local heroes, assisting them in their epic quests, and making you their favorite potion supplier. Explore diverse biomes and use your remaining adventuring abilities to gather and research exotic ingredients, leading to new mixing opportunities. Get ready to face all the “wax on, wax off” challenges Griselda throws at you to bring the shop back to its former glory!
+
+Magical Features:
+
+• Accessible, automated potion brewing
+Create fully automated production pipelines from a varied catalogue of workstations to produce potions. Balance liquid ratio, maximize potency, pick the right ingredients, balance flavors and pour it all on the fanciest bottle you can craft to create the potion!
+
+• A Vibrant, Cozy, and Colorful world!
+A mix of colorful illustration designs with a pinch of cheeky classic fantasy humor but still an alchemically-cozy experience. Different environments to explore and gather your ingredients. But be careful! Some flora and fauna will fight back…
+
+• Happy customers always come back! Especially if they are “hooked”
+Not all heroes want the same potions, so take your time to get to know your customers. As they level up, their demand for stronger and more advanced mixtures grow, turning them into very loyal customers - and turning your pockets heavy with coins!', 3.5, 7, 277, 66);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (5, 'GAME-B8911', 'Horticular', true, 209000, 0, null, 'horticular-7ddf4c', 'You have been magically summoned by mysterious gnomes to restore a long-lost garden. Attract adorable animals, build a lush environment, and immerse yourself in this relaxing garden-builder. Will you manage to reclaim the wasteland or succumb to a looming corruption?', true, null, '2024-07-17', ' ', ' ', ' ', e'Horticular is a relaxing garden-builder that begins with mysterious gnomes summoning you. Their wish? For you to breathe new life into a long-lost garden, abandoned by its previous caretaker.
+
+Enter a magical world where you build up and expand a lush garden at your own pace. In your journey, you attract adorable animals to inhabit every corner; uncover helpful upgrades; and assist quirky characters for rewards and story development—all while juggling decay and fending off corruption sent by your nemesis!', 2.9, 22, 1000, 30);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (27, 'GAME-715C9', 'Tomb nightmares', true, 42000, 70, null, 'tomb-nightmares-8aa2a4', 'One excerpt from the adventure story of two treasure seekers. Explore the mysterious dungeon, pass all the tests and get out alive! The catacombs full of mysteries are waiting for you!', true, null, '2024-06-05', ' ', ' ', ' ', e'A cozy and atmospheric game for the evening.
+The plot tells the player about one of the many expeditions of two speleologists Bane and Jess. This time they decided to go to the abandoned catacombs, where it is rumored to store many lost artifacts, including the crown of the leader of an ancient tribe. The caves were home to the ancient people, few tribe members were willing to venture out of them into the open world full of danger. Legend has it that the tribe was buried alive in these caves during an earthquake. Attempts by enthusiasts to find artifacts from that time have been unsuccessful. Can Bane and Jess do it?
+
+Play Time
+30 - 60 minutes
+
+Game Features:
+
+Two endings.
+
+Tense atmosphere;
+
+Treasure hunt.
+
+3D surround sound;
+
+Choice of path through the game.
+
+Elements of platforming.', 3.8, 5, 255, 55);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (17, 'GAME-7D6F5', '3 Minutes to Midnight', true, 261000, 0, null, '3-minutes-to-midnight-3b506f', 'In a race against time, Betty embarks on a thrilling, comedy-packed adventure to crack a conspiracy that starts with a bang and ends at 3 Minutes to Midnight.', true, null, '2024-07-15', ' ', ' ', ' ', e'3 Minutes to Midnight
 Somewhere, in the middle of nowhere, an explosion shatters the night. Everyone wakes up with a jolt. Where are they? Who are they? It turns out that whatever blew up in the desert seems to have done more than just wipe their memories clean.
 
 Embark on an adventure with Betty as she delves into a town where danger lurks at every turn, and characters are as deceiving and bizarre as they come. Featuring a power-hungry mayor, a potbelly pig with a vendetta, a sheriff obsessed with the supernatural, and believe it or not, a kraken who doesn’t read fine print.
@@ -555,148 +787,8 @@ Each replay is a gateway to uncovering thrilling mysteries, hidden Easter eggs a
 HEAR THE ADVENTURE
 With complete English voiceovers, each character vividly comes to life, enriching the 1940s setting and taking the story to new heights.
 
-3 Minutes to Midnight pays homage to the golden era of gaming while forging its own path with innovative gameplay and storytelling. Whether you\'re a fan of brain-teasing puzzles, compelling narratives, or just a good laugh, this game is your ticket to an unforgettable experience.',
-        4.1, 113, 1000, 14547);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (32, 'GAME-9F9CC', 'Honeycomb: The World Beyond', true, 24999, 5, null, 'honeycomb-45501f',
-        'Honeycomb: The World Beyond is a survival-sandbox game set on an alien planet – Sota7. Explore its vast world and face challenges on your bioengineering journey. Crossbreed plants or animals, gather resources, craft items, and conduct experiments in order to develop new species.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Welcome to operation Honeycomb.
-EON Corp appreciates your contribution to Earth’s survival and would like to kindly remind you that all data you procure should remain strictly confidential.
-
-EXPLORE A FARAWAY PLANET
-Prepare for the unknown in the lush meadows and deep caverns of Sota7, the planet where we hope you can find the key to humanity’ survival. Harness your bioengineering knowledge and make use of the extensive training provided by EON to navigate a world brimming with wonders and mysteries.
-
-MEET FASCINATING LIFE FORMS AND CREATE NEW ONES
-The flora and fauna of Sota7 might feel less than familiar at first - expanding your knowledge and understanding is a crucial part of your mission. As a bioengineer you will crossbreed plants to create entirely new species with different properties, some of which could save thousands of lives. Watch out for the animals as well. Although some might be friendly, others are less than happy to share their habitat with a traveler from the stars.
-
-EXPAND YOUR BASE OF OPERATIONS
-For your safety, we advise that you employ the help of our hive drones to expand your base of operations and make it suitable both for inhabitation and research. Discover new resources to help you build precisely what you need and make your work easier. This mission is a marathon, not a sprint – and as such it is crucial you maintain yourself and your environment well.
-
-SURVIVE AND LIVE TO TELL THE TALE
-You are a pioneer, taking steps where no man has ever walked before. Nobody can predict what wonders or terrors you will encounter on this faraway planet, so your number one mission is to persevere. Create the tools you need to do so and remember – curiosity can be both a curse and a blessing.
-
-KEY FEATURES
-Explore the unknown - Sota7 is a world with vast diverse biomes, each with different plants and animals for you to discover.
-
-Awaken your inner bioengineer – find and experiment with new fauna and flora species.
-
-Find a way – crossbreed various plants and animals using bioengineering mechanics.
-
-Set up the lab – to survive and conduct experiments, you’ll have to build your base first. Gather materials and start building.
-
-Gather, plan, done – If you’re not a keen builder, utilize the planning mode, which will do the job for you!
-
-Find the “gold mine” – remember that Sota7 is a unique yet challenging place. You should always be on the lookout for better resources.
-
-Survive at any cost – face the upcoming challenges and try to survive in an unfamiliar world.', 4, 326, 1000, 3992);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (14, 'GAME-38D39', 'MechWarrior 5: Clans', true, 522000, 0, null, 'mechwarrior-5-clans-e50e3a', e'In MECHWARRIOR 5: CLANS, players are new Smoke Jaguar pilots in the Clan Invasion of the Inner Sphere. Lead your five-mech "Star" across diverse planets, engaging in an expansive campaign with immersive gameplay and combat. Customize BattleMechs and explore tactical options.
-', true, null, '2024-07-15', ' ', ' ', ' ', e'MECHWARRIOR 5: CLANS
-In MECHWARRIOR 5: CLANS, players take on the role of a newly graduated pilot from the Smoke Jaguar cadet program, thrust into the heart of the Clan Invasion of the Inner Sphere during Operation Revival. This pivotal moment in the MechWarrior universe sees players leading a five-mech "Star" squad across numerous planets with diverse biomes, engaging in an expansive campaign filled with immersive gameplay and intricate combat encounters. Armed with customizable BattleMechs featuring cutting-edge technologies, players explore a wealth of tactical options and strategic possibilities. The game leverages the power of the Unreal Engine to deliver stunning environmental details and visceral destruction, making every battle against the tyrants of the Inner Sphere an epic experience. As the first Clan-based MechWarrior game in nearly three decades, it combines a captivating narrative with well-crafted characters and moral dilemmas, culminating in a dynamic and adaptive combat experience enhanced by a revamped MechLab, Hardpoint, and OmniPod system.',
-        3.4, 741, 1000, 10861);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (6, 'GAME-D7131', 'Megapolis', true, 52000, 0, null, 'megapolis-925016',
-        'Casual city building. Become an architect. Manage the small polis. Construct beautiful city zones with plenty of modern blocks. Work your way to the top through the campaign mode, or create your own scenarios.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Build your own city and make heaps of money in this casual simulation game.
-
-Construct beautiful and functional city zones with plenty of modern blocks and keep your residents happy by providing all services they need, and they will reward you with a tidy profit. It’s up to you how to play - you can work your way to the top in the comprehensive campaign mode or you can create and play your own custom scenarios. Build dozens of houses, structures and other buildings. Trophies and awards available for the meticulous gamer!',
-        4.5, 567, 1000, 41141);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (2, 'GAME-38CE1', 'Frostpunk 2', true, 525000, 0, null, 'frostpunk-2',
-        'Develop, expand, and advance your city in a society survival game set 30 years after an apocalyptic blizzard ravaged Earth. In Frostpunk 2, you face not only the perils of never-ending winter, but also the powerful factions that watch your every step inside the Council Hall.',
-        true, null, '2024-07-15', ' ', ' ', ' ',
-        'Frostpunk 2 elevates the city-survival genre to a new level. Take the role of a Steward and lead your city through a cascade of calamities taking place in a postapocalyptic, snowy setting. Build large city districts with their string of endless needs and demands. Navigate through conflicting interests of factions that populate your metropolis. As the needs of the city grow and factional power at its core rises, only you can steer the society towards an uncertain future.',
-        3.1, 862, 1000, 5887);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (15, 'GAME-B6679', 'Legion TD 2', true, 209000, 0, null, 'legion-td-2-a244b9-2',
-        'An infinitely replayable multiplayer and single-player tower defense. Defend against waves of enemies and destroy the enemy''s king before they destroy yours. Legion TD 2 is a one-of-a-kind game of tactics, teamwork, and prediction. Party as 1-8 players.',
-        true, null, '2002-10-22', ' ', ' ', ' ',
-        'ACTIVE DEVELOPMENT & THRIVING COMMUNITY! As of 2024, Legion TD 2 has continued to receive major game updates every month since Early Access launched in 2017, and has a steady playerbase of tens of thousands of players. With full cross-play between Epic & Steam, fair matches are formed typically within a minute or two. If multiplayer isn''t your cup of tea, the included solo/co-op campaign & Play vs. AI modes provide plenty of hours of fun.',
-        4.4, 461, 1000, 33273);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (26, 'GAME-C91F3', 'Dark and Darker', true, 24999, 0, null, 'dark-and-darker-qa-c1e629',
-        'An unforgiving hardcore fantasy FPS dungeon PvPvE adventure. Band together with your friends and use your courage, wits, and cunning to uncover mythical treasures, defeat gruesome monsters, while staying one step ahead of the other devious treasure-hunters.',
-        true, null, '2024-06-08', ' ', ' ', ' ', e'Free-To-Play Version!
-The free version of Dark and Darker allows players to create one character and play Normal mode on all maps, complete quests, and build a stash of loot! Players who enjoy their time with the free version and want to experience everything the game has to offer can upgrade to the full version for 15 Redstone shards (equivalent to $30.00). The full version of the game includes access to the High-Roller mode, where players can equip their hard-earned gear to take on even more dangerous dungeons and increase the stakes. Players will also gain full access to the marketplace where they can trade with other adventurers, 9 total character slots, and the Shared Stash!
-
-We hope that this version will give players a chance to experience some of what Dark and Darker has to offer and to give players who have not played since the playtests a chance to see what\'s new before they dive into the full edition.',
-        3.8, 571, 1000, 47806);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (21, 'GAME-58100', e'KMON: World of Kogaea
-', true, 24999, 0, null, 'kmon-world-of-kogaea-f81f63',
-        'Discover the massive world of Kogaea in this cross-platform MMORPG. Craft, Battle and find a way to survive this Universe with your Kryptomon team.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Discover the World of Kogaea in KMON: An Epic Web3 MMORPG Adventure
-Step into the mystical realm of Kogaea, a parallel world where ancient elements and mythical creatures thrive. "KMON: World of Kogaea" is a groundbreaking web3-enabled MMORPG that combines the expansive gameplay of classics like World of Warcraft with the collectible charm of Pokémon. Navigate through a continent divided into eight unique regions, each representing one of the elemental forces that influence the creatures known as \'Kryptomons.\'
-
-Game Features
-Dynamic Exploration & Quests: Traverse diverse landscapes from lush forests to volcanic plains. Uncover hidden secrets and embark on epic quests.
-
-Robust Combat System: Engage in strategic PvE battles or challenge other players in intense PvP matchups.
-
-Community and Guilds: Join forces with players worldwide, form guilds, and partake in community-driven events.
-
-Crafting & Farming: Harness resources to craft powerful items and gear. Cultivate your land to produce rare materials.
-
-Dungeons: Team up to conquer challenging dungeons for legendary rewards.
-
-Unique Web3 Integration:
-Every Kryptomon and many in-game items are unique NFTs, owned entirely by you. Secure your own piece of Kogaea with customizable land plots where you can build homes, forges, and shops. Utilize the in-game token $KMON for trading, enhancing your gameplay experience with true digital ownership and economy.',
-        4.3, 682, 1000, 18104);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (8, 'GAME-DA6A6', 'Romopolis', true, 52000, 80, null, 'romopolis-49e1bf',
-        'Casual city building. Become an architect. Manage the small polis. Construct an idyllic ancient Roman city with plenty of houses. Work your way to the top through the campaign mode, or create your own scenarios.',
-        true, null, '2009-03-29', ' ', ' ', ' ', e'Build ancient Roman cities. Earn money, fame and honor in this casual simulation game.
-
-Construct an idyllic ancient Roman city with plenty of houses and keep your residents happy by providing all the services they need. You\'ll be rewarded with money, fame and honor. It\'s up to you how to play - you can work your way to the top in the comprehensive campaign mode or you can create and play your own custom scenarios. Build dozens of Roman-styled houses, structures and other buildings. Trophies and awards available for the meticulous gamer!',
-        4.5, 265, 1000, 32282);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (9, 'GAME-16D9C', 'Barbie Project Friendship™', true, 470000, 0, null, 'barbie-project-friendship-9434fc',
-        'Join Barbie™ on a fun summer adventure to save the Malibu Waves Community Center! Help friends, unlock minigames and earn points for upgrades while you restore a beloved landmark.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Get ready for the ultimate Barbie™ gaming adventure as Barbie and Barbie work together to save a beloved Malibu landmark, the Malibu Waves Community Center! The once thriving destination is nearly abandoned and on the verge of being closed. It’s time to band together to restore the beloved community center to its former glory.
-
-Play as Barbie and Barbie as you team up with their BFFs and family to save the day! Put your own stamp on the Malibu landmark by combining talents and creativity to transform six spaces including the Animal Care Center, Campsite, Crafting Studio, and more!',
-        3.7, 460, 1000, 40368);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (28, 'GAME-FEEBB', 'Surfing Legends', true, 146000, 15, null, 'surfing-legends-880017',
-        'Surf the waves, rescue the wildlife, and collect the magic diamonds in this thrilling single player adventure! Buy faster boards and beat the clock to open new levels!',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Surf the waves, rescue the wildlife, and collect the magic diamonds in this thrilling single player adventure!
-Embark on a thrilling adventure and surf across the globe, from tropical islands to the arctic, from desert oases to canyon rivers, and beyond. Rescue endangered wildlife and collect dazzling magic diamonds to boost your speed. Clean up the water by removing oil cans, plastic, and other hazards. Solve a fun ball challenge in every level. Leap over majestic waterfalls, gather shiny coins, buy awesome boards and beat the clock. Surfing Legends offers you a fun and unique surfing experience.
-
-Features:
-
-● 3 characters with 3 outfits each
-● 9 levels
-● Each level has multiple challenges
-● 19 boards
-● Boost upgrades
-● No dying, just pure fun and enjoyable surfing
-● And more!', 4.1, 339, 1000, 19705);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (20, 'GAME-93A0C', 'BATTLE BEARS HEROES', true, 24999, 0, null, 'battle-bears-heroes-690879',
-        'Relive your childhood in this fast thrilling PvP brawler! Enjoy new modes like Mini MOBA, Battle Royale, and Deathmatch, Survive the classic BB-1 PvE campaign. Upgrade & customize all the bears from the award-wnning Battle Bears series. Winner of PocketGamer''s Big Indie Pitch!',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'BATTLE BEARS HEROES
+3 Minutes to Midnight pays homage to the golden era of gaming while forging its own path with innovative gameplay and storytelling. Whether you\'re a fan of brain-teasing puzzles, compelling narratives, or just a good laugh, this game is your ticket to an unforgettable experience.', 4.1, 13, 524, 65);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (20, 'GAME-93A0C', 'BATTLE BEARS HEROES', true, 24999, 0, null, 'battle-bears-heroes-690879', 'Relive your childhood in this fast thrilling PvP brawler! Enjoy new modes like Mini MOBA, Battle Royale, and Deathmatch, Survive the classic BB-1 PvE campaign. Upgrade & customize all the bears from the award-wnning Battle Bears series. Winner of PocketGamer''s Big Indie Pitch!', true, null, '2024-07-15', ' ', ' ', ' ', e'BATTLE BEARS HEROES
 Battle Bears is Back! Celebrating 15 Years of Battle Bears! Winner of PocketGamer\'s 2024 Big Indie Pitch! Battle it out in all new 3v3 multiplayer modes like Mini MOBA, Brick Battle, Deathmatch and Battle Royale. Play campaign mode and earn skins by surviving the Huggable invasion in a re-imagined version of Battle Bears -1 starring Oliver, Riggs and Wil. Warning: Do NOT get hugged to death! Play and level up all your favorite bears from Battle Bears Gold with wacky weapons! Collect unique skins to show you’re the finest fighter on the Ursa Major!
 
 NEW ORIGINAL MODES!
@@ -761,96 +853,8 @@ TikTok.com/BattleBearsGame
 MERCH:
 Collectible BB merch, plushies and board game at BattleBears.com
 
-BATTLE BEARS is based on characters created by @BenVu', 3, 45, 1000, 16010);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (24, 'GAME-8EBB5', 'Arhaekon', true, 157000, 0, null, 'arhaekon-f69cf5',
-        'Embark on a perilous journey as an Arhaekon in this challenging roguelike turn-based RPG dungeon crawler. Lead your minions through treacherous dungeons, uncover ancient treasures, and face relentless abominations in a quest for humanity''s deliverance from corruption.',
-        true, null, '2024-08-08', ' ', ' ', ' ', e'Embark on a perilous journey as an Arhaekon in this challenging roguelike turn-based RPG dungeon crawler, where every choice is crucial
-Arhaekon is a challenging roguelike turn-based RPG dungeon crawler, set in a grimdark world teetering on the brink of destruction. As humanity grapples with the corruption they unwittingly unleashed, players must navigate treacherous dungeons, confront empowered enemies, and make strategic decisions to prevent humanity\'s extinction. Immerse yourself in a relentless struggle for survival, where a single misstep can lead to utter ruin. Are you ready to face your predestined arch-nemesis and redeem humanity?
-
-Turn-Based Combat: Engage in battle-centered, turn-based gameplay with very limited mobility
-• Roguelike Elements: Enjoy units permadeath, procedural dungeons & loot
-• Diverse Units: Command 12 units across 4 classes, each with unique abilities and progressions
-• 14 Themed Regions: Explore diverse dungeons filled with themed enemies & lore
-• Punishing Decisions: Every choice matters in both management and combat - there\'s no going back
-• Varied Loot: Discover crafting recipes, lore pages, and ritual rites of five rarity tiers
-• Augment Equipment: Equipment system to that prevents hoarding, with randomly generated, soul-bound augments
-• Dark Atmosphere: Immerse yourself in a bleak, grim world
-• Endless Music: Experience experimental, quasi-procedurally generated music
-• Corruption System: Manage your units\' health and sanity as they tune into the enemies\' song
-• Unit & Party Management: Recruit, enhance, level-up, mend wounds and strengthen resolve of your units
-• Camp Management: Upgrade and manage your refugee camp and facilities
-• Crafting System: Use the compendium of shaping to upgrade or obtain new equipment
-• Progress Management: Non-linear dungeon progression and allocable unit stat points on level-up
-• Collectible Lore: Enjoy bonuses from lore, or at least the experience - if lore isn\'t your thing.
-• Indie Development: Created by a very small, passionate team.
-
-', 3.7, 119, 1000, 34312);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (3, 'GAME-0E0DC', 'Trinity Building Editor', true, 261000, 0, null, 'trinity-building-editor-94501c',
-        'Home building simulator game with a goal of ultimate freedom for your creativity. Play with landscape, build the foundation, change the size of all building parts, combine pieces for a unique design, stack, rotate and scale. Complete tasks and increase your architect level!',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Home building simulator game with a goal of ultimate freedom for your creativity.
-Trinity Building Editor is a standalone simulator game that we are making in preparation for a bigger release in the future. Our main big project is Trinity Mysterious System, but we have decided that allowing players to access a complex and unique Building Editor on its own will be a lot of fun, so we have made it our first step towards the goal.
-
-Trinity Building Editor will give you an unlimited freedom of creation. Build homes, play with interior design and landscaping, try special tools and mechanics. Our block focused system allows for an ultimate variety of shapes and sizes of almost every detail in the house.',
-        4, 772, 1000, 1507);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (33, 'GAME-4D7F4', 'The Magical Mixture Mill', true, 260000, 5, null, 'magical-mixture-mill-f66c25',
-        'Brew magical mixtures for the local questing heroes - and keep them coming back for more! Team up with a mushroom-loving witch to restore her run-down shop. Build automated production lines, experiment with exotic ingredients, explore a cozy world, and hope nothing blows up.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Brew big or go broke!
-For centuries, Griselda’s Magical Mixtures has been the go-to shop for travelers and heroes in search of performance-enhancing concoctions; be it to obtain mighty strength, incredible intelligence, enviable beauty or... less heroic attributes.
-
-Giselda, an elderly mushroom-loving witch, has always run the business with great dedication but time has taken its toll, and it\'s time to train someone who can replace her. In short, her knowledge must be handed down and YOU - a former RPG adventurer whose career was cut short mixture intolerance - are the perfect candidate!
-
-Together with your goblin assistant, build automated production lines of alchemical workstations to provide potent mixtures to the local heroes, assisting them in their epic quests, and making you their favorite potion supplier. Explore diverse biomes and use your remaining adventuring abilities to gather and research exotic ingredients, leading to new mixing opportunities. Get ready to face all the “wax on, wax off” challenges Griselda throws at you to bring the shop back to its former glory!
-
-Magical Features:
-
-• Accessible, automated potion brewing
-Create fully automated production pipelines from a varied catalogue of workstations to produce potions. Balance liquid ratio, maximize potency, pick the right ingredients, balance flavors and pour it all on the fanciest bottle you can craft to create the potion!
-
-• A Vibrant, Cozy, and Colorful world!
-A mix of colorful illustration designs with a pinch of cheeky classic fantasy humor but still an alchemically-cozy experience. Different environments to explore and gather your ingredients. But be careful! Some flora and fauna will fight back…
-
-• Happy customers always come back! Especially if they are “hooked”
-Not all heroes want the same potions, so take your time to get to know your customers. As they level up, their demand for stronger and more advanced mixtures grow, turning them into very loyal customers - and turning your pockets heavy with coins!',
-        3.5, 314, 1000, 47561);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (27, 'GAME-715C9', 'Tomb nightmares', true, 42000, 70, null, 'tomb-nightmares-8aa2a4',
-        'One excerpt from the adventure story of two treasure seekers. Explore the mysterious dungeon, pass all the tests and get out alive! The catacombs full of mysteries are waiting for you!',
-        true, null, '2024-06-05', ' ', ' ', ' ', e'A cozy and atmospheric game for the evening.
-The plot tells the player about one of the many expeditions of two speleologists Bane and Jess. This time they decided to go to the abandoned catacombs, where it is rumored to store many lost artifacts, including the crown of the leader of an ancient tribe. The caves were home to the ancient people, few tribe members were willing to venture out of them into the open world full of danger. Legend has it that the tribe was buried alive in these caves during an earthquake. Attempts by enthusiasts to find artifacts from that time have been unsuccessful. Can Bane and Jess do it?
-
-Play Time
-30 - 60 minutes
-
-Game Features:
-
-Two endings.
-
-Tense atmosphere;
-
-Treasure hunt.
-
-3D surround sound;
-
-Choice of path through the game.
-
-Elements of platforming.', 3.8, 380, 1000, 28097);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (13, 'GAME-9B57D', 'Brilliantcrypto', true, 24999, 0, null, 'brilliant-crypto-5b06e1',
-        'Explore deep into the mines of Brilliantcrypto, mine brilliantstones, and receive crypto for each one you find! The more you find, the more crypto you can earn. You''ll even get crypto based on your mining amount when others find them!',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Discover the world of Brilliantcrypto
+BATTLE BEARS is based on characters created by @BenVu', 3, 14, 651, 54);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (13, 'GAME-9B57D', 'Brilliantcrypto', true, 24999, 0, null, 'brilliant-crypto-5b06e1', 'Explore deep into the mines of Brilliantcrypto, mine brilliantstones, and receive crypto for each one you find! The more you find, the more crypto you can earn. You''ll even get crypto based on your mining amount when others find them!', true, null, '2024-07-15', ' ', ' ', ' ', e'Discover the world of Brilliantcrypto
 Brilliantcrypto aims to be a sustainable play-to-earn game, where players create real value through the generation of authentic gemstones.
 
 Long before the advent of currency, the brilliance of gemstones has captivated the eye of humanity, and given them use as a medium for the exchange of value.
@@ -861,46 +865,42 @@ The value of these gemstones in the digital world will be guaranteed by the game
 
 As more players from around the world participate, the gemstones become increasingly precious and radiate with brilliance.
 
-So grab your pickaxe, and head to the mineーit\'s time to create new value together.', 3.8, 24, 1000, 24388);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (1, 'GAME-7E016', 'Dying Light 2 Stay Human - Reloaded Edition', true, 990000, 60, null,
-        'dying-light-2-stay-human',
-        'Now with guns! With the Reloaded Edition, the arsenal at your disposal has grown massively. Be creative with your combat or outrun your foes as you enjoy the perks of more than 10 post-launch updates. Good luck out there, and stay human!',
-        true, null, '2022-02-04', ' ', ' ', ' ', e'RELOADED EDITION
-Dying Light 2 Stay Human: Reloaded Edition includes:
+So grab your pickaxe, and head to the mineーit\'s time to create new value together.', 3.8, 13, 967, 43);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (32, 'GAME-9F9CC', 'Honeycomb: The World Beyond', true, 24999, 5, null, 'honeycomb-45501f', 'Honeycomb: The World Beyond is a survival-sandbox game set on an alien planet – Sota7. Explore its vast world and face challenges on your bioengineering journey. Crossbreed plants or animals, gather resources, craft items, and conduct experiments in order to develop new species.', true, null, '2024-07-15', ' ', ' ', ' ', e'Welcome to operation Honeycomb.
+EON Corp appreciates your contribution to Earth’s survival and would like to kindly remind you that all data you procure should remain strictly confidential.
 
-Dying Light 2 Stay Human
+EXPLORE A FARAWAY PLANET
+Prepare for the unknown in the lush meadows and deep caverns of Sota7, the planet where we hope you can find the key to humanity’ survival. Harness your bioengineering knowledge and make use of the extensive training provided by EON to navigate a world brimming with wonders and mysteries.
 
-‘Bloody Ties’ DLC
+MEET FASCINATING LIFE FORMS AND CREATE NEW ONES
+The flora and fauna of Sota7 might feel less than familiar at first - expanding your knowledge and understanding is a crucial part of your mission. As a bioengineer you will crossbreed plants to create entirely new species with different properties, some of which could save thousands of lives. Watch out for the animals as well. Although some might be friendly, others are less than happy to share their habitat with a traveler from the stars.
 
-Now with guns! With the Reloaded Edition, the arsenal at your disposal has grown massively. Be creative with your combat or outrun your foes as you enjoy the perks of more than 10 post-launch updates. Good luck out there, and stay human!
+EXPAND YOUR BASE OF OPERATIONS
+For your safety, we advise that you employ the help of our hive drones to expand your base of operations and make it suitable both for inhabitation and research. Discover new resources to help you build precisely what you need and make your work easier. This mission is a marathon, not a sprint – and as such it is crucial you maintain yourself and your environment well.
 
-It’s been 20 years since the events of the original game. The virus won, and humanity is slowly dying. You play as Aiden Caldwell, a wandering Pilgrim who delivers goods, brings news, and connects the few remaining survivor settlements in barren lands devastated by the zombie virus. However, your true goal is to find your little sister Mia, who you left behind as a kid to escape Dr. Waltz\'s torturous experiments. Haunted by the past, you eventually make the decision to confront it when you learn that Mia may still be alive in Villedor — the last city standing on Earth.
+SURVIVE AND LIVE TO TELL THE TALE
+You are a pioneer, taking steps where no man has ever walked before. Nobody can predict what wonders or terrors you will encounter on this faraway planet, so your number one mission is to persevere. Create the tools you need to do so and remember – curiosity can be both a curse and a blessing.
 
-You quickly find yourself in a settlement torn by conflict. You’ll need to engage in creative and gory combat, so hone your skills to defeat hordes of zombies and make allies. Roam the city, free run across Villedor’s buildings and rooftops in search of loot in remote areas, and be wary of the night. With every sunset, monsters take control of the streets.',
-        3.6, 949, 1000, 15105);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (23, 'GAME-1BCD1', 'Etherscape', true, 24999, 0, null, 'the-etherscape-b2e3d2',
-        'Etherscape is a multiplayer online rogue-lite action RPG with an on-chain backend that allows users to own and trade their items as NFTs.',
-        true, null, '2024-08-16', ' ', ' ', ' ', e'Welcome Etherborn
-Welcome to Etherscape, a realm where the boundaries between life and death blur, and the eternal struggle for survival takes on a new meaning. As an Etherborn, you possess an eternal soul that defies the finality of death, resurrecting you to face the challenges anew. In this multiplayer fantasy action RPG, every death is a lesson, and every resurrection is a chance to rise stronger.
+KEY FEATURES
+Explore the unknown - Sota7 is a world with vast diverse biomes, each with different plants and animals for you to discover.
 
-Prepare to embark on an epic adventure where your actions echo through eternity. Welcome to Etherscape – where death is but a doorway, and your legacy is immortal.',
-        3, 200, 1000, 18503);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (35, 'GAME-BLWK7', 'Black Myth: Wukong', true, 999999, 22, null, 'Black_Myth_Wukong',
-        'Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past.',
-        true, e'Single-player
+Awaken your inner bioengineer – find and experiment with new fauna and flora species.
+
+Find a way – crossbreed various plants and animals using bioengineering mechanics.
+
+Set up the lab – to survive and conduct experiments, you’ll have to build your base first. Gather materials and start building.
+
+Gather, plan, done – If you’re not a keen builder, utilize the planning mode, which will do the job for you!
+
+Find the “gold mine” – remember that Sota7 is a unique yet challenging place. You should always be on the lookout for better resources.
+
+Survive at any cost – face the upcoming challenges and try to survive in an unfamiliar world.', 4, 10, 887, 36);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (10, 'GAME-69EEA', 'The Jackbox Survey Scramble', true, 142000, 0, null, 'the-jackbox-survey-scramble-8cfeb4', 'Discover how people across the country think! The Jackbox Survey Scramble is a collection of hilarious survey-based games, using real one-word answers from real people. Really!', true, null, '2002-10-24', ' ', ' ', ' ', e'Welcome to a new era of party games!
+Jackbox has made an all-new party experience! Taking real surveys from real people around the globe, The Jackbox Survey Scramble is constantly changing based on answers submitted from players, including you! Invite your friends, family, coworkers, and enemies to see how they think when it comes to questions like, “In one word, what’s the cutest nickname for butts?” or “In one word, what’s the best sandwich topping?”', 2.7, 0, 721, 41);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (35, 'GAME-BLWK7', 'Black Myth: Wukong', true, 999999, 22, null, 'Black_Myth_Wukong', 'Black Myth: Wukong is an action RPG rooted in Chinese mythology. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past.', true, e'Single-player
                                                                                                                                                                                                                                                Steam Achievements
                                                                                                                                                                                                                                                Steam Cloud
-                                                                                                                                                                                                                                               Family Sharing',
-        '2024-08-20', 'Game Science', ' ', ' ', e'Black Myth: Wukong is an action RPG rooted in Chinese mythology. The story is based on Journey to the West, one of the Four Great Classical Novels of Chinese literature. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past.
+                                                                                                                                                                                                                                               Family Sharing', '2024-08-20', 'Game Science', ' ', ' ', e'Black Myth: Wukong is an action RPG rooted in Chinese mythology. The story is based on Journey to the West, one of the Four Great Classical Novels of Chinese literature. You shall set out as the Destined One to venture into the challenges and marvels ahead, to uncover the obscured truth beneath the veil of a glorious legend from the past.
                                                                                                                                                                                                                                                "A world unseen, where wonders gleam,
                                                                                                                                                                                                                                                And with each stride, a new scene streams."
 
@@ -935,33 +935,26 @@ DirectX: Version 12
 Storage: 130 GB available space
 Sound Card: Windows Compatible Audio Device
 Additional Notes: SSD Required. The above specifications were tested with DLSS/FSR/XeSS enabled.
-Copyright © Game Science Interactive Technology Co., Ltd. All Rights Reserved 游科互动科技有限公司', 4.9, 4999, 1000,
-        99998);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (7, 'GAME-E3642', 'Illuvium Zero', true, 24999, 0, null, 'illuvium-zero-ca46a6',
-        'Engage in the ultimate city-building and economic strategy experience with Illuvium: Zero. Strategically build your city, manage resources, to rule resources in Illuvium, every decision impacts your City’s success.',
-        true, null, '2024-07-12', ' ', ' ', ' ', e'This is an Early Access Game
+Copyright © Game Science Interactive Technology Co., Ltd. All Rights Reserved 游科互动科技有限公司', 4.9, 48, 999, 76);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (2, 'GAME-38CE1', 'Frostpunk 2', true, 525000, 0, null, 'frostpunk-2', 'Develop, expand, and advance your city in a society survival game set 30 years after an apocalyptic blizzard ravaged Earth. In Frostpunk 2, you face not only the perils of never-ending winter, but also the powerful factions that watch your every step inside the Council Hall.', true, null, '2024-07-15', ' ', ' ', ' ', 'Frostpunk 2 elevates the city-survival genre to a new level. Take the role of a Steward and lead your city through a cascade of calamities taking place in a postapocalyptic, snowy setting. Build large city districts with their string of endless needs and demands. Navigate through conflicting interests of factions that populate your metropolis. As the needs of the city grow and factional power at its core rises, only you can steer the society towards an uncertain future.', 3.1, 18, 436, 38);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (21, 'GAME-58100', e'KMON: World of Kogaea
+', true, 24999, 0, null, 'kmon-world-of-kogaea-f81f63', 'Discover the massive world of Kogaea in this cross-platform MMORPG. Craft, Battle and find a way to survive this Universe with your Kryptomon team.', true, null, '2024-07-15', ' ', ' ', ' ', e'Discover the World of Kogaea in KMON: An Epic Web3 MMORPG Adventure
+Step into the mystical realm of Kogaea, a parallel world where ancient elements and mythical creatures thrive. "KMON: World of Kogaea" is a groundbreaking web3-enabled MMORPG that combines the expansive gameplay of classics like World of Warcraft with the collectible charm of Pokémon. Navigate through a continent divided into eight unique regions, each representing one of the elemental forces that influence the creatures known as \'Kryptomons.\'
 
-Early Access games are still under development and may change significantly over time. As a result, you may experience unforeseen issues or completely new gameplay elements while playing this game.
-You can play now to experience the game while it\'s being built or wait until it offers a more complete experience.',
-        2.7, 54, 1000, 40657);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (5, 'GAME-B8911', 'Horticular', true, 209000, 0, null, 'horticular-7ddf4c',
-        'You have been magically summoned by mysterious gnomes to restore a long-lost garden. Attract adorable animals, build a lush environment, and immerse yourself in this relaxing garden-builder. Will you manage to reclaim the wasteland or succumb to a looming corruption?',
-        true, null, '2024-07-17', ' ', ' ', ' ', e'Horticular is a relaxing garden-builder that begins with mysterious gnomes summoning you. Their wish? For you to breathe new life into a long-lost garden, abandoned by its previous caretaker.
+Game Features
+Dynamic Exploration & Quests: Traverse diverse landscapes from lush forests to volcanic plains. Uncover hidden secrets and embark on epic quests.
 
-Enter a magical world where you build up and expand a lush garden at your own pace. In your journey, you attract adorable animals to inhabit every corner; uncover helpful upgrades; and assist quirky characters for rewards and story development—all while juggling decay and fending off corruption sent by your nemesis!',
-        2.9, 463, 1000, 24301);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (22, 'GAME-1E0ED', 'Juna - The Dreamwalker', true, 209000, 0, null, 'juna-the-dreamwalker-d4fbd7',
-        'Immerse yourself in a pixelated retro-style action-adventure with real-time combats. Utilize the transformative power of a mystical rod to take on the appearance and abilities of monsters and objects. Unravel the dark origins of the monstrous invasion from another world.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Juna - The Dreamwalker
+Robust Combat System: Engage in strategic PvE battles or challenge other players in intense PvP matchups.
+
+Community and Guilds: Join forces with players worldwide, form guilds, and partake in community-driven events.
+
+Crafting & Farming: Harness resources to craft powerful items and gear. Cultivate your land to produce rare materials.
+
+Dungeons: Team up to conquer challenging dungeons for legendary rewards.
+
+Unique Web3 Integration:
+Every Kryptomon and many in-game items are unique NFTs, owned entirely by you. Secure your own piece of Kogaea with customizable land plots where you can build homes, forges, and shops. Utilize the in-game token $KMON for trading, enhancing your gameplay experience with true digital ownership and economy.', 4.3, 16, 514, 60);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (22, 'GAME-1E0ED', 'Juna - The Dreamwalker', true, 209000, 0, null, 'juna-the-dreamwalker-d4fbd7', 'Immerse yourself in a pixelated retro-style action-adventure with real-time combats. Utilize the transformative power of a mystical rod to take on the appearance and abilities of monsters and objects. Unravel the dark origins of the monstrous invasion from another world.', true, null, '2024-07-15', ' ', ' ', ' ', e'Juna - The Dreamwalker
 Embark on an extraordinary journey in "Juna - The Dreamwalker", a captivating retro-style adventure game set in a mystical land plagued by menacing monsters. Step into the shoes of a courageous young woman determined to uncover the truth behind the invasion and put an end to the sinister forces threatening her world.
 
 In this enchanting tale, you will navigate through a beautifully pixelated foreign land, embracing a low-resolution bird\'s-eye view perspective. Prepare to be immersed in a mesmerizing world as you explore its diverse regions, each teeming with treacherous creatures and hidden secrets.
@@ -988,64 +981,19 @@ Engage in real-time combat against formidable creatures, honing your skills to b
 
 Experience approximately 30 hours of immersive gameplay, filled with exploration, puzzle-solving, and thrilling encounters.
 
-Embark on an unforgettable journey in "Juna - The Dreamwalker" and become the heroine the land needs. Your destiny awaits!',
-        4.3, 138, 1000, 18897);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (12, 'GAME-ED2CE', 'Legion TD 2', true, 209000, 0, null, 'legion-td-2-a244b9',
-        'An infinitely replayable multiplayer and single-player tower defense. Defend against waves of enemies and destroy the enemy''s king before they destroy yours. Legion TD 2 is a one-of-a-kind game of tactics, teamwork, and prediction. Party as 1-8 players.',
-        true, null, '2024-07-15', ' ', ' ', ' ',
-        'ACTIVE DEVELOPMENT & THRIVING COMMUNITY! As of 2024, Legion TD 2 has continued to receive major game updates every month since Early Access launched in 2017, and has a steady playerbase of tens of thousands of players. With full cross-play between Epic & Steam, fair matches are formed typically within a minute or two. If multiplayer isn''t your cup of tea, the included solo/co-op campaign & Play vs. AI modes provide plenty of hours of fun.',
-        3.8, 655, 1000, 23374);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (19, 'GAME-805D6', 'WW2 Frontline 1942', true, 24999, 0, null, 'ww2-frontline-1942-96fe8f',
-        'FPS online multiplayer action World war II military simulator and army battle.', true, null, '2024-07-15', ' ',
-        ' ', ' ', e'FPS online multiplayer action World war II military simulator and army battle
-World War II Shooter - an exciting blend of action and military games. Choose your side and join online shooting games with players from different countries. Equip a variety of weapons and immerse yourself in realistic battles with stunning graphics. Experience the atmosphere of war as you engage in dynamic shooting action that will give you unforgettable impressions and adrenaline.
+Embark on an unforgettable journey in "Juna - The Dreamwalker" and become the heroine the land needs. Your destiny awaits!', 4.3, 6, 563, 68);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (4, 'GAME-92811', 'Earniverse', true, 24999, 0, null, 'earniverse-732d09', 'A unique VR Metaverse made of a 1080km2 Open-World Map accessible as Free to Play where players can own and develop their land in a AAA graphics environment.', true, null, '2024-08-15', ' ', ' ', ' ', e'The Play&Earn Metaverse
 
-Key Features of the WW2 Shooter:
+Earniverse is the first-ever “Play&Earn Metaverse” created. It’s an immersive virtual world where players can discover innovative experiences, and game developers can build and launch games with various GameFi features. This unique approach increases the overall value of the Metaverse within a single ecosystem, making it more decentralized, transparent, and user-experience-oriented. Players can engage in an ultra-immersive VR environment and earn by enhancing their Lands & NFTs', 3.2, 24, 940, 48);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (11, 'GAME-C20D4', 'No More Room in Hell 2', true, 313000, 0, null, 'no-more-room-in-hell-2-ea1b5c', 'No More Room in Hell 2 is a terrifying 8 player co-op action horror experience. Start alone, find your friends in the dark and survive - in a dynamic, endlessly replayable zombie apocalypse.', true, null, '2024-07-15', ' ', ' ', ' ', e'ABOUT THE GAME
+No More Room in Hell 2 is an intense & terrifying permadeath co-op journey into the eerie darkness of zombie-infested zones. As an emergency responder you must survive, scavenge, stockpile and fulfill your mission - then repeat, each time in an ever-changing experience.', 3.3, 8, 336, 63);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (14, 'GAME-38D39', 'MechWarrior 5: Clans', true, 522000, 0, null, 'mechwarrior-5-clans-e50e3a', e'In MECHWARRIOR 5: CLANS, players are new Smoke Jaguar pilots in the Clan Invasion of the Inner Sphere. Lead your five-mech "Star" across diverse planets, engaging in an expansive campaign with immersive gameplay and combat. Customize BattleMechs and explore tactical options.
+', true, null, '2024-07-15', ' ', ' ', ' ', e'MECHWARRIOR 5: CLANS
+In MECHWARRIOR 5: CLANS, players take on the role of a newly graduated pilot from the Smoke Jaguar cadet program, thrust into the heart of the Clan Invasion of the Inner Sphere during Operation Revival. This pivotal moment in the MechWarrior universe sees players leading a five-mech "Star" squad across numerous planets with diverse biomes, engaging in an expansive campaign filled with immersive gameplay and intricate combat encounters. Armed with customizable BattleMechs featuring cutting-edge technologies, players explore a wealth of tactical options and strategic possibilities. The game leverages the power of the Unreal Engine to deliver stunning environmental details and visceral destruction, making every battle against the tyrants of the Inner Sphere an epic experience. As the first Clan-based MechWarrior game in nearly three decades, it combines a captivating narrative with well-crafted characters and moral dilemmas, culminating in a dynamic and adaptive combat experience enhanced by a revamped MechLab, Hardpoint, and OmniPod system.', 3.4, 2, 518, 55);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (6, 'GAME-D7131', 'Megapolis', true, 52000, 0, null, 'megapolis-925016', 'Casual city building. Become an architect. Manage the small polis. Construct beautiful city zones with plenty of modern blocks. Work your way to the top through the campaign mode, or create your own scenarios.', true, null, '2024-07-15', ' ', ' ', ' ', e'Build your own city and make heaps of money in this casual simulation game.
 
-Explore thrilling battlegrounds during World War II where the action never stops. The maps are filled with legendary locations, including tanks, ships, and constant combat. Each map is unique, offering diverse tactical opportunities.
-
-Step into the shoes of heroes from different countries - the United States, Russia, Japan, and Germany. These war games offer the choice of characters with different appearances, allowing you to relive epic battles.
-
-Unleash a vast arsenal of 23 different weapons, including legendary Mosin and Mauser sniper rifles, powerful Thompson submachine guns, and a wide selection of pistols and machine guns. Feel the power and variety of weapons as you dive into the dynamic action shooter.
-
-Upgrade your favorite weapons using the upgrade tree to add new characteristics and increase damage. Customize your weapons to suit your play style and become an even more effective fighter.
-
-Each soldier possesses unique passive skills that come into play during combat engagements. This means that you don\'t have to activate them manually; they automatically influence the gameplay, making your soldier more effective in battle.
-
-Join forces with like-minded players in war games and engage in team battles to crush enemies in online shooters dedicated to World War II. Collaborative efforts, coordination, and strategic thinking will help you achieve victory and become an irresistible force on the battlefield.
-
-Frontline 1942 is an exhilarating online action shooter that allows players to immerse themselves in the intense atmosphere of warfare. With a vast arsenal of weapons, unique maps, and diverse characters, this online military game offers an unforgettable experience and the opportunity to compete with players from around the world. With team battles and weapon upgrades, players can feel the true intensity and strategic depth of military action. Be part of history and relive epic moments of World War II in this gripping shooter.',
-        3.8, 142, 1000, 17994);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (30, 'GAME-066EC', 'Labyrinth Destroyer', true, 24999, 5, null, 'labyrinth-destroyer-1-0994f2',
-        'A mind game who can break your brain. And your patience ! You have to resolve 10 labyrinth. But you have some quest to do inside too !!! Keep in mind that the first one is easy. But it got harder the farther you go !',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Labyrinth Destroyer
-Follow Kirt in the strange world he got stuck inside, and follow the way your patience tell you to follow.
-
-Play this game with all your mind and keep calm. You will need to.
-
-Destroy the labyrinth and listen what some strange little girl tell you.
-
-Will you be able to go back to Earth ? Will it be alright ?
-
-Give it a try, after all you don\'t know until you do it !
-
-You can play this game with almost anything.', 3.2, 635, 1000, 10151);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (25, 'GAME-6374C', 'Dragon Chronicles: Black Tears', true, 157000, 0, null,
-        'dragon-chronicles-black-tears-46329e',
-        'Dragon Chronicles: Black Tears is a strategic RPG where you use combinations of various heroes to clear dungeons. Train and utilize heroes to fight off those corrupted by the Black Tears and overcome difficult trials.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Dragon Chronicles: Black Tears is a strategic RPG where you use combinations of various heroes to clear dungeons.
+Construct beautiful and functional city zones with plenty of modern blocks and keep your residents happy by providing all services they need, and they will reward you with a tidy profit. It’s up to you how to play - you can work your way to the top in the comprehensive campaign mode or you can create and play your own custom scenarios. Build dozens of houses, structures and other buildings. Trophies and awards available for the meticulous gamer!', 4.5, 6, 777, 64);
+INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug, description, is_active, features, release_date, developer, platform, language, about, rating, rating_count, quantity, quantity_sold) VALUES (25, 'GAME-6374C', 'Dragon Chronicles: Black Tears', true, 157000, 0, null, 'dragon-chronicles-black-tears-46329e', 'Dragon Chronicles: Black Tears is a strategic RPG where you use combinations of various heroes to clear dungeons. Train and utilize heroes to fight off those corrupted by the Black Tears and overcome difficult trials.', true, null, '2024-07-15', ' ', ' ', ' ', e'Dragon Chronicles: Black Tears is a strategic RPG where you use combinations of various heroes to clear dungeons.
 The Black Tears of those filled with anger and sorrow sweep across the world at an unstoppable pace.
 The only hope for this cursed world is this expedition I lead.
 
@@ -1085,164 +1033,8 @@ The challenge never ends!
 Nothing ever goes as planned.
 You must answer the call of the desperate and face otherworldly beings.
 Steel yourself as you lead your expedition, battle after battle, to the summit of the Ordain Mountains.
-Reach the peak and silence their cries!', 4.4, 485, 1000, 33751);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (18, 'GAME-E91AC', 'EA SPORTS™ WRC 24', true, 899000, 0, null, 'ea-sports-wrc-24',
-        'Experience the thrill of the 2024 rally season with new locations, moments, stages, high-performance vehicles, new liveries and more. Brace yourself to embark on your continued rally journey!',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'Buy EA SPORTS™ WRC 24* to get:
-EA SPORTS™ WRC
+Reach the peak and silence their cries!', 4.4, 4, 603, 57);
 
-Locations & Car Content Pack
-
-Le Maestros Content Pack
-
-Hard Chargers Content Pack', 4, 192, 1000, 40350);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (16, 'GAME-9D28D', 'Blindfire', true, 94000, 0, null, 'eos_test-5cd09d',
-        'Blindfire is an online multiplayer first-person shooter that takes place in the dark. Brave the arena alone or team up in matches of up to 8 players.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'WEAPONS LIVE, LIGHTS OUT
-Blindfire is an online multiplayer first-person shooter. Set in a shadowy underworld, the ultra-wealthy bet on illicit bloodsports beneath a neon skyline. For contestants lured by the promise of untold riches and unimaginable glory, it’s kill or be killed.
-
-EVERY KILL COUNTS
-Brave the arena alone or team up in matches of up to 8 players. In Bodycount mode, score the most points over five rapid-fire rounds. Be the last person standing when the lights come on and earn your place in the winner’s showcase.
-
-DANGER LURKS IN THE DARK
-Light is a rarity in close-quarter arenas riddled with traps for intense firefights. Players must decide where and when to fire at the risk of exposing their position. Hone your senses with the room-scanning Echo mechanic to help you navigate the arena and locate your opponents.
-
-REVENGE UNDER THE BLACKLIGHTS
-When defeated, spectators gain access to the arena\'s cutting-edge night vision cameras. Blacklight reveals the vibrant hues of hidden street art and transforms the slick designs of contestants’ outfits. The eliminated spectators can assume control of traps in the arena to influence the outcome of the match and exact revenge.
-
-LIGHT THEM UP
-The pitch-black battlefields of Blindfire turn the first-person shooter genre on its head. Stalk the shadows as the tension builds, then run for cover as the shots start flying in a volley of muzzle flashes. Think you’ve got what it takes to eliminate the competition in Blindfire? Then grab your weapon and LIGHT THEM UP.',
-        2.5, 81, 1000, 5184);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (31, 'GAME-6A471', 'Interlude', true, 24999, 5, null, 'interlude-c2e8b4',
-        'Explore a virtual dungeon where each room is an entire game world, each with its own characters, gameplay, and themes. Dive deeper and deeper, unlock more and more worlds, and be the first to reach the Core!',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'A virtual dungeon where each room is an entire game world, each with its own characters, gameplay, and themes.
-Interlude can be seen as a dungeon crawler with a time-based exploration loop, with one key particularity: each room is an entire game map. The game can be of any genre (action, shooter, platformer, 2D or 3D...), and the map can be of any size and type (from a small room to an entire game world with many biomes and cities)
-
-Each portal costs a given amount of energy to traverse. Energy is produced by special assets that can be found by exploring and playing the games in the rooms. Thus exploring the dungeon/network and playing its games will make you ever more powerful, and allow you to dive even deeper - and maybe, one day, discover the unspeakable power that lies in the depth of the Interlude!',
-        3.4, 462, 1000, 16921);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (34, 'GAME-4D7F7', 'The Scourge | Tai Ương', true, 260000, 10, null, 'The_Scourge__Tai_ng',
-        'The Scourge game tells stories revolving around urban legends from the 1990s in Saigon, Vietnam. The male protagonist is trapped by past sins caused by his and his family''s mistakes. Now, he must confront and overcome the consequences to find a path to redemption, and you are him.',
-        true, e'Single-player
-                                                                                                                                                                                                                                               Family sharing
-                                                                                                                                                                                                                                               Xbox Controller',
-        '2024-10-23', 'Rare Reversee, Beaztek', ' ', ' ', e'"The Scourge" is a first person horror puzzle game, immersing you in the heart of Saigon (Vietnam) through urban legends from the 1990s. You will follow the tragic fate of a family and the main character, who made mistakes in the past and is now haunted by a sinister supernatural force.
-
-The protagonist, a person overwhelmed by delusions due to past tragedies and life\'s despair, frequently finds himself in nightmares. In these dreams, the line between reality and illusion becomes blurred. To rediscover his inner light and escape from the shadows of his past, he must confront his sorrows, make amends for his mistakes, and defeat the most formidable enemy that exists not only in his mind but also in the real world.
-
-                                                                                                                                                                                                                                               Starting in a rundown apartment during an era of an unnamed epidemic, where mysteries and supernatural phenomena occur incessantly, you\'ll need to use your intellect to solve intricate puzzles, explore new areas, and prepare for the ultimate showdown. Every decision, every action, will determine his fate and future. Stay alert and be ready to face all challenges.
-
-Mature Content Description
-The developers describe the content like this:
-
-Dear players,
-
-                                                                                                                                                                                                                                               We\'d like to provide some clarity about the mature content present in our game. It\'s essential for our community to have a clear understanding of what to expect and to ensure a comfortable gaming experience for all:
-
-                                                                                                                                                                                                                                               Sexual Content: Our horror game does not contain depictions of sexual acts, nor does it touch upon topics of sexual assault or non-consensual sex. The narrative focuses on horror elements that are separate from any sexual themes.
-
-Violence: The game does contain elements of horror and suspense, which can manifest in intense scenes. However, this is in line with the genre and is not gratuitous. Players should be prepared for tense atmospheres and potentially startling moments, but not graphic violence.
-
-Drug and Alcohol Abuse: There are no depictions or narratives surrounding drug and alcohol abuse in our game.
-
-Self-harm: We have taken care to avoid sensitive topics such as self-harm, and it is not present or implied within our storyline.
-
-                                                                                                                                                                                                                                               We urge potential players to consider these points and gauge their comfort level with the content. Our primary goal is to provide a thrilling horror experience without delving into topics that could be triggering for some players. If you have any concerns or questions about the content, please feel free to reach out to us. We\'re here to assist and ensure everyone enjoys our game safely and comfortably.
-
-
-
-                                                                                                                                                                                                                                               System Requirements
-                                                                                                                                                                                                                                               Minimum:
-                                                                                                                                                                                                                                               Requires a 64-bit processor and operating system
-                                                                                                                                                                                                                                               OS: Windows 10 x64
-                                                                                                                                                                                                                                               Processor: Core I5 Gen 9, Ryzen 5 3600/5600X
-Memory: 8 GB RAM
-Graphics: GTX 1050 4GB
-DirectX: Version 11
-Storage: 10 GB available space
-Sound Card: Yes
-VR Support:
-Recommended:
-Requires a 64-bit processor and operating system
-OS: Windows 10 x64
-Processor: Core I7 Gen 9, Ryzen 7 3700X
-Memory: 16 GB RAM
-Graphics: GTX 1660
-DirectX: Version 11
-Storage: 10 GB available space
-Sound Card: Yes
-VR Support:', 4.4, 2999, 1000, 129999);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (29, 'GAME-21F31', 'Voidwrought', true, 209000, 20, null, 'voidwrought-ce8f4b',
-        'Voidwrought is a 2D action-platformer set in a hand-drawn world of cosmic horrors. Explore the thawing ruins of the First Civilisation and strike down the gods that dwell there. Grow your powers, uncover ancient Artifacts, and expand your shrine amid the wreckage.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'The coming of the Red Star heralds a new age. Emerging from its cocoon, the Simulacrum is driven to collect Ichor, the blood of the gods, from the monstrosities who hoard it.
-
-Voidwrought is a fast-paced action-platformer with tight traversal, varied abilities, and formidable boss battles. Find and equip powerful Artifacts to customize your playstyle. Excavate into the rubble of the Gray City to construct a shrine filled with loyal followers.
-
-Delve Beneath the Surface
-Descend below the star-scorched surface and explore the multidimensional depths below. Witness the corrupted revelry of the Court, lose yourself in the icy tunnels of the Old Waters, and discover the grim fate of the Abandoned Expedition.
-
-With sharp controls, engaging exploration, and deep lore to discover, Voidwrought is a dynamic addition to the modern Metroidvania genre.
-
-Unleash Ancient Artifacts
-The world is filled with treasures sought by the learned, the brave, and the mad. Scour the halls of your shrine, rend the corpses of defeated deities, and hunt in the hidden corners of the cosmos to find Artifacts capable of granting unique powers.
-
-Discover and equip over 50 Relics and Souls, from spectral weapons to passive buffs, to match your preferred playstyle.
-
-Build your Shrine
-Some still cling to the original faith. From a tiny cult, expand your influence and excavate further into the ruins. As you expand your shrine and followers, new secrets, rewards, and horrors come to light.
-
-Features
-Experience smooth, satisfying movement and tight controls.
-
-Explore atmospheric, hand-drawn biomes, from the star-scorched Surface to the biomechanical Abandoned Expedition.
-
-Fight over 70 enemies and 11 formidable bosses.
-
-Customize your playstyle with over 50 active Relics and passive Souls.
-
-Expand your shrine to discover new treasures, abilities, and secrets.
-
-Enjoy a rich, foreboding score by Neverinth and Vigil: The Longest Night composer Jouni Valjakka.', 3.5, 471, 1000,
-        42547);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (10, 'GAME-69EEA', 'The Jackbox Survey Scramble', true, 142000, 0, null, 'the-jackbox-survey-scramble-8cfeb4',
-        'Discover how people across the country think! The Jackbox Survey Scramble is a collection of hilarious survey-based games, using real one-word answers from real people. Really!',
-        true, null, '2002-10-24', ' ', ' ', ' ', e'Welcome to a new era of party games!
-Jackbox has made an all-new party experience! Taking real surveys from real people around the globe, The Jackbox Survey Scramble is constantly changing based on answers submitted from players, including you! Invite your friends, family, coworkers, and enemies to see how they think when it comes to questions like, “In one word, what’s the cutest nickname for butts?” or “In one word, what’s the best sandwich topping?”',
-        2.7, 841, 1000, 12194);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (4, 'GAME-92811', 'Earniverse', true, 24999, 0, null, 'earniverse-732d09',
-        'A unique VR Metaverse made of a 1080km2 Open-World Map accessible as Free to Play where players can own and develop their land in a AAA graphics environment.',
-        true, null, '2024-08-15', ' ', ' ', ' ', e'The Play&Earn Metaverse
-
-Earniverse is the first-ever “Play&Earn Metaverse” created. It’s an immersive virtual world where players can discover innovative experiences, and game developers can build and launch games with various GameFi features. This unique approach increases the overall value of the Metaverse within a single ecosystem, making it more decentralized, transparent, and user-experience-oriented. Players can engage in an ultra-immersive VR environment and earn by enhancing their Lands & NFTs',
-        3.2, 824, 1000, 38097);
-INSERT INTO public.game (sys_id_game, game_code, game_name, status, price, discount_percent, game_image, slug,
-                         description, is_active, features, release_date, developer, platform, language, about, rating,
-                         rating_count, quantity, quantity_sold)
-VALUES (11, 'GAME-C20D4', 'No More Room in Hell 2', true, 313000, 0, null, 'no-more-room-in-hell-2-ea1b5c',
-        'No More Room in Hell 2 is a terrifying 8 player co-op action horror experience. Start alone, find your friends in the dark and survive - in a dynamic, endlessly replayable zombie apocalypse.',
-        true, null, '2024-07-15', ' ', ' ', ' ', e'ABOUT THE GAME
-No More Room in Hell 2 is an intense & terrifying permadeath co-op journey into the eerie darkness of zombie-infested zones. As an emergency responder you must survive, scavenge, stockpile and fulfill your mission - then repeat, each time in an ever-changing experience.',
-        3.3, 611, 1000, 49246);
 
 
 ALTER TABLE game
@@ -2675,37 +2467,37 @@ $$ LANGUAGE plpgsql;
 SELECT *
 FROM get_transaction_sums();
 
-INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance)
-VALUES ('2024-12-17 23:13:55.000000', 'Test transaction 1', -100, true, 'kaiz', 1000),
-       ('2024-12-16 22:13:55.000000', 'Test transaction 2', -200, true, 'kaiz', 2000),
-       ('2024-12-15 21:13:55.000000', 'Test transaction 3', -300, true, 'kaiz', 3000),
-       ('2024-12-14 20:13:55.000000', 'Test transaction 4', -400, true, 'kaiz', 4000),
-       ('2024-12-13 19:13:55.000000', 'Test transaction 5', -500, true, 'kaiz', 5000),
-       ('2024-12-12 18:13:55.000000', 'Test transaction 6', -600, true, 'kaiz', 6000),
-       ('2024-12-11 17:13:55.000000', 'Test transaction 7', -700, true, 'kaiz', 7000),
-       ('2024-12-10 16:13:55.000000', 'Test transaction 8', -800, true, 'kaiz', 8000),
-       ('2024-12-09 15:13:55.000000', 'Test transaction 9', -900, true, 'kaiz', 9000),
-       ('2024-12-08 14:13:55.000000', 'Test transaction 10', -1000, true, 'kaiz', 10000),
-       ('2024-12-07 13:13:55.000000', 'Test transaction 11', -1100, true, 'kaiz', 11000),
-       ('2024-12-06 12:13:55.000000', 'Test transaction 12', -1200, true, 'kaiz', 12000),
-       ('2024-12-05 11:13:55.000000', 'Test transaction 13', -1300, true, 'kaiz', 13000),
-       ('2024-12-04 10:13:55.000000', 'Test transaction 14', -1400, true, 'kaiz', 14000),
-       ('2024-12-03 09:13:55.000000', 'Test transaction 15', -1500, true, 'kaiz', 15000),
-       ('2024-12-02 08:13:55.000000', 'Test transaction 16', -1600, true, 'kaiz', 16000),
-       ('2024-12-01 07:13:55.000000', 'Test transaction 17', -1700, true, 'kaiz', 17000),
-       ('2024-11-30 06:13:55.000000', 'Test transaction 18', -1800, true, 'kaiz', 18000),
-       ('2024-11-29 05:13:55.000000', 'Test transaction 19', -1900, true, 'kaiz', 19000),
-       ('2024-11-28 04:13:55.000000', 'Test transaction 20', -2000, true, 'kaiz', 20000),
-       ('2024-11-27 03:13:55.000000', 'Test transaction 21', -2100, true, 'kaiz', 21000),
-       ('2024-11-26 02:13:55.000000', 'Test transaction 22', -2200, true, 'kaiz', 22000),
-       ('2024-11-25 01:13:55.000000', 'Test transaction 23', -2300, true, 'kaiz', 23000),
-       ('2024-11-24 00:13:55.000000', 'Test transaction 24', -2400, true, 'kaiz', 24000),
-       ('2024-11-23 23:13:55.000000', 'Test transaction 25', -2500, true, 'kaiz', 25000),
-       ('2024-11-22 22:13:55.000000', 'Test transaction 26', -2600, true, 'kaiz', 26000),
-       ('2024-11-21 21:13:55.000000', 'Test transaction 27', -2700, true, 'kaiz', 27000),
-       ('2024-11-20 20:13:55.000000', 'Test transaction 28', -2800, true, 'kaiz', 28000),
-       ('2024-11-19 19:13:55.000000', 'Test transaction 29', -2900, true, 'kaiz', 29000),
-       ('2024-11-18 18:13:55.000000', 'Test transaction 30', -3000, true, 'kaiz', 30000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-15 21:13:55.000000', 'Test transaction 3', -3875312, true, 'kaiz', 3000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-11 17:13:55.000000', 'Test transaction 7', -2332208, true, 'kaiz', 7000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-01 07:13:55.000000', 'Test transaction 17', -7245852, true, 'kaiz', 17000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-13 19:13:55.000000', 'Test transaction 5', -2614957, true, 'kaiz', 5000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-23 23:13:55.000000', 'Test transaction 25', -660591, true, 'kaiz', 25000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-03 09:13:55.000000', 'Test transaction 15', -8936298, true, 'kaiz', 15000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-28 04:13:55.000000', 'Test transaction 20', -4381514, true, 'kaiz', 20000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-21 21:13:55.000000', 'Test transaction 27', -8207784, true, 'kaiz', 27000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-25 01:13:55.000000', 'Test transaction 23', -7130835, true, 'kaiz', 23000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-07 13:13:55.000000', 'Test transaction 11', -6876778, true, 'kaiz', 11000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-19 19:13:55.000000', 'Test transaction 29', -4184329, true, 'kaiz', 29000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-18 18:13:55.000000', 'Test transaction 30', -5167366, true, 'kaiz', 30000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-14 20:13:55.000000', 'Test transaction 4', -2719678, true, 'kaiz', 4000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-08 14:13:55.000000', 'Test transaction 10', -5309126, true, 'kaiz', 10000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-09 15:13:55.000000', 'Test transaction 9', -3078420, true, 'kaiz', 9000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-06 12:13:55.000000', 'Test transaction 12', -3815996, true, 'kaiz', 12000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-02 08:13:55.000000', 'Test transaction 16', -1722822, true, 'kaiz', 16000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-27 03:13:55.000000', 'Test transaction 21', -4341739, true, 'kaiz', 21000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-26 02:13:55.000000', 'Test transaction 22', -5936098, true, 'kaiz', 22000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-10 16:13:55.000000', 'Test transaction 8', -5580624, true, 'kaiz', 8000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-04 10:13:55.000000', 'Test transaction 14', -2412592, true, 'kaiz', 14000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-30 06:13:55.000000', 'Test transaction 18', -3747383, true, 'kaiz', 18000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-22 22:13:55.000000', 'Test transaction 26', -420197, true, 'kaiz', 26000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-05 11:13:55.000000', 'Test transaction 13', -6439808, true, 'kaiz', 13000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-17 23:13:55.000000', 'Test transaction 1', -3739673, true, 'kaiz', 1000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-29 05:13:55.000000', 'Test transaction 19', -9452616, true, 'kaiz', 19000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-16 22:13:55.000000', 'Test transaction 2', -9681333, true, 'kaiz', 2000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-24 00:13:55.000000', 'Test transaction 24', -8372287, true, 'kaiz', 24000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-12-12 18:13:55.000000', 'Test transaction 6', -6928887, true, 'kaiz', 6000);
+INSERT INTO public.transaction_history (payment_time, description, amount, status, user_name, user_balance) VALUES ('2024-11-20 20:13:55.000000', 'Test transaction 28', -527138, true, 'kaiz', 28000);
+
 
 drop function if exists get_transaction_summary;
 CREATE OR REPLACE FUNCTION get_transaction_summary()
@@ -2764,3 +2556,9 @@ CREATE TABLE Message
     sent_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (channel_name) REFERENCES ChatChannel (channel_name) ON DELETE CASCADE
 );
+set media_url = 'http://54.89.226.119:9999/images/35/thumbnail.jpg'
+where sys_id_game = 35 and media_name = 'thumbnail';
+
+update media
+set media_url = 'http://54.89.226.119:9999/images/34/thumbnail.png'
+where sys_id_game = 34 and media_name = 'thumbnail';

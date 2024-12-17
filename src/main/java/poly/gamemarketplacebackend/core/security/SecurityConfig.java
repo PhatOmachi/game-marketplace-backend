@@ -31,7 +31,8 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final String[] allowedOrigins = {
             "http://localhost:5173",
-            "http://127.0.0.1:5500"
+            "http://54.89.226.119",
+            "https://codeoxi.com"
     };
     public final static String[] nonAuthenticatedUrls = {
             "/api/auth/login",
