@@ -46,7 +46,8 @@ public class SecurityConfig {
             "/images/*/**",
             "/VoucherImages/*/**",
             "/CustomerImages/*/**",
-            "/api/chat/**"
+            "/api/chat/**",
+            "/chatUsertoAdmin"
     };
     private final String[] authenticatedUrls = {
             "/cart", "/user-info", "/order-history", "/transaction", "/security", "/favorite", "/add-funds", "/userinfo"

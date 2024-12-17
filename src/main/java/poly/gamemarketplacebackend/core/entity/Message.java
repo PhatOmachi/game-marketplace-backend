@@ -18,20 +18,23 @@ import java.time.LocalDateTime;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "sender")
-    private String sender;
-    @Column(name = "content")
-    private String content;
-    @Column(name = "timestamp")
-    private LocalDateTime timestamp;
-    @Column(name = "staff")
-    private Boolean staff;
-
     @ManyToOne
-    @JoinColumn(name = "chat_room_id")
     @JsonIgnore
-    private ChatRoom chatRoom;
+    @JoinColumn(name = "channel_name", referencedColumnName = "channel_name", nullable = false)
+    private ChatChannel channel; // Tham chiếu đến channel_name
+
+    private String senderName; // Lấy từ JWT
+
+    private String senderRole; // Lấy từ JWT
+
+    private String content; // Nội dung tin nhắn
+
+
+    public Message(String senderName, String senderRole, String content) {
+        this.senderName = senderName;
+        this.senderRole = senderRole;
+        this.content = content;
+    }
 }
