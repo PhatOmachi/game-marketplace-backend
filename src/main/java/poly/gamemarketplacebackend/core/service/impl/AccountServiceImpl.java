@@ -10,21 +10,31 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import poly.gamemarketplacebackend.core.constant.Role;
 import poly.gamemarketplacebackend.core.dto.AccountDTO;
 import poly.gamemarketplacebackend.core.entity.Account;
 import poly.gamemarketplacebackend.core.exception.CustomException;
 import poly.gamemarketplacebackend.core.mapper.AccountMapper;
 import poly.gamemarketplacebackend.core.repository.AccountRepository;
+import poly.gamemarketplacebackend.core.repository.UsersRepository;
 import poly.gamemarketplacebackend.core.service.AccountService;
 import poly.gamemarketplacebackend.core.util.DataStore;
 import poly.gamemarketplacebackend.core.util.OTPUtil;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Base64;
 
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
     private static final Logger log = LoggerFactory.getLogger(AccountServiceImpl.class);
     private final AccountRepository accountRepository;
+    private final UsersRepository usersRepository;
     private final JavaMailSender emailSender;
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
@@ -161,5 +171,95 @@ public class AccountServiceImpl implements AccountService {
         dataStore.put(email + "otp_exp", System.currentTimeMillis() + 2 * 60 * 1000);
         sendMailForUser(email, newOtp, "OTP for reset password");
     }
+
+    @Override
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
+        Account account = accountRepository.findByUsername(username);
+        if (account == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        if (!passwordEncoder.matches(oldPassword, account.getHashPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        String hashedPassword = passwordEncoder.encode(newPassword);
+
+        account.setHashPassword(hashedPassword);
+        accountRepository.save(account);
+
+        return true;
+    }
+
+    @Override
+    public void insertAccountUserAndRole(AccountDTO accountDTO) throws SQLException, IOException {
+        if (isUniqueCredentials(accountDTO.getUsername(), accountDTO.getEmail())) {
+            accountRepository.insertAccountUserAndRole(
+                    accountDTO.getUsername(),
+                    accountDTO.getEmail(),
+                    passwordEncoder.encode(accountDTO.getHashPassword()),
+                    accountDTO.getHoVaTen(),
+                    accountDTO.getPhoneNumber());
+        }
+
+        String avatar2 = null;
+        if (accountDTO.getFiles() != null && !accountDTO.getFiles().isEmpty()) {
+            avatar2 = saveImage(accountDTO.getFiles().get(0), accountDTO.getUsername(), accountDTO.getFileName());
+        }
+
+        usersRepository.updateAvatarByUsername(avatar2, accountDTO.getUsername());
+    }
+
+    @Override
+    public boolean verifyPw(String username,String pass) {
+        Account account = accountRepository.findByUsername(username);
+        if (account == null) {
+            return false;
+        }
+        if (passwordEncoder.matches(pass, account.getHashPassword())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void updateEmail(String username, String email) {
+        int rowsAffected = accountRepository.updateEmailByUsername(email,username);
+        if (rowsAffected > 0) {
+            System.out.println("Email updated successfully for username: " + username);
+        } else {
+            System.out.println("Failed to update email for username: " + username);
+        }
+    }
+
+    private void deleteImage(String imageUrl) {
+        String filePath = "src/main/resources/static" + imageUrl.substring(imageUrl.indexOf("/CustomerImages"));
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    private String saveImage(String base64Image, String username, String fileName) throws IOException {
+        // Create directory for voucher images
+        File voucherDir = new File("src/main/resources/static/CustomerImages/" + username);
+        if (!voucherDir.exists()) {
+            voucherDir.mkdirs();
+        }
+
+        // Decode base64 image
+        byte[] decodedBytes = Base64.getDecoder().decode(base64Image.split(",")[1]);
+        String filePath = "src/main/resources/static/CustomerImages/" + username + "/" + fileName; // Adjust the path and file name as needed
+
+        // Save image to file
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            fos.write(decodedBytes);
+        }
+
+        // Build full URL for the image
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        return baseUrl + "/CustomerImages/" + username + "/" + fileName;
+    }
+
 
 }

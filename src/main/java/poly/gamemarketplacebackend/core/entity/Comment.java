@@ -31,7 +31,7 @@ public class Comment {
     @JoinColumn(name = "sys_id_user", nullable = false)
     private Users user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sys_id_game", nullable = false)
     private Game game;
 

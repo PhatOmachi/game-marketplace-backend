@@ -76,4 +76,9 @@ create table media
 alter table media
     owner to postgres;
 
-
+SELECT v.* FROM Voucher v WHERE v.code_voucher = 'about-to'
+AND v.start_date <= CURRENT_DATE  
+AND v.end_date >= CURRENT_DATE  
+AND v.is_active = true  
+AND v.quantity >= 1  
+AND NOT EXISTS (SELECT vu.* FROM Voucher_used vu WHERE vu.sys_id_voucher = v.sys_id_voucher AND vu.sys_id_user = 2)

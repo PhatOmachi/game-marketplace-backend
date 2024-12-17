@@ -25,4 +25,10 @@ public class CategoryDetailServiceImpl implements CategoryDetailService {
     public void insertCategoryDetail(Integer sysIdCategory, Integer sysIdGame) {
         categoryDetailRepository.insertCategoryDetail(sysIdCategory, sysIdGame);
     }
+
+    @Override
+    public int deleteCategoryDetailsByGameId(Integer sysIdGame) {
+        return categoryDetailRepository.deleteCategoryDetailsByGameId(sysIdGame);
+    }
+
 }

@@ -24,9 +24,4 @@ public class LicenseKeyUtils {
 
         return licenseKey.toString();
     }
-
-    public static void main(String[] args) {
-        String licenseKey = generateLicenseKey();
-        System.out.println("Generated License Key: " + licenseKey);
-    }
 }

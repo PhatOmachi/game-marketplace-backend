@@ -8,6 +8,9 @@ import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.AccountDTO;
 import poly.gamemarketplacebackend.core.service.AccountService;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/accounts")
@@ -77,5 +80,48 @@ public class AccountAPI {
                 .message("Please check your email for OTP")
                 .build();
     }
+
+    @PostMapping("/change-password")
+    public ResponseObject<?> changePassword(@RequestBody AccountDTO accountDTO) {
+        boolean result = accountService.changePassword(
+                accountDTO.getUsername(),
+                accountDTO.getOldPassword(),
+                accountDTO.getNewPassword()
+        );
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Update password Sucess")
+                .build();
+
+    }
+
+    @PostMapping("/insert-account-user-role")
+    public ResponseObject<?> insertAccountUserAndRole(@RequestBody AccountDTO accountDTO) throws SQLException, IOException {
+        accountService.insertAccountUserAndRole(accountDTO);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("Insert account user and role success")
+                .build();
+    }
+
+    @PostMapping("/verify-pass")
+    public ResponseObject<?> verifyPass(@RequestParam("username") String userName, @RequestParam("pass") String pass) throws SQLException, IOException {
+        Boolean check =  accountService.verifyPw(userName,pass);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .data(check)
+                .message("Insert account user and role success")
+                .build();
+    }
+
+    @PostMapping("/update-email")
+    public ResponseObject<?> updateEmail(@RequestParam("username") String userName, @RequestParam("email") String email) throws SQLException, IOException {
+        accountService.updateEmail(userName,email);
+        return ResponseObject.builder()
+                .status(HttpStatus.OK)
+                .message("update success")
+                .build();
+    }
+
 
 }

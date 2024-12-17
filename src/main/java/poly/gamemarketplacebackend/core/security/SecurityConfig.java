@@ -31,6 +31,8 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final String[] allowedOrigins = {
             "http://localhost:5173",
+            "http://54.89.226.119",
+            "https://codeoxi.com"
     };
     public final static String[] nonAuthenticatedUrls = {
             "/api/auth/login",
@@ -42,6 +44,10 @@ public class SecurityConfig {
             "/api/*/p/*/*/**",
             "/api/*/p/*/*/*/**",
             "/images/*/**",
+            "/VoucherImages/*/**",
+            "/CustomerImages/*/**",
+            "/api/chat/**",
+            "/chatUsertoAdmin"
     };
     private final String[] authenticatedUrls = {
             "/cart", "/user-info", "/order-history", "/transaction", "/security", "/favorite", "/add-funds", "/userinfo"

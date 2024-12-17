@@ -2,7 +2,9 @@ package poly.gamemarketplacebackend.core.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import poly.gamemarketplacebackend.core.constant.ResponseObject;
 import poly.gamemarketplacebackend.core.dto.CartItemDTO;
 import poly.gamemarketplacebackend.core.dto.GameDTO;
 import poly.gamemarketplacebackend.core.entity.Game;
@@ -21,6 +23,8 @@ public interface GameService {
 
     GameDTO findBySlug(String slug);
 
+    GameDTO findById(Integer integer);
+
     String saveFile(String uploadDir, MultipartFile file) throws IOException;
 
     List<GameDTO> getGamesByFieldDesc(String field, int page, int size);
@@ -30,4 +34,13 @@ public interface GameService {
     List<CartItemDTO> isValidCartItems(List<GameDTO> cartItems);
 
     Page<Game> searchGames(String name, Double minPrice, Double maxPrice, String category, String minRatingStr, String maxRatingStr, Pageable pageable);
+
+    ResponseObject<?> saveOrUpdateGame(GameDTO gameDTO, boolean isUpdate);
+
+    void deleteImage(String imageUrl);
+
+    @Transactional
+    void updateGameQuantityAndSold(Integer sysIdGame, Integer amount);
+
+    List<Game> getTopSellingGames();
 }

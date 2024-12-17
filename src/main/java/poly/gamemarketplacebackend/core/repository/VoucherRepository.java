@@ -3,11 +3,14 @@ package poly.gamemarketplacebackend.core.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import poly.gamemarketplacebackend.core.entity.Voucher;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +18,7 @@ import java.util.Optional;
 public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
     // Sử dụng phương thức findAll() để lấy tất cả các đối tượng Voucher từ cơ sở dữ liệu.
+    @Query("SELECT v FROM Voucher v order by v.sysIdVoucher asc")
     List<Voucher> findAll();
 
     // Sử dụng phương thức findByCode() để tìm kiếm đối tượng Voucher theo mã code.
@@ -24,7 +28,21 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
     Voucher findBySysIdVoucher(Integer id);
 
     // Sử dụng phương thức save() để lưu đối tượng Voucher vào cơ sở dữ liệu.
-    Voucher save(Voucher voucher);
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO Voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner, quantity, is_active, max_discount) VALUES (:codeVoucher, :discountName, :discountPercent, :startDate, :endDate, :description, :voucherBanner, :quantity, :isActive, :maxDiscount)", nativeQuery = true)
+    void insertVoucher(@Param("codeVoucher") String codeVoucher, @Param("discountName") String discountName, @Param("discountPercent") Integer discountPercent, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("description") String description, @Param("voucherBanner") String voucherBanner, @Param("quantity") Integer quantity, @Param("isActive") Boolean isActive, @Param("maxDiscount") Integer maxDiscount);
+
+    // Sử dụng phương thức update() để cập nhật đối tượng Voucher trong cơ sở dữ liệu.
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE Voucher SET code_voucher = :codeVoucher, discount_name = :discountName, discount_percent = :discountPercent, start_date = :startDate, end_date = :endDate, description = :description, voucher_banner = :voucherBanner, quantity = :quantity, is_active = :isActive, max_discount = :maxDiscount WHERE sys_id_voucher = :id", nativeQuery = true)
+    void updateVoucher(@Param("id") Integer id, @Param("codeVoucher") String codeVoucher, @Param("discountName") String discountName, @Param("discountPercent") Integer discountPercent, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("description") String description, @Param("voucherBanner") String voucherBanner, @Param("quantity") Integer quantity, @Param("isActive") Boolean isActive, @Param("maxDiscount") Integer maxDiscount);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE Voucher SET voucher_banner = :voucherBanner WHERE code_voucher = :codeVoucher", nativeQuery = true)
+    void updateVoucherBanner(@Param("codeVoucher") String codeVoucher, @Param("voucherBanner") String voucherBanner);
 
     // Sử dụng phương thức deleteById() để xóa đối tượng Voucher theo ID.
     void deleteBySysIdVoucher(Integer id);
@@ -40,7 +58,7 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
             "AND v.endDate >= CURRENT_DATE " +
             "AND v.isActive = true " +
             "AND v.quantity >= 1 " +
-            "AND NOT EXISTS (SELECT vu FROM Voucher_use vu WHERE vu.sysIdVoucherUseDetail = v AND vu.sysIdUser = :sysIdUser)")
+            "AND NOT EXISTS (SELECT vu FROM Voucher_use vu WHERE vu.sysIdVoucherUseDetail.sysIdVoucher = v.sysIdVoucher AND vu.sysIdUser = :sysIdUser)")
     Optional<Voucher> findValidVoucher(@Param("codeVoucher") String codeVoucher, @Param("sysIdUser") int sysIdUser);
 
 }

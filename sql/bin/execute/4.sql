@@ -1,0 +1,12 @@
+INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner, quantity, is_active, max_discount) VALUES ('fallout', 'Fallout Day Sale', 50, '2024-10-20', '2024-10-31', 'Celebrate Fallout Day with discounts on Fallout games and more', 'https://cdn2.unrealengine.com/falloutday-sale-2024-epic-keyart-1920x1080-01-1920x1080-1c74e27f2de9.jpg?resize=1&w=854&h=480&quality=medium', 77, true, 500000);
+INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner, quantity, is_active, max_discount) VALUES ('elder', 'Elder Festival', 44, '2024-10-20', '2024-10-28', 'Elder Festival for Halloween holiday', 'https://cdn2.unrealengine.com/egs-eso-witches-festival-2024-breaker-1920x1080-817df397bcf1.jpg?resize=1&w=854&h=480&quality=medium', 55, true, 777777);
+INSERT INTO public.voucher (code_voucher, discount_name, discount_percent, start_date, end_date, description, voucher_banner, quantity, is_active, max_discount) VALUES ('about-to', 'Brand new seasons', 69, '2024-10-20', '2024-10-31', 'New nuke of voucher seasons', 'https://cdn2.unrealengine.com/egs-nis-america-publisher-sale-2024-breaker-1920x1080-44eaff94888a.jpg?resize=1&w=854&h=480&quality=medium', 65, true, 444444);
+
+INSERT INTO public.account (username, email, hash_password, is_enabled) VALUES ('khoadev2004', 'khoadev2004@gmail.com', '$2a$12$IYKGkvL9vqdI3fJWJzi2QeSajsCVD4VkoU7NVJVmLjK4PwtXLHAP6', true);
+INSERT INTO public.account (username, email, hash_password, is_enabled) VALUES ('kaiz', 'kaisamaslain@gmail.com', '$2a$12$GHE5C2wkSTCm3VGMNRS.r.e6XhxLp7Ciq4evDtIdovVRKtdmWzLk6', true);
+
+INSERT INTO public.users (user_name, email, ho_va_ten, balance, join_time, avatar) VALUES ('kaiz', 'kaisamaslain@gmail.com', 'Nguyen van A', '2323136.0', null, null);
+INSERT INTO public.users (user_name, email, ho_va_ten, balance, join_time, avatar) VALUES ('khoadev2004', 'khoadev2004@gmail.com', 'Nguyen van A', '793332.25', null, null);
+
+INSERT INTO public.roles (username, username_user, role) VALUES ('khoadev2004', 'khoadev2004', 'CUSTOMER');
+INSERT INTO public.roles (username, username_user, role) VALUES ('kaiz', 'kaiz', 'ADMIN');

@@ -3,6 +3,7 @@ package poly.gamemarketplacebackend.core.service;
 import poly.gamemarketplacebackend.core.dto.VoucherDTO;
 import poly.gamemarketplacebackend.core.entity.Voucher;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface VoucherService {
@@ -14,11 +15,15 @@ public interface VoucherService {
 
     VoucherDTO findBySysIdVoucher(Integer id);
 
-    VoucherDTO save(Voucher voucher);
+    void save(VoucherDTO voucher) throws IOException;
+
+    void update(Integer id, VoucherDTO voucherDTO) throws IOException;
 
     void deleteBySysIdVoucher(Integer id);
 
     List<VoucherDTO> findTopByEndDateNearest(int page, int size);
 
     List<VoucherDTO> getPageVoucher(int page, int size);
+
+    void sendVoucherToUser(String codeVoucher);
 }
